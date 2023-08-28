@@ -1,0 +1,326 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Button Create -->
+<div class="top-panel">
+    <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#AdminAddModal">Create</button>
+</div>
+
+<!-- Data Table List -->
+<table id="TableList" class="display" style="width:100%">
+    <thead class="table-success">
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Change Password</th>
+            <th>Update Account</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts {
+    <script>
+        var AdminTab
+        $(document).ready(function () {
+            reloadTable();
+        });
+
+        function reloadTable(){
+            if(!AdminTab){
+                AdminTab = $('#TableList').DataTable({
+                    "scrollX": true,
+                    "processing": true,
+                    "filter": false,
+                    "stateSave": true,
+                    "responsive": true,
+                    "searching": false,
+                    "serverSide": true,
+                    "dom": 'Bfrtip',
+                    "ajax": {
+                        "url": "@Url.Action("Admin_Read", "Admin")",
+                        "type": "POST",
+                        'datatype': 'json',
+                    },
+                    "columns": [
+                        { "data": "username" },
+                        { "data": "password" },
+                        { "data": "email" },
+                        { "data": "status" },
+                        { "data": "roleId" },
+                        {
+                            "data": "id",
+                            "render": function (d, t, f, m) {
+                                return "<div><a type='button' class='btn btn-warning btn-sm' onclick='editdata(" + m.row + ")'>Edit</a></div>";
+                            }
+                        },
+                        {
+                            "data": "id",
+                            "render": function (d, t, f, m) {
+                                return "<div><a type='button' class='btn btn-info btn-sm' onclick='changepassword(" + m.row + ")'>Change Password</a></div>";
+                            }
+                        },
+                        {
+                            "data": "id",
+                            "render": function (d, t, f, m) {
+                                return "<div><a type='button' class='btn btn-success btn-sm' onclick='updateaccount(" + m.row + ")'>Update Account</a></div>";
+                            }
+                        },
+                    ],
+                });
+            } else {
+                AdminTab.ajax.url("@Url.Action("Admin_Read", "Admin")").load();
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#AdminAddModal').on('shown.bs.modal', function () {
+
+            });
+            $('#AdminAddModal').on('hidden.bs.modal', function () {
+                $("#AdminAddForm")[0].reset();
+            });
+        });
+    </script>
+    <script>
+        function submitAdminAdd() {
+            if (!$('#AdminAddForm')[0].checkValidity()) {
+                $("#AdminAddForm")[0].reportValidity();
+                return false;
+            }
+
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "@Url.Action("Add", "Admin")",
+                        data: $('#AdminAddForm').serialize(),
+                        type: "POST",
+                        success: function (result) {
+                            if (result == true || result && result > 0) {
+                                $('#AdminAddModal').modal('hide');
+                                Swal.fire(msg, '', 'success');
+                                reloadTable();
+                            }
+                            else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                            else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                            else { Swal.fire('', '', 'error'); }
+                        },
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#AdminEditModal').on('shown.bs.modal', function () {
+
+            });
+            $('#AdminEditModal').on('hidden.bs.modal', function () {
+                $("#AdminEditForm")[0].reset();
+            });
+        });
+    </script>
+    <script>
+        function editdata(i) {
+            if (i >= 0) {
+                var data = AdminTab.row(i).data();
+                if (data) {
+                    $('#AdminEditForm #AdminEditId').val(data.id);
+                    $('#AdminEditForm #UsernameEdit').val(data.username);
+                    $('#AdminEditForm #EmailEdit').val(data.email);
+                    $('#AdminEditForm #StatusEdit').val(data.status);
+                    $('#AdminEditForm #RoleEdit').val(data.roleId);
+
+                    $('#AdminEditModal').modal('show');
+                }
+            }
+        }
+    </script>
+    <script>
+        function submitAdminEdit() {
+            if (!$('#AdminEditForm')[0].checkValidity()) {
+                $("#AdminEditForm")[0].reportValidity();
+                return false;
+            }
+
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "@Url.Action("Edit", "Admin")",
+                        data: $('#AdminEditForm').serialize(),
+                        type: "POST",
+                        success: function (result) {
+                            if (result == true || result && result > 0) {
+                                $('#AdminEditModal').modal('hide');
+                                Swal.fire(msg, '', 'success');
+                                reloadTable();
+                            }
+                            else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                            else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                            else { Swal.fire('', '', 'error'); }
+                        },
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#AdminChangePassword').on('shown.bs.modal', function () {
+
+            });
+            $('#AdminChangePassword').on('hidden.bs.modal', function () {
+                $("#ChangePasswordForm")[0].reset();
+            });
+        });
+    </script>
+    <script>
+        function changepassword(i) {
+            if (i >= 0) {
+                var data = AdminTab.row(i).data();
+                if (data) {
+                    $('#ChangePasswordForm #AdminChangeId').val(data.id);
+                    $('#ChangePasswordForm #OldPassword').val(data.password);
+
+                    $('#AdminChangePassword').modal('show');
+                }
+            }
+        }
+    </script>
+    <script>
+        function submitChangePassword() {
+            if (!$('#ChangePasswordForm')[0].checkValidity()) {
+                $("#ChangePasswordForm")[0].reportValidity();
+                return false;
+            }
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You are about to change the password.',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "@Url.Action("SetPassword", "Admin")",
+                        data: $('#ChangePasswordForm').serialize(),
+                        type: "POST",
+                        success: function (result) {
+                            if (result == true || result && result > 0) {
+                                $('#AdminChangePassword').modal('hide');
+                                Swal.fire(msg, '', 'success');
+                                reloadTable();
+                            }
+                            else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                            else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                            else { Swal.fire('', '', 'error'); }
+                        },
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#UpdateAccModal').on('shown.coreui.modal', function () {
+            });
+            $("#UpdateAccModal").on("hidden.coreui.modal", function () {
+                $("#UpdateAccForm")[0].reset();
+                $("#UpdateAccForm #AccountId").val('');
+                $("#UpdateAccForm #UsernameAcc").attr('readonly', false);
+            });
+        });
+    </script>
+    <script>
+        function updateaccount(i) {
+            if (i >= 0) {
+                var data = AdminTab.row(i).data();
+                if (data) {
+                    $('#UpdateAccForm #AccountId').val(data.id);
+                    if (data.username) {
+                        $('#UpdateAccForm #UsernameAcc').val(data.username);
+                        $("#UpdateAccForm #UsernameAcc").attr('readonly', true);
+                    }
+                    if (data.email) {
+                        $('#UpdateAccForm #EmailAcc').val(data.email);
+                    }
+                    if (data.status) {
+                        $('#UpdateAccForm #StatusAcc').val(data.status);
+                    }
+                    if (data.roleId) {
+                        $('#UpdateAccForm #RoleAcc').val(data.roleId);
+                    }
+                    $('#UpdateAccModal').modal('show');
+                }
+            }
+        }
+    </script>
+    <script>
+        function submitAccount() {
+            if (!$('#UpdateAccForm')[0].checkValidity()) {
+                $("#UpdateAccForm")[0].reportValidity();
+                return false;
+            }
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You are about to update account',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "@Url.Action("UpdateAccount", "AccountProfile")",
+                        data: $('#UpdateAccForm').serialize(),
+                        type: "POST",
+                        success: function (result) {
+                            $('#UpdateAccModal').modal('hide');
+                            Swal.fire({
+                                title: "Success!",
+                                text: "data has been successfully changed",
+                                icon: "success",
+                                button: "OK"
+                            }).then(() => {
+                                reloadTable();
+                            });
+                        },
+                        error: function (errormessage) {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "An error occurred while changed data.",
+                                icon: "error",
+                                button: "OK"
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

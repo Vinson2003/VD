@@ -1,0 +1,60 @@
+﻿<!-- Modal Add -->
+<div class="modal fade" id="AdminAddModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Add Admin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="AdminAddForm" method="post" autocomplete="off">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="Username">Username</label>
+                            <input type="text" class="form-control" id="Username" name="Username" placeholder="Username" required>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col mb-3">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="Password">Confirm Password</label>
+                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="Email">Email</label>
+                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col mb-2">
+                            <label for="Status" class="form-label">Status</label>
+                            <select class="form-control" id="Status" name="Status" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="ENABLED">ENABLED</option>
+                                <option value="DISABLED">DISABLED</option>
+                            </select>
+                        </div>
+                        <div class="col mb-2">
+                            <label for="Role" class="form-label">Role</label>
+                            <select asp-items="@ViewBag.RoleList" id="Role" name="RoleId" class="form-control" required>
+                                <option selected disabled value="">Choose...</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-success" onclick="submitAdminAdd()">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>

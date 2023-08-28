@@ -1,0 +1,58 @@
+﻿<!-- Modal Edit -->
+<div class="modal fade" id="UpdateAccModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Update Account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="UpdateAccForm" method="post" autocomplete="off">
+                    <input type="hidden" class="form-control" id="AccountId" name="id" required>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="Username">Username</label>
+                            <input type="text" class="form-control" id="UsernameAcc" name="Username" required>
+                        </div>
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="PasswordAcc" name="Password" autocomplete="new-password" minlength="8" required>
+                        </div>
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="Password">Confirm Password</label>
+                            <input type="password" class="form-control" id="ConfirmPasswordAcc" name="ConfirmPassword" autocomplete="new-password" minlength="8" required>
+                        </div>
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="Email">Email</label>
+                            <input type="Email" class="form-control" id="EmailAcc" name="Email" required>
+                        </div>
+                        <div class="form-group col-md-12 mb-2">
+                            <label for="Status" class="form-label">Status</label>
+                            <select class="form-control" id="StatusAcc" name="Status" required>
+                                <option selected value="">Choose...</option>
+                                <option value="ENABLED">ENABLED</option>
+                                <option value="DISABLED">DISABLED</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12 mb-2">
+                            <label for="Role" class="form-label">Role</label>
+                            <select asp-items="@ViewBag.RoleList" id="RoleAcc" name="RoleId" class="form-control" required>
+                                <option selected value="">Choose...</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-success" onclick="submitAccount()">Edit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
