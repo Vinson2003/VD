@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace VD.Controllers
 {
-	[Authorize]
-	public class TransactionController : Controller
+    
+    public class TransactionController : Controller
 	{
 		public IActionResult Index()
 		{

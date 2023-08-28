@@ -11,7 +11,7 @@ using VD.Service.Service;
 
 namespace VD.Controllers
 {
-	[Authorize]
+    
     public class AdminController : Controller
     {
 		public IAdminService AdminService = new AdminService();
@@ -43,7 +43,7 @@ namespace VD.Controllers
 			var col = obj.order.Select(row => row["column"]).FirstOrDefault();
 			var dir = obj.order.Select(row => row["dir"]).FirstOrDefault();
 			var intCol = Convert.ToInt16(col);
-			var colname = (obj.columns[intCol]).data;
+			var colname = obj.columns[intCol].data;
 
 			var get = AdminService.GetList(new Paging()
 			{
@@ -67,7 +67,7 @@ namespace VD.Controllers
             {
                 var Send = AdminService.Add(new AdminAdd()
                 {
-                    Username = Model.Username,
+                    Name = Model.Username,
 					Password = Model.Password,
 					ConfirmPassword = Model.ConfirmPassword,
 					Email = Model.Email,

@@ -9,7 +9,7 @@
 </div>
 
 <!-- Data Table List -->
-<table id="TableList" class="display" style="width:100%">
+<table id="AdminList" class="display" style="width:100%">
     <thead class="table-success">
         <tr>
             <th>Username</th>
@@ -33,7 +33,7 @@
 
         function reloadTable(){
             if(!AdminTab){
-                AdminTab = $('#TableList').DataTable({
+                AdminTab = $('#AdminList').DataTable({
                     "scrollX": true,
                     "processing": true,
                     "filter": false,

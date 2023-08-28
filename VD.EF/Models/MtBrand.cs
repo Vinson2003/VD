@@ -17,7 +17,7 @@ public partial class MtBrand
 
     public bool FlgDeleted { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string? Name { get; set; }
 
     public virtual ICollection<PTransaction> PTransactions { get; set; } = new List<PTransaction>();
 }

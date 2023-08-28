@@ -11,11 +11,11 @@ using VD.Helper;
 
 namespace VD.Controllers
 {
-	[Authorize]
-	public class AdminLoginController : Controller
+    
+    public class AdminLoginController : Controller
 	{
-		private ILoginService LoginService = new LoginService();
-		private IRoleService RoleService = new RoleService();
+		public ILoginService LoginService = new AdminLoginService();
+        public IRoleService RoleService = new RoleService();
 
 		[HttpGet]
         [AllowAnonymous]

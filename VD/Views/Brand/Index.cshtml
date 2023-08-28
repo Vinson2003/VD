@@ -1,5 +1,219 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Button Create -->
+<div class="top-panel">
+    <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#BrandAddModal">Create</button>
+</div>
+
+
+<!-- Data Table List -->
+<table id="BrandList" class="display" style="width:100%">
+    <thead class="table-success">
+        <tr>
+            <th>Brand Name</th>
+            <th>Createdby</th>
+            <th>Created</th>
+            <th>Updatedby</th>
+            <th>Updated</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts {
+
+    <script>
+        var BrandTab
+        $(document).ready(function () {
+            reloadTable();
+        });
+
+        function reloadTable(){
+            if(!BrandTab){
+                BrandTab = $('#BrandList').DataTable({
+                    "scrollX": true,
+                    "processing": true,
+                    "filter": false,
+                    "stateSave": true,
+                    "responsive": true,
+                    "searching": false,
+                    "serverSide": true,
+                    "dom": 'Bfrtip',
+                    "ajax": {
+                        "url": "@Url.Action("Brand_Read", "Brand")",
+                        "type": "POST",
+                        'datatype': 'json',
+                    },
+                    "columns": [
+                        { "data": "name" },
+                        { "data": "createdby" },
+                        { "data": "created" },
+                        { "data": "updatedby" },
+                        { "data": "updated" },
+                        {
+                            "data": "id",
+                            "render": function (d, t, f, m) {
+                                return "<div><a type='button' class='btn btn-warning btn-sm' onclick='editbrand(" + m.row + ")'>Edit</a></div>";
+                            }
+                        },
+                        {
+                            "data": "id",
+                            "render": function (d, t, f, m) {
+                                return "<div><a type='button' class='btn btn-danger btn-sm' onclick='deletebrand(" + m.row + ")'>Delete</a></div>";
+                            }
+                        },
+                    ],
+                });
+            } else {
+                BrandTab.ajax.url("@Url.Action("Brand_Read", "Brand")").load();
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#BrandAddModal').on('shown.bs.modal', function () {
+
+            });
+            $('#BrandAddModal').on('hidden.bs.modal', function () {
+                $("#BrandAddForm")[0].reset();
+            });
+        });
+    </script>
+    <script>
+        function submitBrandAdd() {
+            if (!$('#BrandAddForm')[0].checkValidity()) {
+                $("#BrandAddForm")[0].reportValidity();
+                return false;
+            }
+
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "@Url.Action("Add", "Brand")",
+                        data: $('#BrandAddForm').serialize(),
+                        type: "POST",
+                        success: function (result) {
+                            if (result == true || result && result > 0) {
+                                $('#BrandAddModal').modal('hide');
+                                Swal.fire(msg, '', 'success');
+                                reloadTable();
+                            }
+                            else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                            else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                            else { Swal.fire('', '', 'error'); }
+                        },
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#BrandEditModal').on('shown.bs.modal', function () {
+
+            });
+            $('#BrandEditModal').on('hidden.bs.modal', function () {
+                $("#BrandEditForm")[0].reset();
+            });
+        });
+    </script>
+    <script>
+        function editbrand(i) {
+            if (i >= 0) {
+                var data = BrandTab.row(i).data();
+                if (data) {
+                    $('#BrandEditForm #BrandEditId').val(data.id);
+                    $('#BrandEditForm #BrandNameEdit').val(data.name);
+
+                    $('#BrandEditModal').modal('show');
+                }
+            }
+        }
+    </script>
+    <script>
+        function submitBrandEdit() {
+            if (!$('#BrandEditForm')[0].checkValidity()) {
+                $("#BrandEditForm")[0].reportValidity();
+                return false;
+            }
+
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "@Url.Action("Edit", "Brand")",
+                        data: $('#BrandEditForm').serialize(),
+                        type: "POST",
+                        success: function (result) {
+                            if (result == true || result && result > 0) {
+                                $('#BrandEditModal').modal('hide');
+                                Swal.fire(msg, '', 'success');
+                                reloadTable();
+                            }
+                            else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                            else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                            else { Swal.fire('', '', 'error'); }
+                        },
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function deletebrand(row) {
+            var get = BrandTab.rows(row).data();
+            
+            if(get) {
+                let g = get[0];
+                let awaitDel = await Confirmation(g.name);
+
+                if(awaitDel == true){
+
+                    let id = g.id;
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonText: 'No',
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "@Url.Action("Delete", "Brand")",
+                                type: "POST",
+                                success: function (result) {
+                                    if (result == true || result && result > 0) {
+                                        Swal.fire(msg, '', 'success');
+                                        reloadTable();
+                                    }
+                                    else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                                    else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                                    else { Swal.fire('', '', 'error'); }
+                                },
+                            });
+                        }
+                    });
+                }
+            }
+        }
+    </script>
 }

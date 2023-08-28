@@ -1,9 +1,4 @@
 ﻿using HAOPortal.LIB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VD.EF.Models;
 using VD.Service.Interface;
 using VD.Service.Result;
@@ -105,7 +100,7 @@ namespace VD.Service.Service
 			using var context = new VddbContext();
 			{
 				var entityUser = (from w in context.MtAdmins
-								  where w.Username == model.Username
+								  where w.Username == model.Name
 								  select w).FirstOrDefault();
 				if (entityUser != null)
 				{
@@ -138,7 +133,7 @@ namespace VD.Service.Service
 				if (ValidStatus == null) { Response.Message = "InvalidStatus"; return Response; }
 
 				MtAdmin a = new MtAdmin();
-				a.Username = model.Username.Trim().ToLower();
+				a.Username = model.Name.Trim().ToLower();
 				string key = Security.RandomString(60);
 				a.Password = Security.CheckHMAC(key, model.Password);
 				a.PasswordSalt = key;
