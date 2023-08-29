@@ -13,5 +13,6 @@ namespace VD.Service.Interface
 		public Response<bool> Add(BrandAdd model);
 		public Response<bool> Edit(BrandEdit model);
 		public Response<bool> Delete(BrandDelete Model);
-	}
+		public List<BrandList> GetBrandList(/*string Name*/);
+    }
 }

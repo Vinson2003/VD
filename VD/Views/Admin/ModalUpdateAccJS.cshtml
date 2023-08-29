@@ -1,0 +1,79 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#UpdateAccModal').on('shown.coreui.modal', function () {
+        });
+        $("#UpdateAccModal").on("hidden.coreui.modal", function () {
+            $("#UpdateAccForm")[0].reset();
+            $("#UpdateAccForm #AccountId").val('');
+            $("#UpdateAccForm #UsernameAcc").attr('readonly', false);
+        });
+    });
+</script>
+<script>
+    function updateaccount(i) {
+        if (i >= 0) {
+            var data = AdminTab.row(i).data();
+            if (data) {
+                $('#UpdateAccForm #AccountId').val(data.id);
+                if (data.username) {
+                    $('#UpdateAccForm #UsernameAcc').val(data.username);
+                    $("#UpdateAccForm #UsernameAcc").attr('readonly', true);
+                }
+                if (data.email) {
+                    $('#UpdateAccForm #EmailAcc').val(data.email);
+                }
+                if (data.status) {
+                    $('#UpdateAccForm #StatusAcc').val(data.status);
+                }
+                if (data.roleId) {
+                    $('#UpdateAccForm #RoleAcc').val(data.roleId);
+                }
+                $('#UpdateAccModal').modal('show');
+            }
+        }
+    }
+</script>
+<script>
+    function submitAccount() {
+        if (!$('#UpdateAccForm')[0].checkValidity()) {
+            $("#UpdateAccForm")[0].reportValidity();
+            return false;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You are about to update account',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("UpdateAccount", "AccountProfile")",
+                    data: $('#UpdateAccForm').serialize(),
+                    type: "POST",
+                    success: function (result) {
+                        $('#UpdateAccModal').modal('hide');
+                        Swal.fire({
+                            title: "Success!",
+                            text: "data has been successfully changed",
+                            icon: "success",
+                            button: "OK"
+                        }).then(() => {
+                            reloadTable();
+                        });
+                    },
+                    error: function (errormessage) {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "An error occurred while changed data.",
+                            icon: "error",
+                            button: "OK"
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>

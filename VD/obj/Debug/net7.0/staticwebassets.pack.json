@@ -8929,6 +8929,86 @@
       "PackagePath": "staticwebassets\\datatables\\datatables.min.js"
     },
     {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\.gitignore",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\.gitignore"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\README.md",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\README.md"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\bower.json",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\bower.json"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\daterangepicker.css",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\daterangepicker.css"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\daterangepicker.js",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\daterangepicker.js"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\demo.html",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\demo.html"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\drp.png",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\drp.png"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\example\\amd\\index.html",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\example\\amd\\index.html"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\example\\amd\\main.js",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\example\\amd\\main.js"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\example\\amd\\require.js",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\example\\amd\\require.js"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\example\\browserify\\README.md",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\example\\browserify\\README.md"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\example\\browserify\\bundle.js",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\example\\browserify\\bundle.js"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\example\\browserify\\index.html",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\example\\browserify\\index.html"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\example\\browserify\\main.js",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\example\\browserify\\main.js"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\moment.min.js",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\moment.min.js"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\package.js",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\package.js"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\package.json",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\package.json"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\website\\index.html",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\website\\index.html"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\website\\website.css",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\website\\website.css"
+    },
+    {
+      "Id": "D:\\VD\\VD\\wwwroot\\daterangepicker-master\\daterangepicker-master\\website\\website.js",
+      "PackagePath": "staticwebassets\\daterangepicker-master\\daterangepicker-master\\website\\website.js"
+    },
+    {
       "Id": "D:\\VD\\VD\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },

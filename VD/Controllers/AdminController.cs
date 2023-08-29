@@ -37,7 +37,6 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public JsonResult Admin_Read(DatatableVM obj, string Username, string Password)
 		{
 			var col = obj.order.Select(row => row["column"]).FirstOrDefault();
@@ -57,7 +56,6 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-        [AllowAnonymous]
         public JsonResult Add(AdminAddVM Model)
         {
             if (!string.IsNullOrEmpty(Model.Username) && !string.IsNullOrEmpty(Model.Email)
@@ -82,7 +80,6 @@ namespace VD.Controllers
         }
 
 		[HttpPost]
-		[AllowAnonymous]
 		public JsonResult Edit(AdminEditVM Model)
 		{
 			var Send = AdminService.Edit(new AdminEdit()
@@ -98,7 +95,6 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public JsonResult SetPassword(AdminSetPasswordVM Model)
 		{
 			if (ModelState.IsValid)

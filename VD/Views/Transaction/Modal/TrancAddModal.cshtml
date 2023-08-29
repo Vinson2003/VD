@@ -1,0 +1,43 @@
+﻿<!-- Modal Add -->
+<div class="modal fade" id="TrancAddModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Add Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="TrancAddForm" method="post" autocomplete="off">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="Brand">Brand Name</label>
+                            <select asp-items="@ViewBag.BrandList" Id="Brand" name="BrandId" class="form-select form-select-solid">
+                                <option selected disabled value="">Select the brand </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="Date">Date Range</label>
+                            <input type="text" class="form-control" id="DateTimeRange" name="DateTimeRange" required>
+                        </div>
+
+                        <div class="form-group col-md-12 mb-3">
+                            <label for="Result">Result</label>
+                            <input type="text" class="form-control" id="Result" name="Result" placeholder="Result" required>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-outline-success" onclick="submitTrancAdd()">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>

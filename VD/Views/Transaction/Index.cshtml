@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Button Create -->
+<div class="top-panel">
+    <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#TrancAddModal">Create</button>
+</div>
+
+<!-- Data Table List -->
+<table id="TransactionList" class="display" style="width:100%">
+    <thead class="table-success">
+        <tr>
+            <th>Brand Name</th>
+            <th>Date</th>
+            <th>Result</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+</table>
+
+@await Html.PartialAsync("~/Views/Transaction/Modal/TrancAddModal.cshtml")
+@await Html.PartialAsync("~/Views/Transaction/Modal/TrancEditModal.cshtml")
+
+@section Scripts {
+    @await Html.PartialAsync("~/Views/Transaction/ModalAddJS.cshtml")
+    @await Html.PartialAsync("~/Views/Transaction/ModalEditJS.cshtml")
+    <script>
+        var TrancTab
+        $(document).ready(function () {
+            reloadTable();
+        });
+
+        function reloadTable() {
+            if (!TrancTab) {
+                TrancTab = $('#TransactionList').DataTable({
+                    "scrollX": true,
+                    "processing": true,
+                    "filter": false,
+                    "stateSave": true,
+                    "responsive": true,
+                    "searching": false,
+                    "serverSide": true,
+                    "dom": 'Bfrtip',
+                    "ajax": {
+                        "url": "@Url.Action("Transaction_Read", "Transaction")",
+                        "type": "POST",
+                        'datatype': 'json',
+                    },
+                    "columns": [
+                        { "data": "name" },
+                        { "data": "date" },
+                        { "data": "result" },
+                        {
+                            "data": "id",
+                            "render": function (d, t, f, m) {
+                                return "<div><a type='button' class='btn btn-warning btn-sm' onclick='edittrac(" + m.row + ")'>Edit</a></div>";
+                            }
+                        },
+                        {
+                            "data": "id",
+                            "render": function (d, t, f, m) {
+                                return "<div><a type='button' class='btn btn-danger btn-sm' onclick='deld(" + m.row + ")'>Delete</a></div>";
+                            }
+                        },
+                    ],
+                });
+            } else {
+                TrancTab.ajax.url("@Url.Action("Transaction_Read", "Transaction")").load();
+            }
+        }
+    </script>
+}

@@ -23,7 +23,7 @@ public partial class MtAdmin
 
     public string? PasswordSalt { get; set; }
 
-    public string Status { get; set; } = null!;
+    public string? Status { get; set; } = null!;
 
     public long RoleId { get; set; }
 

@@ -1,0 +1,70 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#TrancEditModal').on('shown.bs.modal', function () {
+            // Initialize the DateRangePicker
+            $('#DateEdit').daterangepicker({
+                singleDatePicker: true, // To select a single date
+                showDropdowns: true,    // To show year and month dropdowns
+                startDate: moment(),    // Set the initial selected date
+                locale: {
+                    format: 'YYYY-MM-DD', // Desired date format
+                }
+            });
+        });
+
+        $('#TrancEditModal').on('hidden.bs.modal', function () {
+            $("#TrancEditForm")[0].reset();
+            $('#DateEdit').data('daterangepicker').remove(); // Destroy the DateRangePicker instance
+        });
+    });
+</script>
+
+<script>
+    function edittrac(i) {
+        if (i >= 0) {
+            var data = TrancTab.row(i).data();
+            if (data) {
+                $('#TrancEditForm #TrancEditId').val(data.id);
+                $('#TrancEditForm #TrancEdit').val(data.name);
+                $('#TrancEditForm #DateEdit').val(data.date);
+                $('#TrancEditForm #ResultEdit').val(data.result);
+
+                $('#TrancEditModal').modal('show');
+            }
+        }
+    }
+</script>
+<script>
+    function submitTrancEdit() {
+        if (!$('#TrancEditForm')[0].checkValidity()) {
+            $("#TrancEditForm")[0].reportValidity();
+            return false;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("Edit", "Transaction")",
+                    data: $('#TrancEditForm').serialize(),
+                    type: "POST",
+                    success: function (result) {
+                        if (result == true || result && result > 0) {
+                            $('#TrancEditModal').modal('hide');
+                            Swal.fire(msg, '', 'success');
+                            reloadTable();
+                        }
+                        else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                        else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                        else { Swal.fire('', '', 'error'); }
+                    },
+                });
+            }
+        });
+    }
+</script>

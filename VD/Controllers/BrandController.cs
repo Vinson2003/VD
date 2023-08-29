@@ -20,7 +20,6 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public JsonResult Brand_Read(DatatableVM obj)
 		{
 			var col = obj.order.Select(row => row["column"]).FirstOrDefault();
@@ -40,7 +39,6 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public JsonResult Add(BrandAddVM Model)
 		{
 			var send = BrandService.Add(new BrandAdd()
@@ -53,7 +51,6 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public JsonResult Edit(BrandEditVM Model)
 		{
 			var send = BrandService.Edit(new BrandEdit()
@@ -67,7 +64,6 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		[AllowAnonymous]
 		public JsonResult Delete(BrandDeleteVM Model)
 		{
 			var send = BrandService.Delete(new BrandDelete()

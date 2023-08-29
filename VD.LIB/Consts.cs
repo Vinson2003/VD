@@ -11,5 +11,6 @@
         public static readonly string ADMIN_ACCOUNT_STATUS_ENABLED = "ENABLED";
         public static readonly string ADMIN_ACCOUNT_STATUS_DISABLED = "DISABLED";
 
+        public static string Admin_STATUS_ENABLED { get; internal set; }
     }
 }

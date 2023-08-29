@@ -41,7 +41,7 @@ namespace VD.Service.Result
 
 	}
 
-	public class RequestRoleList
+    public class RequestRoleList
 	{
 		public string? Username { get; set; }
 	}

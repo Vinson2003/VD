@@ -169,11 +169,7 @@ namespace VD.Service.Service
 				}
 
 				var ValidStatus = General.AdminStatus().Where(x => x.Value == model.Status).FirstOrDefault();
-				if (ValidStatus == null)
-				{
-					Response.Message = "InvalidStatus";
-					return Response;
-				}
+				if (ValidStatus == null){ Response.Message = "InvalidStatus"; return Response; }
 
 				getuser.Email = model.Email;
 				getuser.Status = model.Status;

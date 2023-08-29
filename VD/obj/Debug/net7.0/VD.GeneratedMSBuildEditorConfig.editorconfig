@@ -28,6 +28,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/VD/VD/Views/Admin/ModalAddJS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTW9kYWxBZGRKUy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Admin/ModalChangePasswordJS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTW9kYWxDaGFuZ2VQYXNzd29yZEpTLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Admin/ModalEditJS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTW9kYWxFZGl0SlMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Admin/ModalUpdateAccJS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTW9kYWxVcGRhdGVBY2NKUy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/VD/VD/Views/Admin/Modal/AddModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTW9kYWxcQWRkTW9kYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -50,6 +66,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/VD/VD/Views/Brand/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Brand/ModalAddJS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcTW9kYWxBZGRKUy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Brand/ModalEditJS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcTW9kYWxFZGl0SlMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/VD/VD/Views/Brand/Modal/AddModal.cshtml]
@@ -98,6 +122,26 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/VD/VD/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Transaction/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Transaction/ModalAddJS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25cTW9kYWxBZGRKUy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Transaction/ModalEditJS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25cTW9kYWxFZGl0SlMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Transaction/Modal/TrancAddModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25cTW9kYWxcVHJhbmNBZGRNb2RhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Transaction/Modal/TrancEditModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25cTW9kYWxcVHJhbmNFZGl0TW9kYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/VD/VD/Views/_ViewImports.cshtml]

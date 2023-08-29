@@ -40,7 +40,27 @@ namespace VD.Service.Service
 			return list;
 		}
 
-		public Response<bool> Add(BrandAdd model)
+        public List<BrandList> GetBrandList(/*string Name*/)
+        {
+            using (var context = new VddbContext())
+            {
+                var m = new List<BrandList>();
+                using (var ctx = new VddbContext())
+                {
+                    var getRole = from n in ctx.MtBrands
+                                  select new BrandList()
+                                  {
+                                      Id = n.Id,
+                                      Name = n.Name,
+                                  };
+
+                    m = getRole.ToList();
+                }
+                return m;
+            }
+        }
+
+        public Response<bool> Add(BrandAdd model)
 		{
 			var Response = new Response<bool>();
 			using var context = new VddbContext();

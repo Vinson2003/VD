@@ -1,0 +1,57 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#BrandEditModal').on('shown.bs.modal', function () {
+
+        });
+        $('#BrandEditModal').on('hidden.bs.modal', function () {
+            $("#BrandEditForm")[0].reset();
+        });
+    });
+</script>
+<script>
+    function editbrand(i) {
+        if (i >= 0) {
+            var data = BrandTab.row(i).data();
+            if (data) {
+                $('#BrandEditForm #BrandEditId').val(data.id);
+                $('#BrandEditForm #BrandNameEdit').val(data.name);
+
+                $('#BrandEditModal').modal('show');
+            }
+        }
+    }
+</script>
+<script>
+    function submitBrandEdit() {
+        if (!$('#BrandEditForm')[0].checkValidity()) {
+            $("#BrandEditForm")[0].reportValidity();
+            return false;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("Edit", "Brand")",
+                    data: $('#BrandEditForm').serialize(),
+                    type: "POST",
+                    success: function (result) {
+                        if (result == true || result && result > 0) {
+                            $('#BrandEditModal').modal('hide');
+                            Swal.fire(msg, '', 'success');
+                            reloadTable();
+                        }
+                        else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                        else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                        else { Swal.fire('', '', 'error'); }
+                    },
+                });
+            }
+        });
+    }
+</script>
