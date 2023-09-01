@@ -22,8 +22,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
@@ -44,8 +44,8 @@ static void ConfigureConfiguration(ConfigurationManager configuration, IServiceC
 		options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
 		options.SlidingExpiration = true;
 		options.AccessDeniedPath = "/Forbidden/";
-		options.LoginPath = "/AdminLogin/Login";
-		options.Cookie.Name = "Login";
+		options.LoginPath = "/Account/Login";
+		options.Cookie.Name = "VD";
 	});
 
 	services.AddMvc(options =>

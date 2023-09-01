@@ -1,4 +1,5 @@
 ﻿using HAOPortal.EF.DatatableVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
@@ -10,8 +11,8 @@ using VD.Service.Service;
 
 namespace VD.Controllers
 {
-    
-    public class TransactionController : Controller
+	[Authorize]
+	public class TransactionController : Controller
 	{
 		public ITransactionService TransactionService = new TransactionService();
 		public IBrandService BrandService = new BrandService();
@@ -87,5 +88,10 @@ namespace VD.Controllers
             if (send.Sts == false) { return Json(send.Message); }
             return Json(true);
         }
-    }
+
+		public IActionResult Forbidden()
+		{
+			return View();
+		}
+	}
 }

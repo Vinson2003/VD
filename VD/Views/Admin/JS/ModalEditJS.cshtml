@@ -1,0 +1,60 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#AdminEditModal').on('shown.bs.modal', function () {
+
+        });
+        $('#AdminEditModal').on('hidden.bs.modal', function () {
+            $("#AdminEditForm")[0].reset();
+        });
+    });
+</script>
+<script>
+    function editdata(i) {
+        if (i >= 0) {
+            var data = AdminTab.row(i).data();
+            if (data) {
+                $('#AdminEditForm #AdminEditId').val(data.id);
+                $('#AdminEditForm #UsernameEdit').val(data.username);
+                $('#AdminEditForm #EmailEdit').val(data.email);
+                $('#AdminEditForm #StatusEdit').val(data.status);
+                $('#AdminEditForm #RoleEdit').val(data.roleId);
+
+                $('#AdminEditModal').modal('show');
+            }
+        }
+    }
+</script>
+<script>
+    function submitAdminEdit() {
+        if (!$('#AdminEditForm')[0].checkValidity()) {
+            $("#AdminEditForm")[0].reportValidity();
+            return false;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("Edit", "Admin")",
+                    data: $('#AdminEditForm').serialize(),
+                    type: "POST",
+                    success: function (result) {
+                        if (result == true || result && result > 0) {
+                            $('#AdminEditModal').modal('hide');
+                            Swal.fire(msg, '', 'success');
+                            reloadTable();
+                        }
+                        else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                        else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                        else { Swal.fire('', '', 'error'); }
+                    },
+                });
+            }
+        });
+    }
+</script>

@@ -15,16 +15,20 @@ namespace VD.Service.Service
                 var GMT = Convert.ToInt32(ConfigurationManager.AppSettings["GMT"]);
                 var getlist = from t in context.PTransactions
                               where t.FlgDeleted != true
-                              select new TransactionData
+                              select new TransactionData()
                               {
                                   Id = t.Id,
                                   Brand = t.Brand.Name,
-                                  Result = t.Result,
                                   Date = t.Date.ToString("dd/MM/yyyy"),
+                                  Result = t.Result,
+                                  Updated = t.Updated,
+                                  Updatedby = t.UpdatedBy,
+                                  Created = t.Created,
+                                  Createdby = t.CreatedBy,
                               };
 
                 list.Total = getlist.Count();
-                if (paging.Col.ToLower() == "brand")
+                if (paging.Col.ToLower() == "Name")
                 {
                     if (paging.Dir == "asc")
                     {

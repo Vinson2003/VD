@@ -5,8 +5,8 @@ using VD.Models;
 
 namespace VD.Controllers
 {
-    
-    public class HomeController : Controller
+	[Authorize]
+	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 

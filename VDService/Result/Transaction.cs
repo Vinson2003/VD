@@ -12,7 +12,7 @@ namespace VD.Service.Result
         public long Id { get; set; }
         public string? Brand { get; set; }
         public string? Result { get; set; }
-        public string? Date { get; set; }
+        public string Date { get; set; }
         public DateTime? Created { get; set; }
         public string? Createdby { get; set; }
         public DateTime? Updated { get; set; }

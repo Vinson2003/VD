@@ -1,0 +1,44 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#AdminAddModal').on('shown.bs.modal', function () {
+
+        });
+        $('#AdminAddModal').on('hidden.bs.modal', function () {
+            $("#AdminAddForm")[0].reset();
+        });
+    });
+</script>
+<script>
+    function submitAdminAdd() {
+        if (!$('#AdminAddForm')[0].checkValidity()) {
+            $("#AdminAddForm")[0].reportValidity();
+            return false;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("Add", "Admin")",
+                    data: $('#AdminAddForm').serialize(),
+                    type: "POST",
+                    success: function (result) {
+                        if (result == true || result && result > 0) {
+                            $('#AdminAddModal').modal('hide');
+                            Swal.fire(msg, '', 'success');
+                            reloadTable();
+                        }
+                        else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                        else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                        else { Swal.fire('', '', 'error'); }
+                    },
+                });
+            }
+        });
+    }
+</script>

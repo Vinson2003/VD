@@ -11,8 +11,8 @@ using VD.Service.Service;
 
 namespace VD.Controllers
 {
-    
-    public class AdminController : Controller
+	[Authorize]
+	public class AdminController : Controller
     {
 		public IAdminService AdminService = new AdminService();
 		public IPermissionService PermissionService = new PermissionService();
@@ -164,6 +164,11 @@ namespace VD.Controllers
 		{
 			var List = PermissionService.GetRolePermission(RoleId);
 			return Json(List);
+		}
+
+		public IActionResult Forbidden()
+		{
+			return View();
 		}
 	}
 }

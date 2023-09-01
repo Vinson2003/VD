@@ -34,6 +34,8 @@ namespace VD.Models
 
 	public class LogoutVM
 	{
+		[Required]
+		public long Id { get; set; }
 		public string? Username { get; set; }
 	}
 

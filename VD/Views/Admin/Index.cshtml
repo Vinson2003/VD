@@ -1,4 +1,5 @@
-﻿@{
+﻿@using VD.Helper;
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -24,16 +25,16 @@
     </thead>
 </table>
 
-
-@await Html.PartialAsync("~/Views/Admin/Modal/AddModal.cshtml")
-@await Html.PartialAsync("~/Views/Admin/Modal/ChangePasswordModal.cshtml")
-@await Html.PartialAsync("~/Views/Admin/Modal/EditModal.cshtml")
 @await Html.PartialAsync("~/Views/Admin/Modal/UpdateAccModal.cshtml")
+@await Html.PartialAsync("~/Views/Admin/Modal/AddModal.cshtml")
+@await Html.PartialAsync("~/Views/Admin/Modal/EditModal.cshtml")
+@await Html.PartialAsync("~/Views/Admin/Modal/ChangePasswordModal.cshtml")
+
 @section Scripts {
-    @await Html.PartialAsync("~/Views/Admin/ModalAddJS.cshtml")
-    @await Html.PartialAsync("~/Views/Admin/ModalChangePasswordJS.cshtml")
-    @await Html.PartialAsync("~/Views/Admin/ModalEditJS.cshtml")
-    @await Html.PartialAsync("~/Views/Admin/ModalUpdateAccJS.cshtml")
+    @await Html.PartialAsync("~/Views/Admin/JS/ModalAddJS.cshtml")
+    @await Html.PartialAsync("~/Views/Admin/JS/ModalChangePasswordJS.cshtml")
+    @await Html.PartialAsync("~/Views/Admin/JS/ModalEditJS.cshtml")
+    @await Html.PartialAsync("~/Views/Admin/JS/ModalUpdateAccJS.cshtml")
     <script>
         var AdminTab
         $(document).ready(function () {

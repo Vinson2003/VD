@@ -1,17 +1,16 @@
-﻿using HaoPortal.LIB;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace HAOPortal.LIB
+namespace VD.LIB
 {
-    public static class General
-    {
-        public static List<SelectListItem> AdminStatus()
-        {
-            return new List<SelectListItem>()
-            {
-                new SelectListItem() { Text="Active", Value=Consts.Admin_STATUS_ACTIVE },
-                new SelectListItem() { Text="Inactive", Value=Consts.Admin_STATUS_INACTIVE }
-            };
-        }
-    }
+	public static class General
+	{
+		public static List<SelectListItem> AdminStatus()
+		{
+			return new List<SelectListItem>
+			{
+				new SelectListItem() { Text= "", Value = Consts.ADMIN_STATUS_ENABLED },
+				new SelectListItem() { Text= "", Value = Consts.ADMIN_STATUS_DISABLED }
+			};
+		}
+	}
 }

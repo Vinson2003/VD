@@ -18,18 +18,16 @@ namespace VD.Helper
 			string requiredpermission = String.Format("{0}-{1}", controllername, actionname);
 
 			var notincludepermission = new List<string>(){
-				"home-index", "admin-permissionupdate", "transaction-index", "brand-index",
+				"home-index", "admin-permission", "admin-index",
 			};
 			var notincludecontroller = new List<string>(){
-				"adminlogin", "home", "admin", "transaction", "brand",
+				"account", "home", "admin",
 			};
 
 			if (!notincludecontroller.Contains(controllername) && !notincludepermission.Contains(requiredpermission) &&
 			   CheckPerms.CheckPermis(context.HttpContext.User.GetRole(), PermsKey, requiredpermission) == false)
 			{
-				context.Result = new RedirectToActionResult("Denied", "Admin", null);
-				context.Result = new RedirectToActionResult("Denied", "Brand", null);
-				context.Result = new RedirectToActionResult("Denied", "Transaction", null);
+				context.Result = new RedirectToActionResult("Forbidden", "Account", null);
 			}
 			else
 			{

@@ -1,5 +1,5 @@
-﻿using HAOPortal.LIB;
-using VD.EF.Models;
+﻿using VD.EF.Models;
+using VD.LIB;
 using VD.Service.Interface;
 using VD.Service.Result;
 
@@ -77,7 +77,7 @@ namespace VD.Service.Service
 					}
 				}
 
-				if (paging.Col.ToLower() == "Status")
+				if (paging.Col.ToLower() == "status")
 				{
 					if (paging.Dir == "asc")
 					{
@@ -108,6 +108,14 @@ namespace VD.Service.Service
 					return Response;
 				}
 
+				if (!string.IsNullOrEmpty(model.Password)){ Response.Message = "InvalidPassword"; return Response; }
+
+				if (model.Status != Consts.ADMIN_STATUS_ENABLED && model.Status != Consts.ADMIN_STATUS_DISABLED)
+				{
+					Response.Message = "InvalidStatus";
+					return Response;
+				}
+
 				if (!string.IsNullOrEmpty(model.Email))
 				{
 					var entityEmail = (from d in context.MtAdmins
@@ -128,9 +136,6 @@ namespace VD.Service.Service
 					Response.Message = "InvalidRole";
 					return Response;
 				}
-
-				var ValidStatus = General.AdminStatus().Where(x => x.Value == model.Status).FirstOrDefault();
-				if (ValidStatus == null) { Response.Message = "InvalidStatus"; return Response; }
 
 				MtAdmin a = new MtAdmin();
 				a.Username = model.Name.Trim().ToLower();
@@ -155,27 +160,27 @@ namespace VD.Service.Service
 		{
 			var Response = new Response<bool>();
 			Response.Result = false;
-
 			using (var context = new VddbContext())
 			{
 				DateTime Now = DateTime.UtcNow;
-				var getuser = (from d in context.MtAdmins
-							   where d.Id == model.Id
-							   select d).FirstOrDefault();
-				if (getuser == null)
+				var entity = (from d in context.MtAdmins
+							  where d.Id == model.Id
+							  select d).FirstOrDefault();
+
+				if (model.Status != Consts.ADMIN_STATUS_ENABLED && model.Status != Consts.ADMIN_STATUS_DISABLED)
 				{
-					Response.Message = "InvalidData";
+					Response.Message = "InvalidStatus";
 					return Response;
 				}
 
-				var ValidStatus = General.AdminStatus().Where(x => x.Value == model.Status).FirstOrDefault();
-				if (ValidStatus == null){ Response.Message = "InvalidStatus"; return Response; }
+				//var ValidStatus = General.AdminStatus().Where(x => x.Value == model.Status).FirstOrDefault();
+				//if (ValidStatus == null){ Response.Message = "InvalidStatus"; return Response; }
 
-				getuser.Email = model.Email;
-				getuser.Status = model.Status;
-				getuser.RoleId = model.RoleId;
-				getuser.Updated = Now;
-				getuser.UpdatedBy = model.RequestBy;
+				entity.Email = model.Email;
+				entity.Status = model.Status;
+				entity.RoleId = model.RoleId;
+				entity.Updated = Now;
+				entity.UpdatedBy = model.RequestBy;
 
 				context.SaveChanges();
 				Response.Sts = true;
@@ -211,6 +216,9 @@ namespace VD.Service.Service
 				string Key = Security.RandomString(60);
 				entity.PasswordSalt = Key;
 				entity.Password = Security.CheckHMAC(Key, model.Password);
+				entity.Updated = DateTime.UtcNow;
+				entity.UpdatedBy = model.RequestBy;
+
 				context.SaveChanges();
 
 				Response.Sts = true;

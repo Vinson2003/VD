@@ -1,0 +1,84 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#BrandAddModal').on('shown.bs.modal', function () {
+
+        });
+        $('#BrandAddModal').on('hidden.bs.modal', function () {
+            $("#BrandAddForm")[0].reset();
+        });
+    });
+</script>
+<script>
+    function submitBrandAdd() {
+        if (!$('#BrandAddForm')[0].checkValidity()) {
+            $("#BrandAddForm")[0].reportValidity();
+            return false;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("Add", "Brand")",
+                    data: $('#BrandAddForm').serialize(),
+                    type: "POST",
+                    success: function (result) {
+                        if (result == true || result && result > 0) {
+                            $('#BrandAddModal').modal('hide');
+                            Swal.fire(msg, '', 'success');
+                            reloadTable();
+                        }
+                        else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                        else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                        else { Swal.fire('', '', 'error'); }
+                    },
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    async function deletebrand(row) {
+        var get = BrandTab.rows(row).data();
+
+        if (get) {
+            let g = get[0];
+            let awaitDel = await Confirmation(g.name);
+
+            if (awaitDel == true) {
+
+                let id = g.id;
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'No',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "@Url.Action("Delete", "Brand")",
+                            type: "POST",
+                            success: function (result) {
+                                if (result == true || result && result > 0) {
+                                    Swal.fire(msg, '', 'success');
+                                    reloadTable();
+                                }
+                                else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                                else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                                else { Swal.fire('', '', 'error'); }
+                            },
+                        });
+                    }
+                });
+            }
+        }
+    }
+</script>

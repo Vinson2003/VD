@@ -9,8 +9,8 @@ using VD.Service.Service;
 
 namespace VD.Controllers
 {
-   
-    public class BrandController : Controller
+	[Authorize]
+	public class BrandController : Controller
 	{
 		public IBrandService BrandService = new BrandService();
 
@@ -73,6 +73,11 @@ namespace VD.Controllers
 			});
 			if (send.Sts == false) { return Json(send.Message); }
 			return Json(true);
+		}
+
+		public IActionResult Forbidden()
+		{
+			return View();
 		}
 	}
 }

@@ -1,0 +1,56 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#TrancAddModal').on('shown.bs.modal', function () {
+            $('#DateTimeRange').daterangepicker({
+                singleDatePicker: true,
+                startDate: moment(),
+                endDate: moment(),
+                timePickerIncrement: 15,
+                timePicker24Hour: true,
+                locale: {
+                    format: 'YYYY-MM-DD HH:mm'
+                }
+            });
+        });
+
+        $('#TrancAddModal').on('hidden.bs.modal', function () {
+            $("#TrancAddForm")[0].reset();
+            $('#DateTimeRange').data('daterangepicker').remove();
+        });
+    });
+</script>
+
+<script>
+    function submitTrancAdd() {
+        if (!$('#TrancAddForm')[0].checkValidity()) {
+            $("#TrancAddForm")[0].reportValidity();
+            return false;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("Add", "Transaction")",
+                    data: $('#TrancAddForm').serialize(),
+                    type: "POST",
+                    success: function (result) {
+                        if (result == true || result && result > 0) {
+                            $('#TrancAddModal').modal('hide');
+                            Swal.fire(msg, '', 'success');
+                            reloadTable();
+                        }
+                        else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                        else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                        else { Swal.fire('', '', 'error'); }
+                    },
+                });
+            }
+        });
+    }
+</script>
