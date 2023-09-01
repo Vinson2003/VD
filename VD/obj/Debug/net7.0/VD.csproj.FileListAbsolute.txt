@@ -10,12 +10,15 @@ D:\VD\VD\bin\Debug\net7.0\VD.dll
 D:\VD\VD\bin\Debug\net7.0\VD.pdb
 D:\VD\VD\bin\Debug\net7.0\Azure.Core.dll
 D:\VD\VD\bin\Debug\net7.0\Azure.Identity.dll
+D:\VD\VD\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
+D:\VD\VD\bin\Debug\net7.0\Microsoft.DotNet.PlatformAbstractions.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\VD\VD\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.Identity.Client.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.Identity.Client.Extensions.Msal.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
@@ -27,6 +30,7 @@ D:\VD\VD\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 D:\VD\VD\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 D:\VD\VD\bin\Debug\net7.0\Newtonsoft.Json.dll
+D:\VD\VD\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
 D:\VD\VD\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
 D:\VD\VD\bin\Debug\net7.0\System.Drawing.Common.dll
 D:\VD\VD\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
@@ -57,6 +61,7 @@ D:\VD\VD\obj\Debug\net7.0\VD.GeneratedMSBuildEditorConfig.editorconfig
 D:\VD\VD\obj\Debug\net7.0\VD.AssemblyInfoInputs.cache
 D:\VD\VD\obj\Debug\net7.0\VD.AssemblyInfo.cs
 D:\VD\VD\obj\Debug\net7.0\VD.csproj.CoreCompileInputs.cache
+D:\VD\VD\obj\Debug\net7.0\VD.MvcApplicationPartsAssemblyInfo.cs
 D:\VD\VD\obj\Debug\net7.0\VD.MvcApplicationPartsAssemblyInfo.cache
 D:\VD\VD\obj\Debug\net7.0\VD.RazorAssemblyInfo.cache
 D:\VD\VD\obj\Debug\net7.0\VD.RazorAssemblyInfo.cs
@@ -76,7 +81,3 @@ D:\VD\VD\obj\Debug\net7.0\refint\VD.dll
 D:\VD\VD\obj\Debug\net7.0\VD.pdb
 D:\VD\VD\obj\Debug\net7.0\VD.genruntimeconfig.cache
 D:\VD\VD\obj\Debug\net7.0\ref\VD.dll
-D:\VD\VD\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
-D:\VD\VD\bin\Debug\net7.0\Microsoft.DotNet.PlatformAbstractions.dll
-D:\VD\VD\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
-D:\VD\VD\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll

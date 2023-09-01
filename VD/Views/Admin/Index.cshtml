@@ -6,7 +6,7 @@
 
 <!-- Button Create -->
 <div class="top-panel">
-    <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#AdminAddModal">Create</button>
+    <button type="button" class="btn btn-primary float-right mb-3" data-bs-toggle="modal" data-bs-target="#AdminAddModal">Create</button>
 </div>
 
 <!-- Data Table List -->
@@ -14,7 +14,6 @@
     <thead class="table-success">
         <tr>
             <th>Username</th>
-            <th>Password</th>
             <th>Email</th>
             <th>Status</th>
             <th>Role</th>
@@ -23,6 +22,17 @@
             <th>Update Account</th>
         </tr>
     </thead>
+    <tfoot>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Change Password</th>
+            <th>Update Account</th>
+        </tr>
+    </tfoot>
 </table>
 
 @await Html.PartialAsync("~/Views/Admin/Modal/UpdateAccModal.cshtml")
@@ -51,6 +61,7 @@
                     "responsive": true,
                     "searching": false,
                     "serverSide": true,
+                    "bDestroy": true,
                     "dom": 'Bfrtip',
                     "ajax": {
                         "url": "@Url.Action("Admin_Read", "Admin")",
@@ -59,10 +70,9 @@
                     },
                     "columns": [
                         { "data": "username" },
-                        { "data": "password" },
                         { "data": "email" },
                         { "data": "status" },
-                        { "data": "roleId" },
+                        { "data": "role" },
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {
@@ -87,5 +97,28 @@
                 AdminTab.ajax.url("@Url.Action("Admin_Read", "Admin")").load();
             }
         }
+    </script>
+
+    <script>
+        new DataTable('#AdminList', {
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    let column = this;
+                    let title = column.header().textContent;
+
+                    // Create input element
+                    let input = document.createElement('input');
+                    input.placeholder = title;
+                    column.header().replaceChildren(input);
+
+                    // Event listener for user input
+                    input.addEventListener('keyup', () => {
+                        if (column.search() !== this.value) {
+                            column.search(input.value).draw();
+                        }
+                    });
+                });
+            }
+        });
     </script>
 }

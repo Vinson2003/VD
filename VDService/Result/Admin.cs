@@ -16,6 +16,7 @@ namespace VD.Service.Result
 		public string? Passwordsalt { get; set; }
 		public string? Status { get; set; } = null!;
 		public long RoleId { get; set; }
+		public string? Role { get; set; }
 	}
 
 	public class AdminLogin
@@ -52,7 +53,7 @@ namespace VD.Service.Result
 	public class AdminAdd
 	{
 		[Required]
-		public string? Name { get; set; }
+		public string? Username { get; set; }
 		[Required]
 		public string? Password { get; set; }
 		[Required]

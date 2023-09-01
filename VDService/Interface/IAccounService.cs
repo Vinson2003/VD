@@ -7,5 +7,6 @@ namespace VD.Service.Interface
 	{
 		public Response<LoginResult> Login(AdminLogin model);
 		public Response<bool> Register(AdminRegister model);
+		public Response<bool> UpdateAcc(UpdateAcc model);
 	}
 }

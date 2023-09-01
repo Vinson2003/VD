@@ -21,7 +21,7 @@ namespace VD.Helper
 				"home-index", "admin-permission", "admin-index",
 			};
 			var notincludecontroller = new List<string>(){
-				"account", "home", "admin",
+				"account", "home", "admin", 
 			};
 
 			if (!notincludecontroller.Contains(controllername) && !notincludepermission.Contains(requiredpermission) &&

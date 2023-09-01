@@ -29,12 +29,14 @@
 					<!--begin::Form-->
 					<form action="@Url.Action("Login","Account")" method="post" autocomplete="off">
 						<!--begin::Heading-->
+						<span asp-validation-for="Username" class="text-danger"></span>
 						<div class="fv-row mb-8">
 							<!--begin::Email-->
 							<input type="text" placeholder="Username" name="username" class="form-control bg-transparent" autofocus required/>
 							<!--end::Email-->
 						</div>
 						<!--end::Input group=-->
+						<span asp-validation-for="Password" class="text-danger"></span>
 						<div class="fv-row mb-8">
 							<!--begin::Password-->
 							<input type="password" placeholder="Password" name="password" class="form-control bg-transparent" required/>

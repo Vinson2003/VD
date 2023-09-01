@@ -65,7 +65,7 @@ namespace VD.Controllers
             {
                 var Send = AdminService.Add(new AdminAdd()
                 {
-                    Name = Model.Username,
+                    Username = Model.Username,
 					Password = Model.Password,
 					ConfirmPassword = Model.ConfirmPassword,
 					Email = Model.Email,
@@ -124,7 +124,6 @@ namespace VD.Controllers
 			}
 			ViewBag.RoleList = rolelist;
 			var PermissionList = PermissionService.GetPermissionLists();
-
 
 			List<PermissionListVM> pList = new List<PermissionListVM>();
 			if (PermissionList != null)

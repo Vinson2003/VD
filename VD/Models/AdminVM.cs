@@ -5,10 +5,10 @@ namespace VD.Models
 	public class LoginVM
 	{
 		[Required]
-		//[RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed")]
+		[RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed")]
 		public string? Username { get; set; }
 		[Required]
-		//[RegularExpression(@"^(?=.*\d)\S{8,}$", ErrorMessage = "there is a minimum of 8 characters there are numbers without spaces and emoji")]
+		[RegularExpression(@"^(?=.*\d)\S{8,}$", ErrorMessage = "there is a minimum of 8 characters there are numbers without spaces and emoji")]
 		public string? Password { get; set; }
 		public bool RememberMe { get; set; }
 	}

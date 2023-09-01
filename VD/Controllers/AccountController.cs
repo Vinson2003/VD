@@ -109,7 +109,7 @@ namespace VD.Controllers
 		//	return View(I);
 		//}
 
-		[HttpPost]
+		[HttpGet]
 		public async Task<IActionResult> Logout()
 		{
 			// Clear the existing external cookie
@@ -126,6 +126,28 @@ namespace VD.Controllers
 		public IActionResult Profile()
 		{
 			return View();
+		}
+
+		public JsonResult UpdateAcc(UpdateAccVM model)
+		{
+			if (!ModelState.IsValid)
+			{
+				var Send = AccountService.UpdateAcc(new UpdateAcc()
+				{
+					Id = model.Id,
+					Username = model.Username,
+					Password = model.Password,
+					ConfirmPassword = model.ConfirmPassword,
+					Status = model.Status,
+					Email = model.Email,
+					RoleId = model.RoleId,
+				});
+
+				if (Send.Sts == false) { return Json(Send.Message); }
+				return Json(true);
+			}
+
+			return Json(false);
 		}
 	}
 }

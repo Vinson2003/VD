@@ -75,5 +75,42 @@ namespace VD.Service
 			}
 			return Response;
 		}
+
+		public Response<bool> UpdateAcc(UpdateAcc model)
+		{
+			var Response = new Response<bool>();
+			Response.Result = false;
+			using var context = new VddbContext();
+			{
+				var entity = (from d in context.MtAdmins
+							  where d.Id == model.Id
+							  select d).FirstOrDefault();
+				if (entity == null)
+				{
+					Response.Message = "InvalidData";
+					return Response;
+				}
+
+				if (model.Status != Consts.ADMIN_STATUS_ENABLED && model.Status != Consts.ADMIN_STATUS_DISABLED)
+				{
+					Response.Message = "InvalidStatus";
+					return Response;
+				}
+
+				entity.Username = model.Username;
+				string Key = Security.RandomString(60);
+				entity.PasswordSalt = Key;
+				entity.Password = Security.CheckHMAC(Key, model.Password);
+				entity.Email = model.Email;
+				entity.RoleId = model.RoleId;
+
+				context.SaveChanges();
+
+				Response.Sts = true;
+				Response.Result = true;
+			}
+
+			return Response;
+		}
 	}
 }

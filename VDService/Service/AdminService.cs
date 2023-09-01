@@ -29,6 +29,7 @@ namespace VD.Service.Service
 								   Updated = t.Updated,
 								   Updatedby = t.UpdatedBy,
 								   RoleId = t.RoleId,
+								   Role = t.Role.Role,
 							   });
 
 				if (!string.IsNullOrEmpty(Username))
@@ -40,7 +41,7 @@ namespace VD.Service.Service
 					getlist = getlist.Where(x => x.Password != null && x.Password.Contains(Password));
 				}
 
-				list.Total = getlist.Count();
+				
 				if (paging.Col.ToLower() == "username")
 				{
 					if (paging.Dir == "asc")
@@ -89,7 +90,8 @@ namespace VD.Service.Service
 					}
 				}
 
-				list.Result = getlist.Skip(paging.Start).Take(paging.Length).ToList();
+                list.Total = getlist.Count();
+                list.Result = getlist.Skip(paging.Start).Take(paging.Length).ToList();
 			}
 			return list;
 		}
@@ -100,7 +102,7 @@ namespace VD.Service.Service
 			using var context = new VddbContext();
 			{
 				var entityUser = (from w in context.MtAdmins
-								  where w.Username == model.Name
+								  where w.Username == model.Username
 								  select w).FirstOrDefault();
 				if (entityUser != null)
 				{
@@ -138,7 +140,7 @@ namespace VD.Service.Service
 				}
 
 				MtAdmin a = new MtAdmin();
-				a.Username = model.Name.Trim().ToLower();
+				a.Username = model.Username.Trim().ToLower();
 				string key = Security.RandomString(60);
 				a.Password = Security.CheckHMAC(key, model.Password);
 				a.PasswordSalt = key;
