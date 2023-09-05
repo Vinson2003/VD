@@ -23,7 +23,7 @@ namespace VD.Service.Result
 		public string Display { get; set; }
 	}
 
-	public class RequestPermissionUpdate
+	public class ReqPermissionUpdate
 	{
 		public string Username { get; set; }
 		public long RoleId { get; set; }

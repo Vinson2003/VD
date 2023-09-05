@@ -8,24 +8,25 @@ namespace VD.Helper
 		public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
 		{
 			var controller = context.Controller as Controller;
-
-			var PermsKey = await Cache.CachePerms(context.HttpContext);
-			controller.ViewBag.PermsKey = PermsKey;
+			var permskey = await Cache.cacheperms(context.HttpContext);
+			controller.ViewBag.Perms = permskey;
 
 			Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor actiondesc = (Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor)context.ActionDescriptor;
 			string actionname = actiondesc.ActionName.ToLower();
 			string controllername = actiondesc.ControllerName.ToLower();
 			string requiredpermission = String.Format("{0}-{1}", controllername, actionname);
 
-			var notincludepermission = new List<string>(){
-				"home-index", "admin-permission", "admin-index",
+			var notincludepermission = new List<string>()
+			{
+				"home-index", "account-login", "admin-permission",
 			};
-			var notincludecontroller = new List<string>(){
-				"account", "home", "admin", 
+			var notincludecontroller = new List<string>()
+			{
+				"account", "home", 
 			};
 
-			if (!notincludecontroller.Contains(controllername) && !notincludepermission.Contains(requiredpermission) &&
-			   CheckPerms.CheckPermis(context.HttpContext.User.GetRole(), PermsKey, requiredpermission) == false)
+			if(!notincludecontroller.Contains(controllername) && !notincludepermission.Contains(requiredpermission) && 
+				CheckPerms.checkpermis(context.HttpContext.User.GetRole(), permskey, requiredpermission) == false)
 			{
 				context.Result = new RedirectToActionResult("Forbidden", "Account", null);
 			}
@@ -33,7 +34,7 @@ namespace VD.Helper
 			{
 				await next();
 			}
-		}
+        }
 
 		public void OnActionExecutedAsync(ActionExecutedContext context)
 		{

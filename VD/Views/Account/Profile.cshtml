@@ -130,7 +130,6 @@
 				</div>
 				<!--begin::Content-->
 				<div id="kt_account_settings_profile_details" class="collapse show">
-
 					<!--begin::Form-->
 					<form id="UpdateAccForm" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="post" autocomplete="off">
 						<!--begin::Card body-->
@@ -188,44 +187,41 @@
 							<input type="hidden" class="form-control form-control-lg form-control-solid" id="ProfId" name="id" required>
 
 							<div class="row mb-6">
-								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="ProfUsername">Username</label>
+								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="Username">Username</label>
 								<div class="col-lg-8">
 									<div class="row">
 										<div class="col-lg-12 fv-row fv-plugins-icon-container">
-											<input type="text" name="username" id="ProfUsername" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Please insert Username" required>
-											<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+											<input type="text" name="Username" id="ProfUsername" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Please insert Username" required>
 										</div>
 									</div>
 								</div>
 							</div>
 
 							<div class="row mb-6">
-								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="ProfPassword">Password</label>
+								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="Password">Password</label>
 								<div class="col-lg-8 fv-row fv-plugins-icon-container">
-									<input type="password" name="password" id="ProfPassword" class="form-control form-control-lg form-control-solid" placeholder="Please insert Password" required>
-									<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+									<input type="password" name="Password" id="ProfPassword" class="form-control form-control-lg form-control-solid" placeholder="Please insert Password" required>
 								</div>
 							</div>
 
 							<div class="row mb-6">
-								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="ConfirmPass">Confirm Password</label>
+								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="ConfirmPassword">Confirm Password</label>
 								<div class="col-lg-8 fv-row fv-plugins-icon-container">
-									<input type="password" name="confirmpassword" id="ConfirmPass" class="form-control form-control-lg form-control-solid" placeholder="Please Insert Confirm Password" required>
-									<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+									<input type="password" name="ConfirmPasword" id="ConfirmPass" class="form-control form-control-lg form-control-solid" placeholder="Please Insert Confirm Password" required>
 								</div>
 							</div>
 
 							<div class="row mb-6">
-								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="ProfEmail">Email</label>
+								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="Email">Email</label>
 								<div class="col-lg-8 fv-row">
-									<input type="email" name="email" id="ProfEmail" class="form-control form-control-lg form-control-solid" placeholder="Please Insert Email" required>
+									<input type="email" name="Email" id="ProfEmail" class="form-control form-control-lg form-control-solid" placeholder="Please Insert Email" required>
 								</div>
 							</div>
 
 							<div class="row mb-6">
-								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="ProfStatus">Status</label>
+								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="Status">Status</label>
 								<div class="col-lg-8 fv-row fv-plugins-icon-container">
-									<select class="form-control form-control-lg form-control-solid" id="ProfStatus" name="status" data-kt-placeholder="Select a status..." required>
+									<select class="form-control form-control-lg form-control-solid" id="ProfStatus" name="Status" data-kt-placeholder="Select a status..." required>
 										<option selected disabled value="">Choose the status....</option>
 										<option value="ENABLED">ENABLED</option>
 										<option value="DISABLED">DISABLED</option>
@@ -234,7 +230,7 @@
 							</div>
 
 							<div class="row mb-6">
-								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="ProfRole">Role</label>
+								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="Role">Role</label>
 								<div class="col-lg-8 fv-row fv-plugins-icon-container">
 									<select asp-items="@ViewBag.RoleList" id="ProfRole" name="RoleId" class="form-control form-control-lg form-control-solid" required>
 										<option selected disabled value="">Choose the role....</option>
@@ -247,7 +243,6 @@
 								<button type="submit" class="btn btn-outline-primary" onclick="submitAccForm()">Save Changes</button>
 							</div>
 
-							<input type="hidden">
 						</div>
 					</form>
 					<!--end::Form-->
@@ -264,6 +259,18 @@
 @section Scripts {
 
 	<script>
+		function getid() {
+			if (profData && profData.id) {
+				document.getElementById('ProfId').value = profData.id;
+				document.getElementById('ProfUsername').value = profData.username;
+				document.getElementById('ProfPassword').value = profData.password;
+				document.getElementById('ProfEmail').value = profData.email;
+				document.getElementById('ProfStatus').value = profData.status;
+				document.getElementById('ProfRole').value = profData.roleId;
+			}
+		}
+	</script>
+	<script>
 		function submitAccForm() {
 			if (!$('#UpdateAccForm')[0].checkValidity()) {
 				$("#UpdateAccForm")[0].reportValidity();
@@ -279,7 +286,7 @@
 			}).then((result) => {
 				if (result.isConfirmed) {
 					$.ajax({
-						url: "@Url.Action("UpdateAccount", "Account")",
+						url: "@Url.Action("UpdateAcc", "Account")",
 						data: $('#UpdateAccForm').serialize(),
 						type: "POST",
 						success: function (result) {

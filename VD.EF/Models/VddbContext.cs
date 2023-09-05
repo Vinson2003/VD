@@ -30,7 +30,7 @@ public partial class VddbContext : DbContext
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		var a = ConfigurationManager.ConnectionStrings["Database"].ConnectionString;
+		var a = ConfigurationManager.ConnectionStrings["VD"].ConnectionString;
 		optionsBuilder.UseSqlServer(a);
 	}
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using VD.EF.Models;
@@ -11,29 +12,29 @@ namespace VD.Service.Service
 {
 	public class PermissionService : IPermissionService
 	{
-		public List<PermissionList> GetPermissionLists()
+		public List<PermissionList> PermissionLists()
 		{
-			using (var context = new VddbContext())
+			using var context = new VddbContext();
 			{
 				var entity = from d in context.MtPermissions
 							 orderby d.Seq, d.SubSeq
 							 select new PermissionList
 							 {
 								 Description = d.Description,
-								 Display = d.Display,
+								 SubSeq = d.SubSeq,
 								 Seq = d.Seq,
-								 SubSeq = d.SubSeq
+								 Display = d.Display,
 							 };
 				return entity.ToList();
 			}
 		}
 
-		public List<PermissionGetRole> GetRolePermission(long RoleId)
+		public List<PermissionGetRole> RolePermission(long RoleId)
 		{
-			using (var context = new VddbContext())
+			using var context = new VddbContext();
 			{
 				var entity = from d in context.PRolePermissions
-							 where (RoleId == 0 || d.RoleId == RoleId)
+							 where RoleId == 0 || d.RoleId == RoleId
 							 orderby d.Permission.Seq, d.Permission.SubSeq
 							 select new PermissionGetRole
 							 {
@@ -41,13 +42,13 @@ namespace VD.Service.Service
 								 Description = d.Permission.Description,
 								 Display = d.Permission.Display,
 								 Seq = d.Permission.Seq,
-								 SubSeq = d.Permission.SubSeq
+								 SubSeq = d.Permission.SubSeq,
 							 };
 				return entity.ToList();
 			}
 		}
 
-		public bool UpdatePermission(RequestPermissionUpdate req)
+		public bool UpdatePermission(ReqPermissionUpdate req)
 		{
 			bool response = true;
 			using (var context = new VddbContext())

@@ -45,7 +45,6 @@ namespace VD.Helper
 
 		public static string? GetRole(this ClaimsPrincipal principal)
 		{
-
 			string? role = "";
 			if (principal != null)
 			{

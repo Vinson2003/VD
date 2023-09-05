@@ -1,41 +1,38 @@
-﻿@{
+﻿@model List<VD.Models.PermissionListVM>
+@{
     ViewData["Title"] = "Permission";
 }
-@model List<VD.Models.PermissionListVM>
 
 <div id="kt_app_content" class="app-content flex-column-fluid">
-    <!--begin::Content container-->
-    <div id="kt_app_content_container" class="app-container container-fluid">
 
+    <div id="kt_app_content_container" class="app-container container-fluid">
 
         <div class="row gx-5 gx-xl-10">
             <div class="col-xl-12 mb-5 mb-xl-10">
 
-                <!--begin::Tables widget 16-->
                 <div class="card card-flush h-xl-100 ">
-                    <!--begin::Body-->
+
                     <div class="card-body pt-6">
 
                         <form asp-action="Permission" asp-controller="Admin">
                             <div asp-validation-summary="All" class="text-danger"></div>
 
                             <div class="form-group px-5">
-                                <label @*asp-for="Role"*@ class="col-sm-2 col-form-label text-right">Role</label>
+                                <label class="col-sm-2 col-form-label text-right">Role</label>
                                 <div class="d-flex justify-content-center">
-                                    <select asp-items="@ViewBag.RoleList" id="role-permission" class="form-select form-select-sm mb-5" onchange="reloadPermision()" name="RoleId">
-                                    </select>
+                                    <select asp-items="@ViewBag.RoleList" id="role-permission" class="form-select form-select-sm mb-5" onchange="reloadPermission()" name="RoleId"></select>
 
                                     <div class="form-group">
                                         <div class="">
-                                            <input type="submit" value=Update class="btn btn-sm btn-success ms-4" />
+                                            <input type="submit" value=Update class="btn btn-sm btn-outline-success ms-4" />
                                         </div>
                                     </div>
                                 </div>
-                                @*<span asp-validation-for="Role" class="col-form-label text-danger"></span>*@
+
                             </div>
 
                             <div class="form-group px-5">
-                                <label @*asp-for="Permission"*@ class="col-sm-2 col-form-label text-right">Permission</label>
+                                <label class="col-sm-2 col-form-label text-right">Permission</label>
                                 <div class="form-group row">
                                     @{
                                         int seq = 1;
@@ -57,33 +54,27 @@
                                         </div>
                                     }
                                 </div>
-                                @*<span asp-validation-for="Permission" class="col-form-label text-danger"></span>*@
+
                             </div>
 
                         </form>
 
-                        <div class="tab-content">
-                        </div>
+                        <div class="tab-content"></div>
 
                     </div>
-                    <!--end: Card Body-->
                 </div>
-
             </div>
         </div>
-
-
     </div>
-    <!--end::Content container-->
 </div>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            reloadPermision();
+            reloadPermission();
         });
 
-        function reloadPermision() {
+        function reloadPermission() {
             var chk_arr = document.getElementsByName("Permission");
             var chklength = chk_arr.length;
             for (k = 0; k < chklength; k++) {
@@ -96,7 +87,6 @@
                 url: '@Url.Action("PermissionList", "Admin")?roleid=' + role,
                 dataType: 'json',
                 success: function (data) {
-
                     $.each(data, function (i, parent) {
                         for (k = 0; k < chklength; k++) {
                             if (chk_arr[k].value == parent.description) {
@@ -106,6 +96,7 @@
                     });
                 }
             });
+
         }
     </script>
 }

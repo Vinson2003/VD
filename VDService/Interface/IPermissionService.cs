@@ -4,8 +4,9 @@ namespace VD.Service.Interface
 {
 	public interface IPermissionService
 	{
-		public List<PermissionList> GetPermissionLists();
-		public List<PermissionGetRole> GetRolePermission(long RoleId);
-		public bool UpdatePermission(RequestPermissionUpdate req);
-	}
+		public List<PermissionList> PermissionLists();
+		public List<PermissionGetRole> RolePermission(long RoleId);
+		public bool UpdatePermission(ReqPermissionUpdate req);
+
+    }
 }

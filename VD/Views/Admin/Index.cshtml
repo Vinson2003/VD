@@ -1,6 +1,6 @@
 ﻿@using VD.Helper;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Admin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -35,10 +35,19 @@
     </tfoot>
 </table>
 
+@if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "admin-add"))
+{
+    @await Html.PartialAsync("~/Views/Admin/Modal/AddModal.cshtml")
+}
+@if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "admin-update"))
+{
+    @await Html.PartialAsync("~/Views/Admin/Modal/EditModal.cshtml")
+}
+@if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "admin-changepassword"))
+{
+    @await Html.PartialAsync("~/Views/Admin/Modal/ChangePasswordModal.cshtml")
+}
 @await Html.PartialAsync("~/Views/Admin/Modal/UpdateAccModal.cshtml")
-@await Html.PartialAsync("~/Views/Admin/Modal/AddModal.cshtml")
-@await Html.PartialAsync("~/Views/Admin/Modal/EditModal.cshtml")
-@await Html.PartialAsync("~/Views/Admin/Modal/ChangePasswordModal.cshtml")
 
 @section Scripts {
     @await Html.PartialAsync("~/Views/Admin/JS/ModalAddJS.cshtml")

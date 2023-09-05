@@ -49,7 +49,7 @@ namespace VD.Controllers
 						{
 							new Claim("Id", $"{send.Result.Id}"),
 							new Claim("Username", send.Result.Username ?? ""),
-							new Claim(ClaimTypes.Role, "Administrator"),
+							new Claim("Role", send.Result.Role),
 						};
 
 						ClaimsIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -128,7 +128,7 @@ namespace VD.Controllers
 			return View();
 		}
 
-		public JsonResult UpdateAcc(UpdateAccVM model)
+		public IActionResult UpdateAcc(UpdateAccVM model)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -142,12 +142,8 @@ namespace VD.Controllers
 					Email = model.Email,
 					RoleId = model.RoleId,
 				});
-
-				if (Send.Sts == false) { return Json(Send.Message); }
-				return Json(true);
 			}
-
-			return Json(false);
+			return RedirectToAction("Profile", "Account");
 		}
 	}
 }

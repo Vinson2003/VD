@@ -113,46 +113,43 @@ namespace VD.Controllers
 			return Json(false);
 		}
 
-		public IActionResult Permission()
+		public IActionResult Permission() 
 		{
 			var roles = RoleService.GetRoleList();
-
 			List<SelectListItem> rolelist = new List<SelectListItem>();
 			foreach (var v in roles)
 			{
 				rolelist.Add(new SelectListItem() { Value = v.Id.ToString(), Text = v.Role });
 			}
 			ViewBag.RoleList = rolelist;
-			var PermissionList = PermissionService.GetPermissionLists();
+			var permissionlist = PermissionService.PermissionLists();
 
-			List<PermissionListVM> pList = new List<PermissionListVM>();
-			if (PermissionList != null)
+			List<PermissionListVM> plist = new List<PermissionListVM>();
+			if(permissionlist != null)
 			{
-				foreach (var p in PermissionList)
+				foreach (var p in permissionlist)
 				{
-					pList.Add(new PermissionListVM()
+					plist.Add(new PermissionListVM()
 					{
 						Seq = p.Seq,
+						Description = p.Description,
 						SubSeq = p.SubSeq,
 						Display = p.Display,
-						Description = p.Description
 					});
 				}
-
 			}
-			return View(pList);
+			return View(plist); 
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public IActionResult Permission([Bind("RoleId,Permission")] RequestPermissionUpdate model)
+        [ValidateAntiForgeryToken]
+        public IActionResult Permission([Bind("RoleId,Permission")] ReqPermissionUpdate model)
 		{
-			//User.GetUserId(), model.Role, model.Permission
-			var Send = PermissionService.UpdatePermission(new RequestPermissionUpdate()
+			var send = PermissionService.UpdatePermission(new ReqPermissionUpdate()
 			{
 				Username = User.GetUsername(),
 				RoleId = model.RoleId,
-				Permission = model.Permission
+				Permission = model.Permission,
 			});
 
 			return RedirectToAction("Permission", "Admin");
@@ -161,13 +158,8 @@ namespace VD.Controllers
 		[HttpGet]
 		public JsonResult PermissionList(long RoleId)
 		{
-			var List = PermissionService.GetRolePermission(RoleId);
-			return Json(List);
-		}
-
-		public IActionResult Forbidden()
-		{
-			return View();
+			var list = PermissionService.RolePermission(RoleId);
+			return Json(list);
 		}
 	}
 }

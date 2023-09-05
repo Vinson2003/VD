@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Index";
+﻿@using VD.Helper;
+@{
+    ViewData["Title"] = "Brand";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -24,8 +25,15 @@
     </thead>
 </table>
 
-@await Html.PartialAsync("~/Views/Brand/Modal/AddModal.cshtml")
-@await Html.PartialAsync("~/Views/Brand/Modal/EditModal.cshtml")
+@if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "brand-create"))
+{
+    @await Html.PartialAsync("~/Views/Brand/Modal/AddModal.cshtml")
+}
+@if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "brand-update"))
+{
+    @await Html.PartialAsync("~/Views/Brand/Modal/EditModal.cshtml")
+}
+
 @section Scripts {
     @await Html.PartialAsync("~/Views/Brand/JS/ModalAddJS.cshtml")
     @await Html.PartialAsync("~/Views/Brand/JS/ModalEditJS.cshtml")
@@ -47,7 +55,7 @@
                     "serverSide": true,
                     "dom": 'Bfrtip',
                     "ajax": {
-                        "url": "@Url.Action("Brand_Read", "Brand")",
+                        "url": "@Url.Action("Profile_Read", "Brand")",
                         "type": "POST",
                         'datatype': 'json',
                     },
@@ -72,7 +80,7 @@
                     ],
                 });
             } else {
-                BrandTab.ajax.url("@Url.Action("Brand_Read", "Brand")").load();
+                BrandTab.ajax.url("@Url.Action("Profile_Read", "Brand")").load();
             }
         }
     </script>

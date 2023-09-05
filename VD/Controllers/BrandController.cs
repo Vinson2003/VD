@@ -20,7 +20,7 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Brand_Read(DatatableVM obj)
+		public JsonResult Profile_Read(DatatableVM obj)
 		{
 			var col = obj.order.Select(row => row["column"]).FirstOrDefault();
 			var dir = obj.order.Select(row => row["dir"]).FirstOrDefault();
