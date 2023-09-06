@@ -37,7 +37,7 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Admin_Read(DatatableVM obj, string Username, string Password)
+		public JsonResult Admin_Read(DatatableVM obj, string qUsername)
 		{
 			var col = obj.order.Select(row => row["column"]).FirstOrDefault();
 			var dir = obj.order.Select(row => row["dir"]).FirstOrDefault();
@@ -50,7 +50,7 @@ namespace VD.Controllers
 				Col = colname,
 				Start = obj.start,
 				Length = obj.length,
-			}, Username, Password);
+			}, qUsername);
 
 			return Json(new { draw = obj.draw, recordsFiltered = get.Total, recordsTotal = get.Total, data = get.Result });
 		}

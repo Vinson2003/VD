@@ -1,0 +1,57 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#BrandDeleteModal').on('shown.bs.modal', function () {
+
+        });
+        $('#BrandDeleteModal').on('hidden.bs.modal', function () {
+        });
+    });
+</script>
+
+<script>
+    function deletebrand(i) {
+        if (i >= 0) {
+            var data = BrandTab.row(i).data();
+            if (data) {
+                $('#AdminEditId').val(data.id);
+                $('#UsernameEdit').val(data.username);
+                $('#EmailEdit').val(data.email);
+                $('#AdminEditForm #StatusEdit').val(data.status);
+                $('#AdminEditForm #RoleEdit').val(data.roleId);
+
+                $('#BrandDeleteModal').modal('show');
+            }
+        }
+    }
+</script>
+
+<script>
+    function submitBrandDelete {
+        var del = BrandTab.rows(row).data();
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("Delete", "Brand")",
+                    type: "POST",
+                    success: function (result) {
+                        if (result == true || result && result > 0) {
+                            $('#BrandDeleteModal').modal('hide');
+                            Swal.fire(msg, '', 'success');
+                            reloadTable();
+                        }
+                        else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                        else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                        else { Swal.fire('', '', 'error'); }
+                    },
+                });
+            }
+        });
+    }
+</script>

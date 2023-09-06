@@ -221,7 +221,7 @@
 							<div class="row mb-6">
 								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="Status">Status</label>
 								<div class="col-lg-8 fv-row fv-plugins-icon-container">
-									<select class="form-control form-control-lg form-control-solid" id="ProfStatus" name="Status" data-kt-placeholder="Select a status..." required>
+									<select class="form-control form-control-lg form-control-solid" id="ProfStatus" name="Status" required>
 										<option selected disabled value="">Choose the status....</option>
 										<option value="ENABLED">ENABLED</option>
 										<option value="DISABLED">DISABLED</option>
@@ -233,7 +233,7 @@
 								<label class="col-lg-4 col-form-label fw-semibold fs-6" for="Role">Role</label>
 								<div class="col-lg-8 fv-row fv-plugins-icon-container">
 									<select asp-items="@ViewBag.RoleList" id="ProfRole" name="RoleId" class="form-control form-control-lg form-control-solid" required>
-										<option selected disabled value="">Choose the role....</option>
+										<option selected disabled value="">Choose the role...</option>
 									</select>
 								</div>
 							</div>
@@ -259,16 +259,36 @@
 @section Scripts {
 
 	<script>
-		function getid() {
-			if (profData && profData.id) {
-				document.getElementById('ProfId').value = profData.id;
-				document.getElementById('ProfUsername').value = profData.username;
-				document.getElementById('ProfPassword').value = profData.password;
-				document.getElementById('ProfEmail').value = profData.email;
-				document.getElementById('ProfStatus').value = profData.status;
-				document.getElementById('ProfRole').value = profData.roleId;
-			}
+		//function getid(i) {
+			//if(i >= 0){
+			//	var data = AdminTab.row(i).data();
+			//	if (data) {
+			//		$('#UpdateAccForm #ProfId').val(data.id);
+			//		$('#UpdateAccForm #ProfUsername').val(data.username);
+			//		$('#UpdateAccForm #ProfEmail').val(data.email);
+			//		$('#UpdateAccForm #ProfStatus').val(data.status);
+			//		$('#UpdateAccForm #ProfRole').val(data.roleId);
+			//	}
+			//}
+			//if (profData && profData.id) {
+			//	document.getElementById('ProfId').value = profData.id;
+			//	document.getElementById('ProfUsername').value = profData.username;
+			//	document.getElementById('ProfPassword').value = profData.password;
+			//	document.getElementById('ProfEmail').value = profData.email;
+			//	document.getElementById('ProfStatus').value = profData.status;
+			//	document.getElementById('ProfRole').value = profData.roleId;
+			//}
+		//}
+
+		function fillAccountSettingsForm(data) {
+			$('#ProfId').val(data.id);
+			$('#ProfUsername').val(data.username); 
+			$('#ProfPassword').val(data.password); 
+			$('#ProfEmail').val(data.email); 
+			$('#ProfStatus').val(data.status); 
+			$('#ProfRole').val(data.roleId); 
 		}
+
 	</script>
 	<script>
 		function submitAccForm() {

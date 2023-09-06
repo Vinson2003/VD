@@ -4,36 +4,57 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Button Create -->
-<div class="top-panel">
-    <button type="button" class="btn btn-primary float-right mb-3" data-bs-toggle="modal" data-bs-target="#AdminAddModal">Create</button>
+<div class="card mb-5 mb-xl-8">
+	<!--begin::Header-->
+	<div class="card-header border-0 pt-5">
+		<h3 class="card-title align-items-start flex-column">
+			<span class="card-label fw-bold fs-3 mb-1">Datatables</span>
+			<span class="text-muted mt-1 fw-semibold fs-7">For Admin</span>
+		</h3>
+		<div class="card-toolbar">
+			<button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#AdminAddModal">
+				<i class="ki-duotone ki-plus fs-2"></i>Add
+			</button>
+		</div>
+	</div>
+	<!--end::Header-->
+	<!--begin::Body-->
+	<div class="card-body py-3">
+		<!--begin::Table container-->
+		<div class="table-responsive">
+			<!--begin::Table-->
+            <table id="AdminList" class="table align-middle gs-0 gy-4">
+				<!--begin::Table head-->
+				<thead>
+					<tr class="fw-bold text-muted bg-light">
+						<th class="ps-4 min-w-125px rounded-start">Username</th>
+						<th class="min-w-125px">Email</th>
+						<th class="min-w-125px">Status</th>
+                        <th class="min-w-125px">Role</th>
+                        <th class="min-w-125px">Edit</th>
+                        <th class="min-w-125px">Change Password</th>
+						<th class="min-w-125px">Update Account</th>
+					</tr>
+				</thead>
+                <tfoot>
+                    <tr class="fw-bold text-muted bg-light">
+                        <th class="ps-4 min-w-325px rounded-start">Username</th>
+                        <th class="min-w-125px">Email</th>
+                        <th class="min-w-125px">Status</th>
+                        <th class="min-w-200px">Role</th>
+                        <th class="min-w-150px">Edit</th>
+                        <th class="min-w-150px">Change Password</th>
+                        <th class="min-w-150px">Update Account</th>
+                    </tr>
+                </tfoot>
+				<!--end::Table head-->
+			</table>
+			<!--end::Table-->
+		</div>
+		<!--end::Table container-->
+	</div>
+	<!--begin::Body-->
 </div>
-
-<!-- Data Table List -->
-<table id="AdminList" class="display" style="width:100%">
-    <thead class="table-success">
-        <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Role</th>
-            <th>Edit</th>
-            <th>Change Password</th>
-            <th>Update Account</th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Role</th>
-            <th>Edit</th>
-            <th>Change Password</th>
-            <th>Update Account</th>
-        </tr>
-    </tfoot>
-</table>
 
 @if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "admin-add"))
 {
@@ -47,7 +68,10 @@
 {
     @await Html.PartialAsync("~/Views/Admin/Modal/ChangePasswordModal.cshtml")
 }
-@await Html.PartialAsync("~/Views/Admin/Modal/UpdateAccModal.cshtml")
+@if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "admin-setpassword"))
+{
+    @await Html.PartialAsync("~/Views/Admin/Modal/UpdateAccModal.cshtml")
+}
 
 @section Scripts {
     @await Html.PartialAsync("~/Views/Admin/JS/ModalAddJS.cshtml")
@@ -109,25 +133,6 @@
     </script>
 
     <script>
-        new DataTable('#AdminList', {
-            initComplete: function () {
-                this.api().columns().every(function () {
-                    let column = this;
-                    let title = column.header().textContent;
-
-                    // Create input element
-                    let input = document.createElement('input');
-                    input.placeholder = title;
-                    column.header().replaceChildren(input);
-
-                    // Event listener for user input
-                    input.addEventListener('keyup', () => {
-                        if (column.search() !== this.value) {
-                            column.search(input.value).draw();
-                        }
-                    });
-                });
-            }
-        });
+        
     </script>
 }

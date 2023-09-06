@@ -37,7 +37,7 @@ namespace VD.Controllers
             var intcol = Convert.ToInt16(col);
             var colname = obj.columns[intcol].data;
 
-            var get = BrandService.GetList(new Paging()
+            var get = TransactionService.GetList(new Paging()
             {
                 Dir = dir,
                 Col = colname,

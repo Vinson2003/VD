@@ -9,6 +9,7 @@ using VD.Service.Result;
 using VD.Service.Service;
 using VD.Helper;
 using VD.Service;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace VD.Controllers
 {
@@ -125,6 +126,13 @@ namespace VD.Controllers
 
 		public IActionResult Profile()
 		{
+			var roles = RoleService.GetRoleList();
+			List<SelectListItem> rolelist = new List<SelectListItem>();
+			foreach (var v in roles)
+			{
+				rolelist.Add(new SelectListItem() { Value = v.Id.ToString(), Text = v.Role });
+			}
+			ViewBag.RoleList = rolelist;
 			return View();
 		}
 

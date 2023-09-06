@@ -14,23 +14,23 @@
                     <input type="hidden" class="form-control" id="AccountId" name="id" required>
 
                     <div class="form-row">
-                        <div class="form-group col-md-12 mb-3">
-                            <label for="Username">Username</label>
+                        <div class="form-group col-12 col-md-12 mb-3">
+                            <label for="Username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="UsernameAcc" name="Username" required>
                         </div>
-                        <div class="form-group col-md-12 mb-3">
-                            <label for="Password">Password</label>
+                        <div class="form-group col-12 col-md-12 mb-3">
+                            <label for="Password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="PasswordAcc" name="Password" autocomplete="new-password" minlength="8" required>
                         </div>
-                        <div class="form-group col-md-12 mb-3">
-                            <label for="Password">Confirm Password</label>
+                        <div class="form-group col-12 col-md-12 mb-3">
+                            <label for="Password" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="ConfirmPasswordAcc" name="ConfirmPassword" autocomplete="new-password" minlength="8" required>
                         </div>
-                        <div class="form-group col-md-12 mb-3">
-                            <label for="Email">Email</label>
+                        <div class="form-group col-12 col-md-12 mb-3">
+                            <label for="Email" class="form-label">Email</label>
                             <input type="Email" class="form-control" id="EmailAcc" name="Email" required>
                         </div>
-                        <div class="form-group col-md-12 mb-2">
+                        <div class="form-group col-12 col-md-12 mb-2">
                             <label for="Status" class="form-label">Status</label>
                             <select class="form-control" id="StatusAcc" name="Status" required>
                                 <option selected value="">Choose...</option>
@@ -38,7 +38,7 @@
                                 <option value="DISABLED">DISABLED</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-12 mb-2">
+                        <div class="form-group col-12 col-md-12 mb-2">
                             <label for="Role" class="form-label">Role</label>
                             <select asp-items="@ViewBag.RoleList" id="RoleAcc" name="RoleId" class="form-control" required>
                                 <option selected value="">Choose...</option>

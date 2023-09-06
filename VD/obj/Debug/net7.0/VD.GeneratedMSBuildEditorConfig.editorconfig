@@ -88,12 +88,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcSlNcTW9kYWxBZGRKUy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/VD/VD/Views/Brand/JS/ModalDeleteJS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcSlNcTW9kYWxEZWxldGVKUy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/VD/VD/Views/Brand/JS/ModalEditJS.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcSlNcTW9kYWxFZGl0SlMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/VD/VD/Views/Brand/Modal/AddModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcTW9kYWxcQWRkTW9kYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/VD/VD/Views/Brand/Modal/DeleteModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcTW9kYWxcRGVsZXRlTW9kYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/VD/VD/Views/Brand/Modal/EditModal.cshtml]

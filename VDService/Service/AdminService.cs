@@ -1,4 +1,5 @@
-﻿using VD.EF.Models;
+﻿using Microsoft.IdentityModel.Tokens;
+using VD.EF.Models;
 using VD.LIB;
 using VD.Service.Interface;
 using VD.Service.Result;
@@ -7,16 +8,14 @@ namespace VD.Service.Service
 {
     public class AdminService : IAdminService
     {
-		public HasilPaging<List<AdminData>> GetList(Paging paging, string Username, string Password)
+		public HasilPaging<List<AdminData>> GetList(Paging paging, string qUsername)
 		{
 			var list = new HasilPaging<List<AdminData>>();
 			using (var context = new VddbContext())
 			{
 				var getlist = (from t in context.MtAdmins
-							   where t.Username != null
-							   && (string.IsNullOrEmpty(Username) || t.Username != null && t.Username.Contains(Username))
-							   && (string.IsNullOrEmpty(Password) || t.Password != null && t.Password.Contains(Password))
-							   select new AdminData()
+                               where string.IsNullOrEmpty(qUsername) || t.Username.ToLower().Contains(qUsername.ToLower())
+                               select new AdminData()
 							   {
 								   Id = t.Id,
 								   Username = t.Username,
@@ -32,16 +31,6 @@ namespace VD.Service.Service
 								   Role = t.Role.Role,
 							   });
 
-				if (!string.IsNullOrEmpty(Username))
-				{
-					getlist = getlist.Where(x => x.Username != null && x.Username.Contains(Username));
-				}
-				if (!string.IsNullOrEmpty(Password))
-				{
-					getlist = getlist.Where(x => x.Password != null && x.Password.Contains(Password));
-				}
-
-				
 				if (paging.Col.ToLower() == "username")
 				{
 					if (paging.Dir == "asc")
