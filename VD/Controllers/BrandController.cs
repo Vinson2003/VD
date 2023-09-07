@@ -51,9 +51,9 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Edit(BrandEditVM Model)
+		public JsonResult Update(BrandEditVM Model)
 		{
-			var send = BrandService.Edit(new BrandEdit()
+			var send = BrandService.Update(new BrandEdit()
 			{
 				Id = Model.Id,
 				Name = Model.Name,
@@ -63,19 +63,27 @@ namespace VD.Controllers
 			return Json(true);
 		}
 
-		[HttpPost]
-		public JsonResult Delete(BrandDeleteVM Model)
-		{
-			var send = BrandService.Delete(new BrandDelete()
-			{
-				Id = Model.Id,
-				RequestBy= User.GetUsername(),
-			});
-			if (send.Sts == false) { return Json(send.Message); }
-			return Json(true);
-		}
+        [HttpPost]
+        public JsonResult Delete(int id, string RequestBy)
+        {
+            var z = new BrandDeleteVM();
+            var get = BrandService.Delete(id,RequestBy);
+            return Json(z);
+        }
 
-		public IActionResult Forbidden()
+        //[HttpPost]
+        //public JsonResult Delete(BrandDeleteVM Model)
+        //{
+        //	var send = BrandService.Delete(new BrandDelete()
+        //	{
+        //		Id = Model.Id,
+        //		RequestBy= User.GetUsername(),
+        //	});
+        //	if (send.Sts == false) { return Json(send.Message); }
+        //	return Json(true);
+        //}
+
+        public IActionResult Forbidden()
 		{
 			return View();
 		}

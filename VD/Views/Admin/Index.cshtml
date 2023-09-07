@@ -31,7 +31,7 @@
 						<th class="min-w-125px">Email</th>
 						<th class="min-w-125px">Status</th>
                         <th class="min-w-125px">Role</th>
-                        <th class="min-w-125px">Edit</th>
+                        <th class="min-w-125px">Update</th>
                         <th class="min-w-125px">Change Password</th>
 						<th class="min-w-125px">Update Account</th>
 					</tr>
@@ -42,7 +42,7 @@
                         <th class="min-w-125px">Email</th>
                         <th class="min-w-125px">Status</th>
                         <th class="min-w-200px">Role</th>
-                        <th class="min-w-150px">Edit</th>
+                        <th class="min-w-150px">Update</th>
                         <th class="min-w-150px">Change Password</th>
                         <th class="min-w-150px">Update Account</th>
                     </tr>
@@ -109,19 +109,19 @@
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {
-                                return "<div><a type='button' class='btn btn-warning btn-sm' onclick='editdata(" + m.row + ")'>Edit</a></div>";
+                                return "<div><a type='button' class='btn btn-warning btn-sm' onclick='editdata(" + m.row + ")'><i class='fas fa-pen-fancy'></i></a></div>";
                             }
                         },
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {
-                                return "<div><a type='button' class='btn btn-info btn-sm' onclick='changepassword(" + m.row + ")'>Change Password</a></div>";
+                                return "<div><a type='button' class='btn btn-info btn-sm' onclick='changepassword(" + m.row + ")'><i class='fa-solid fa-lock'></i></a></div>";
                             }
                         },
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {
-                                return "<div><a type='button' class='btn btn-success btn-sm' onclick='updateaccount(" + m.row + ")'>Update Account</a></div>";
+                                return "<div><a type='button' class='btn btn-success btn-sm' onclick='updateaccount(" + m.row + ")'><i class='fa-solid fa-user'></i></a></div>";
                             }
                         },
                     ],

@@ -49,10 +49,10 @@ namespace VD.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(TransactionAddVM Model)
+        public JsonResult Create(TransactionAddVM Model)
         {
             //TimeSpan timeOnly = DateTime.Now.TimeOfDay; -->> Noted;
-            var send = TransactionService.Add(new TransactionAdd()
+            var send = TransactionService.Create(new TransactionAdd()
             {
                 //Date = Model.Date.Add(DateTime.Now.TimeOfDay),
                 //Date = inCome.Date + timeOfDay,
@@ -65,9 +65,9 @@ namespace VD.Controllers
         }
 
         [HttpPost]
-        public JsonResult Edit(TransactionEditVM Model)
+        public JsonResult Update(TransactionEditVM Model)
         {
-            var send = TransactionService.Edit(new TransactionEdit()
+            var send = TransactionService.Update(new TransactionEdit()
             {
                 Id = Model.Id,
                 RequestBy = User.GetUsername(),

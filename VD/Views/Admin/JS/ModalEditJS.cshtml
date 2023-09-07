@@ -40,7 +40,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "@Url.Action("Edit", "Admin")",
+                    url: "@Url.Action("Update", "Admin")",
                     data: $('#AdminEditForm').serialize(),
                     type: "POST",
                     success: function (result) {

@@ -7,8 +7,8 @@ namespace VD.Service.Interface
     {
 		public HasilPaging<List<AdminData>> GetList(Paging paging, string qUsername);
 		public Response<bool> Add(AdminAdd model);
-		public Response<bool> Edit(AdminEdit model);
-		public Response<bool> ChangePassword(AdminSetPassword model, string OldPassword);
-		public Response<bool> SetPassword(AdminSetPassword model);
-	}
+		public Response<bool> Update(AdminUpdate model);
+        public Response<bool> ChangePassword(ChangePassword req);
+        //public Response<bool> SetPassword(AdminChangePassword model);
+    }
 }

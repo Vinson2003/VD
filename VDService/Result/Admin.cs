@@ -10,11 +10,11 @@ namespace VD.Service.Result
 		public DateTime? Created { get; set; }
 		public string? Updatedby { get; set; }
 		public DateTime? Updated { get; set; }
-		public string? Username { get; set; } = null!;
+		public string? Username { get; set; }
 		public string? Email { get; set; }
 		public string? Password { get; set; }
 		public string? Passwordsalt { get; set; }
-		public string? Status { get; set; } = null!;
+		public string? Status { get; set; }
 		public long RoleId { get; set; }
 		public string? Role { get; set; }
 	}
@@ -67,7 +67,7 @@ namespace VD.Service.Result
 		public string? RequestBy { get; set; }
 	}
 
-	public class AdminEdit
+	public class AdminUpdate
 	{
 		[Required]
 		public long Id { get; set; }
@@ -80,14 +80,15 @@ namespace VD.Service.Result
 		public string? RequestBy { get; set; }
 	}
 
-	public class AdminSetPassword
+	public class ChangePassword
 	{
-		[Required]
-		public long Id { get; set; }
-		[Required]
-		public string? Password { get; set; }
-		[Required]
-		public string? ConfirmPassword { get; set; }
-		public string? RequestBy { get; set; }
-	}
+        [Required]
+        public long Id { get; set; }
+        [Required]
+        public string? Password { get; set; }
+        [Required]
+        public string? ConfirmPassword { get; set; }
+        public string? RequestBy { get; set; }
+    }
+
 }

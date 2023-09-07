@@ -1,57 +1,46 @@
 ﻿<script>
-    $(document).ready(function () {
-        $('#BrandDeleteModal').on('shown.bs.modal', function () {
+    function Confirmation(message) {
+        return new Promise(function (resolve) {
 
+            $("#DeleteBrandModal .modal-body").html(message);
+            $('#DeleteBrandModal').modal('show');
+
+            $('#DeleteBrandModal .GMCCOK').click(function () {
+                resolve(true);
+                setTimeout(function () { $('#DeleteBrandModal').modal('hide'); }, 50)
+            });
+            $('#DeleteBrandModal .GMCCRJCT').click(function () {
+                resolve(false);
+                $('#DeleteBrandModal').modal('hide');
+            });
+
+            $('#DeleteBrandModal').on('hidden.bs.modal', function () {
+                resolve(false);
+            });
         });
-        $('#BrandDeleteModal').on('hidden.bs.modal', function () {
-        });
-    });
-</script>
-
-<script>
-    function deletebrand(i) {
-        if (i >= 0) {
-            var data = BrandTab.row(i).data();
-            if (data) {
-                $('#AdminEditId').val(data.id);
-                $('#UsernameEdit').val(data.username);
-                $('#EmailEdit').val(data.email);
-                $('#AdminEditForm #StatusEdit').val(data.status);
-                $('#AdminEditForm #RoleEdit').val(data.roleId);
-
-                $('#BrandDeleteModal').modal('show');
-            }
-        }
     }
-</script>
+    async function deletebrand(row) {
+        var get = BrandTab.rows(row).data();
+        console.log(get);
 
-<script>
-    function submitBrandDelete {
-        var del = BrandTab.rows(row).data();
+        if (get) {
 
-        Swal.fire({
-            title: 'Are you sure?',
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText: 'No',
-            confirmButtonText: 'Yes'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "@Url.Action("Delete", "Brand")",
-                    type: "POST",
-                    success: function (result) {
-                        if (result == true || result && result > 0) {
-                            $('#BrandDeleteModal').modal('hide');
-                            Swal.fire(msg, '', 'success');
-                            reloadTable();
-                        }
-                        else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
-                        else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
-                        else { Swal.fire('', '', 'error'); }
-                    },
-                });
+            let g = get[0];
+            $('#BrandName').val(g.name);
+
+
+            let conf = await Confirmation("Are you sure to delete this brand?");
+            console.log("OK " + conf);
+
+            if (conf == true) {
+                let abc = g.username;
+                let Uid = g.id;
+                let url = "@Url.Action("Delete", "Brand")";
+                $.post(url, { id: Uid }, function () {
+                    BrandTab.ajax.reload();
+                })
             }
-        });
+
+        }
     }
 </script>

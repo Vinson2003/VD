@@ -49,7 +49,7 @@
 {
     @await Html.PartialAsync("~/Views/Brand/Modal/AddModal.cshtml")
 }
-@if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "brand-update"))
+@if(CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "brand-update"))
 {
     @await Html.PartialAsync("~/Views/Brand/Modal/EditModal.cshtml")
 }
@@ -61,6 +61,7 @@
 @section Scripts {
     @await Html.PartialAsync("~/Views/Brand/JS/ModalAddJS.cshtml")
     @await Html.PartialAsync("~/Views/Brand/JS/ModalEditJS.cshtml")
+    @await Html.PartialAsync("~/Views/Brand/JS/ModalDeleteJS.cshtml")
     <script>
         var BrandTab
         $(document).ready(function () {
@@ -92,13 +93,13 @@
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {
-                                return "<div><a type='button' class='btn btn-warning btn-sm' onclick='editbrand(" + m.row + ")'>Edit</a></div>";
+                                return "<div><a type='button' class='btn btn-warning btn-sm' onclick='editbrand(" + m.row + ")'><i class='fas fa-pen-fancy'></i></a></div>";
                             }
                         },
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {
-                                return "<div><a type='button' class='btn btn-danger btn-sm' onclick='deletebrand(" + m.row + ")'>Delete</a></div>";
+                                return "<div><a type='button' class='btn btn-danger btn-sm' onclick='deletebrand(" + m.row + ")'><i class='fa-solid fa-trash'></i></a></div>";
                             }
                         },
                     ],

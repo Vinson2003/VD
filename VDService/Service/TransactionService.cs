@@ -44,7 +44,7 @@ namespace VD.Service.Service
             return list;
         }
 
-        public Response<bool>Add(TransactionAdd req)
+        public Response<bool>Create(TransactionAdd req)
         {
             var Response = new Response<bool>();
             using var context = new VddbContext();
@@ -74,7 +74,7 @@ namespace VD.Service.Service
             return Response;
         }
 
-        public Response<bool>Edit(TransactionEdit req)
+        public Response<bool>Update(TransactionEdit req)
         {
             var Response = new Response<bool>();
             using var context = new VddbContext();

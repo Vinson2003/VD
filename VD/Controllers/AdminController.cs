@@ -80,9 +80,9 @@ namespace VD.Controllers
         }
 
 		[HttpPost]
-		public JsonResult Edit(AdminEditVM Model)
+		public JsonResult Update(AdminUpdateVM Model)
 		{
-			var Send = AdminService.Edit(new AdminEdit()
+			var Send = AdminService.Update(new AdminUpdate()
 			{
 				Id = Model.Id,
 				Email = Model.Email,
@@ -94,26 +94,25 @@ namespace VD.Controllers
 			return Json(true);
 		}
 
-		[HttpPost]
-		public JsonResult SetPassword(AdminSetPasswordVM Model)
-		{
-			if (ModelState.IsValid)
-			{
-				var Send = AdminService.SetPassword(new AdminSetPassword()
-				{
-					Id = Model.Id,
-					Password = Model.Password,
-					ConfirmPassword = Model.ConfirmPassword,
-					RequestBy = User.GetUsername(),
-				});
+        [HttpPost]
+        public JsonResult ChangePassword(ChangePasswordVM Model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Send = AdminService.ChangePassword(new ChangePassword()
+                {
+                    Id = Model.Id,
+                    Password = Model.Password,
+                    ConfirmPassword = Model.ConfirmPassword,
+                    RequestBy = User.GetUsername(),
+                });
+                if (Send.Sts == false) { return Json(Send.Message); }
+                return Json(true);
+            }
+            return Json(false);
+        }
 
-				if (Send.Sts == false) { return Json(Send.Message); }
-				return Json(true);
-			}
-			return Json(false);
-		}
-
-		public IActionResult Permission() 
+        public IActionResult Permission() 
 		{
 			var roles = RoleService.GetRoleList();
 			List<SelectListItem> rolelist = new List<SelectListItem>();

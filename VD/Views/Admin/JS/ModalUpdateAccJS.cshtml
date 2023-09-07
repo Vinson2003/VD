@@ -50,7 +50,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "@Url.Action("UpdateAccount", "AccountProfile")",
+                    url: "@Url.Action("SetPassword", "Admin")",
                     data: $('#UpdateAccForm').serialize(),
                     type: "POST",
                     success: function (result) {

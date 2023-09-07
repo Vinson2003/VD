@@ -37,7 +37,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "@Url.Action("Edit", "Brand")",
+                    url: "@Url.Action("Update", "Brand")",
                     data: $('#BrandEditForm').serialize(),
                     type: "POST",
                     success: function (result) {

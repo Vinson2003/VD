@@ -55,7 +55,7 @@ namespace VD.Models
 		public string? RequestBy { get; set; }
 	}
 
-	public class AdminEditVM
+	public class AdminUpdateVM
 	{
 		[Required]
 		public long Id { get; set; }
@@ -68,16 +68,16 @@ namespace VD.Models
 		public string? RequestBy { get; set; }
 	}
 
-	public class AdminSetPasswordVM
-	{
-		[Required]
-		public long Id { get; set; }
-		[Required]
-		public string? Password { get; set; }
-		[Required]
-		public string? ConfirmPassword { get; set; }
-		public string? RequestBy { get; set; }
-	}
+    public class ChangePasswordVM
+    {
+        [Required]
+        public long Id { get; set; }
+        [Required]
+        public string? Password { get; set; }
+        [Required]
+        public string? ConfirmPassword { get; set; }
+        public string? RequestBy { get; set; }
+    }
 
 	public class PermissionListVM
 	{

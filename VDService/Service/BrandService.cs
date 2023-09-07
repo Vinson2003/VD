@@ -88,7 +88,7 @@ namespace VD.Service.Service
 			return Response;
 		}
 
-		public Response<bool> Edit(BrandEdit model)
+		public Response<bool> Update(BrandEdit model)
 		{
 			var Response = new Response<bool>();
 			Response.Result = false;
@@ -115,31 +115,59 @@ namespace VD.Service.Service
 			return Response;
 		}
 
-		public Response<bool> Delete(BrandDelete Model)
-		{
-			var Response = new Response<bool>();
-			Response.Result = false;
+        public Response<bool> Delete(int id, string RequestBy)
+        {
+            var Response = new Response<bool>();
+            Response.Result = false;
 
-			using var context = new VddbContext();
-			{
-				var entity = (from w in context.MtBrands
-							  where w.Id == Model.Id
-							  select w).FirstOrDefault();
-				if (entity == null)
-				{
-					Response.Message = "InvalidData";
-					return Response;
-				}
+            using (var context = new VddbContext())
+            {
+                var entity = (from d in context.MtBrands
+                               where d.Id == id
+                               select d).FirstOrDefault();
 
+                if (entity == null)
+                {
+                    Response.Message = "InvalidData";
+                    return Response;
+                }
+				
 				entity.FlgDeleted = true;
 				entity.Updated = DateTime.UtcNow;
-				entity.UpdatedBy = Model.RequestBy;
+				entity.UpdatedBy = RequestBy;
 
 				context.SaveChanges();
 				Response.Result = true;
 				Response.Sts = true;
-			}
-			return Response;
-		}
-	}
+            }
+            return Response;
+        }
+
+        //public Response<bool> Delete(BrandDelete Model)
+        //{
+        //	var Response = new Response<bool>();
+        //	Response.Result = false;
+
+        //	using var context = new VddbContext();
+        //	{
+        //		var entity = (from w in context.MtBrands
+        //					  where w.Id == Model.Id
+        //					  select w).FirstOrDefault();
+        //		if (entity == null)
+        //		{
+        //			Response.Message = "InvalidData";
+        //			return Response;
+        //		}
+
+        //		entity.FlgDeleted = true;
+        //		entity.Updated = DateTime.UtcNow;
+        //		entity.UpdatedBy = Model.RequestBy;
+
+        //		context.SaveChanges();
+        //		Response.Result = true;
+        //		Response.Sts = true;
+        //	}
+        //	return Response;
+        //}
+    }
 }

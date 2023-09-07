@@ -10,8 +10,8 @@ namespace VD.Service.Interface
 	public interface ITransactionService
 	{
         public HasilPaging<List<TransactionData>> GetList(Paging paging);
-        public Response<bool> Add(TransactionAdd req);
-        public Response<bool> Edit(TransactionEdit req);
+        public Response<bool> Create(TransactionAdd req);
+        public Response<bool> Update(TransactionEdit req);
         public Response<bool> Delete(TransactionDelete req);
     }
 }

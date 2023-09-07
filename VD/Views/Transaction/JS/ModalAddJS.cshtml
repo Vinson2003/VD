@@ -1,16 +1,9 @@
 ﻿<script>
     $(document).ready(function () {
         $('#TrancAddModal').on('shown.bs.modal', function () {
-            $('#DateTimeRange').daterangepicker({
-                singleDatePicker: true,
-                startDate: moment(),
-                endDate: moment(),
-                timePickerIncrement: 15,
-                timePicker24Hour: true,
-                locale: {
-                    format: 'YYYY-MM-DD HH:mm'
-                }
-            });
+            $('#DateTimeRange').daterangepicker(dateOption("#EmployeeAddModal"));
+            $('#DateTimeRange').on('cancel.daterangepicker', function (ev, picker) { $(this).val(''); });
+            $('#DateTimeRange').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
         });
 
         $('#TrancAddModal').on('hidden.bs.modal', function () {
@@ -36,7 +29,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "@Url.Action("Add", "Transaction")",
+                    url: "@Url.Action("Create", "Transaction")",
                     data: $('#TrancAddForm').serialize(),
                     type: "POST",
                     success: function (result) {

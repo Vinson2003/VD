@@ -1,5 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using VD.EF.Models;
+﻿using VD.EF.Models;
 using VD.LIB;
 using VD.Service.Interface;
 using VD.Service.Result;
@@ -147,7 +146,7 @@ namespace VD.Service.Service
 			return Response;
 		}
 
-		public Response<bool> Edit(AdminEdit model)
+		public Response<bool> Update(AdminUpdate model)
 		{
 			var Response = new Response<bool>();
 			Response.Result = false;
@@ -181,68 +180,30 @@ namespace VD.Service.Service
 			return Response;
 		}
 
-		public Response<bool> ChangePassword(AdminSetPassword model, string OldPassword)
-		{
-			var Response = new Response<bool>();
-			Response.Result = false;
-			using var context = new VddbContext();
-			{
-				var entity = (from w in context.MtAdmins
-							  where w.Id == model.Id
-							  select w).FirstOrDefault();
+        public Response<bool> ChangePassword(ChangePassword req)
+        {
+            var Response = new Response<bool>();
+            Response.Result = false;
+            using (var context = new VddbContext())
+            {
+                var entity = (from d in context.MtAdmins
+                              where d.Id == req.Id
+                              select d).FirstOrDefault();
+                if (entity == null)
+                {
+                    Response.Message = "InvalidUser";
+                    return Response;
+                }
 
-				if (entity == null)
-				{
-					Response.Message = "InvalidUser";
-					return Response;
-				}
+                string Key = Security.RandomString(60);
+                entity.PasswordSalt = Key;
+                entity.Password = Security.CheckHMAC(Key, req.Password);
 
-				var ValidPassword = Security.CheckHMAC(entity.PasswordSalt, OldPassword) == entity.Password;
-				if (!ValidPassword)
-				{
-					Response.Message = "InvalidPassword";
-					return Response;
-				}
-
-				string Key = Security.RandomString(60);
-				entity.PasswordSalt = Key;
-				entity.Password = Security.CheckHMAC(Key, model.Password);
-				entity.Updated = DateTime.UtcNow;
-				entity.UpdatedBy = model.RequestBy;
-
-				context.SaveChanges();
-
-				Response.Sts = true;
-				Response.Result = true;
-			}
-			return Response;
-		}
-
-		public Response<bool> SetPassword(AdminSetPassword model)
-		{
-			var Response = new Response<bool>();
-			Response.Result = false;
-			using (var context = new VddbContext())
-			{
-				var entity = (from d in context.MtAdmins
-							  where d.Id == model.Id
-							  select d).FirstOrDefault();
-
-				if (entity == null)
-				{
-					Response.Message = "InvalidUser";
-					return Response;
-				}
-
-				string Key = Security.RandomString(60);
-				entity.PasswordSalt = Key;
-				entity.Password = Security.CheckHMAC(Key, model.Password);
-
-				context.SaveChanges();
-				Response.Sts = true;
-				Response.Result = true;
-			}
-			return Response;
-		}
-	}
+                context.SaveChanges();
+                Response.Sts = true;
+                Response.Result = true;
+            }
+            return Response;
+        }
+    }
 }
