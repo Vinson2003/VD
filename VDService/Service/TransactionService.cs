@@ -27,7 +27,7 @@ namespace VD.Service.Service
                                   Createdby = t.CreatedBy,
                               };
 
-                if (paging.Col.ToLower() == "Name")
+                if (paging.Col.ToLower() == "name")
                 {
                     if (paging.Dir == "asc")
                     {
@@ -38,6 +38,18 @@ namespace VD.Service.Service
                         getlist = getlist.OrderByDescending(x => x.Brand);
                     }
                 }
+                if (paging.Col.ToLower() == "date")
+                {
+                    if (paging.Dir == "asc")
+                    {
+                        getlist = getlist.OrderBy(x => x.Date);
+                    }
+                    else
+                    {
+                        getlist = getlist.OrderByDescending(x => x.Date);
+                    }
+                }
+
                 list.Total = getlist.Count();
                 list.Result = getlist.Skip(paging.Start).Take(paging.Length).ToList();
             }

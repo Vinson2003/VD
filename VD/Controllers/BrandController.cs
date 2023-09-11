@@ -64,11 +64,15 @@ namespace VD.Controllers
 		}
 
         [HttpPost]
-        public JsonResult Delete(int id, string RequestBy)
+        public JsonResult Delete(BrandDeleteVM Model)
         {
-            var z = new BrandDeleteVM();
-            var get = BrandService.Delete(id,RequestBy);
-            return Json(z);
+			var send = BrandService.Delete(new BrandDelete()
+			{
+				Id = Model.Id,
+                RequestBy = User.GetUsername(),
+			});
+            if (send.Sts == false) { return Json(send.Message); }
+            return Json(true);
         }
 
         //[HttpPost]

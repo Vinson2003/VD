@@ -60,13 +60,13 @@ namespace VD.Service.Service
             }
         }
 
-        public Response<bool> Add(BrandAdd model)
+        public Response<bool> Add(BrandAdd req)
 		{
 			var Response = new Response<bool>();
 			using var context = new VddbContext();
 			{
 				var entitybrand = (from w in context.MtBrands
-								  where w.Name == model.Name
+								  where w.Name == req.Name
 								  select w).FirstOrDefault();
 				if (entitybrand != null)
 				{
@@ -75,9 +75,9 @@ namespace VD.Service.Service
 				}
 
 				MtBrand a = new MtBrand();
-				a.Name = model.Name.Trim().ToLower();
+				a.Name = req.Name.Trim().ToLower();
 				a.Created = DateTime.UtcNow;
-				a.CreatedBy = model.RequestBy;
+				a.CreatedBy = req.RequestBy;
 
 				context.MtBrands.Add(a);
 				context.SaveChanges();
@@ -88,7 +88,7 @@ namespace VD.Service.Service
 			return Response;
 		}
 
-		public Response<bool> Update(BrandEdit model)
+		public Response<bool> Update(BrandEdit req)
 		{
 			var Response = new Response<bool>();
 			Response.Result = false;
@@ -96,7 +96,7 @@ namespace VD.Service.Service
 			using var context = new VddbContext();
 			{
 				var entity = (from w in context.MtBrands
-							  where w.Id == model.Id
+							  where w.Id == req.Id
 							  select w).FirstOrDefault();
 				if (entity == null)
 				{
@@ -104,9 +104,9 @@ namespace VD.Service.Service
 					return Response;
 				}
 				 
-				entity.Name = model.Name.Trim().ToLower();
+				entity.Name = req.Name.Trim().ToLower();
 				entity.Updated = DateTime.UtcNow;
-				entity.UpdatedBy = model.RequestBy;
+				entity.UpdatedBy = req.RequestBy;
 
 				context.SaveChanges();
 				Response.Result = true;
@@ -115,7 +115,7 @@ namespace VD.Service.Service
 			return Response;
 		}
 
-        public Response<bool> Delete(int id, string RequestBy)
+        public Response<bool> Delete(BrandDelete req)
         {
             var Response = new Response<bool>();
             Response.Result = false;
@@ -123,7 +123,7 @@ namespace VD.Service.Service
             using (var context = new VddbContext())
             {
                 var entity = (from d in context.MtBrands
-                               where d.Id == id
+                               where d.Id == req.Id
                                select d).FirstOrDefault();
 
                 if (entity == null)
@@ -134,7 +134,7 @@ namespace VD.Service.Service
 				
 				entity.FlgDeleted = true;
 				entity.Updated = DateTime.UtcNow;
-				entity.UpdatedBy = RequestBy;
+				entity.UpdatedBy = req.RequestBy;
 
 				context.SaveChanges();
 				Response.Result = true;

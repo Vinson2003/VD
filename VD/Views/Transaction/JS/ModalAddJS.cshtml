@@ -1,14 +1,34 @@
 ﻿<script>
+    function DateOption(parentEl = "body",
+        minDate = moment().subtract('50', 'years').format("MM/DD/YYYY"),
+        maxDate = moment().add('50', 'years').format("MM/DD/YYYY"),
+        startDate = moment().format("DD/MM/YYYY"),
+        endDate = moment().format("DD/MM/YYYY"),
+    ) {
+        return {
+            drops: 'auto',
+            parentEl: parentEl,
+            minDate: minDate,
+            maxDate: maxDate,
+            startDate: startDate,
+            endDate: endDate,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            singleDatePicker: true,
+        };
+    }
+</script>
+
+<script>
     $(document).ready(function () {
         $('#TrancAddModal').on('shown.bs.modal', function () {
-            $('#DateTimeRange').daterangepicker(dateOption("#EmployeeAddModal"));
-            $('#DateTimeRange').on('cancel.daterangepicker', function (ev, picker) { $(this).val(''); });
-            $('#DateTimeRange').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
+            $('#TDate').daterangepicker(DateOption("#TrancAddModal"));
+            $('#TDate').on('cancel.daterangepicker', function (ev, picker) { $(this).val(''); });
+            $('#TDate').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
         });
 
         $('#TrancAddModal').on('hidden.bs.modal', function () {
             $("#TrancAddForm")[0].reset();
-            $('#DateTimeRange').data('daterangepicker').remove();
         });
     });
 </script>

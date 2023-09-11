@@ -12,8 +12,7 @@ namespace VD.Service.Interface
 		public HasilPaging<List<BrandData>> GetList(Paging paging);
 		public Response<bool> Add(BrandAdd model);
 		public Response<bool> Update(BrandEdit model);
-		public Response<bool> Delete(int id, string RequestBy);
-        //public Response<bool> Delete(BrandDelete Model);
+		public Response<bool> Delete(BrandDelete req);
         public List<BrandList> GetBrandList(/*string Name*/);
     }
 }

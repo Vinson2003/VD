@@ -44,9 +44,10 @@
 				<!--begin::Main-->
 				<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
 					@RenderBody()
-					@await Html.PartialAsync("~/Views/Shared/Main/Footer.cshtml")
 				</div>
 				<!--end:::Main-->
+
+				@await Html.PartialAsync("~/Views/Shared/Main/Footer.cshtml")
 			</div>
 			<!--end::Wrapper-->
 		</div>
