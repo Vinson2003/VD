@@ -48,6 +48,7 @@ namespace VD.Service.Service
                 using (var ctx = new VddbContext())
                 {
                     var getRole = from n in ctx.MtBrands
+								  where n.FlgDeleted == false
                                   select new BrandList()
                                   {
                                       Id = n.Id,
@@ -60,7 +61,7 @@ namespace VD.Service.Service
             }
         }
 
-        public Response<bool> Add(BrandAdd req)
+        public Response<bool> Create(BrandAdd req)
 		{
 			var Response = new Response<bool>();
 			using var context = new VddbContext();

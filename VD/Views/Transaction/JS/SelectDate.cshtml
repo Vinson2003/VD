@@ -1,0 +1,20 @@
+﻿<script>
+    function DateOption(parentEl = "body",
+        minDate = moment().subtract('50', 'years').format("MM/DD/YYYY"),
+        maxDate = moment().add('50', 'years').format("MM/DD/YYYY"),
+        startDate = moment().format("DD/MM/YYYY"),
+        endDate = moment().format("DD/MM/YYYY"),
+    ) {
+        return {
+            drops: 'auto',
+            parentEl: parentEl,
+            minDate: minDate,
+            maxDate: maxDate,
+            startDate: startDate,
+            endDate: endDate,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            singleDatePicker: true,
+        };
+    }
+</script>

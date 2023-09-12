@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Security.Cryptography;
 using VD.EF.Models;
 using VD.Service.Interface;
 using VD.Service.Result;
@@ -61,19 +62,40 @@ namespace VD.Service.Service
             var Response = new Response<bool>();
             using var context = new VddbContext();
             {
+                DateTime dateconvert = DateTime.MinValue; 
+
                 var entitytrac = (from w in context.PTransactions
-                                  where w.BrandId == req.BrandId && w.Id == req.Id
+                                  where w.FlgDeleted == false && w.BrandId == req.BrandId && w.Id == req.Id 
                                   select w).FirstOrDefault();
-                if (entitytrac != null)
+                if (entitytrac != null) 
+                { 
+                    Response.Message = "TransactionExists"; 
+                    return Response; 
+                }
+
+                try
                 {
-                    Response.Message = "TransactionExists";
-                    return Response;
+                    if (!string.IsNullOrEmpty(req.Date))
+                    {
+                        string[] dte = req.Date.Split('-');//dd/MM/yyyy;
+                        dateconvert = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
+                    }
+                }
+                catch (Exception) { Response.Message = "InvalidDate"; return Response; }
+
+                var Resulttrac = (from w in context.PTransactions
+                                  where w.Date == dateconvert && w.Result == req.Result
+                                  select w).FirstOrDefault();
+                if (Resulttrac != null) 
+                { 
+                    Response.Message = "InvalidResult"; 
+                    return Response; 
                 }
 
                 PTransaction a = new PTransaction();
                 a.BrandId = req.BrandId;
                 a.Result = req.Result;
-                a.Date = req.Date;
+                a.Date = dateconvert;
                 a.CreatedBy = req.RequestBy;
                 a.Created = DateTime.UtcNow;
 
@@ -99,6 +121,17 @@ namespace VD.Service.Service
                     Response.Message = "InvalidTransaction";
                     return Response;
                 }
+
+                DateTime? GetDate = null;
+                try
+                {
+                    if (!string.IsNullOrEmpty(req.Date))
+                    {
+                        string[] dte = req.Date.Split(',');//dd/MM/yyyy;
+                        GetDate = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
+                    }
+                }
+                catch (Exception) { Response.Message = "InvalidDate"; return Response; }
 
                 entity.Result = req.Result;
                 entity.CreatedBy = req.RequestBy;

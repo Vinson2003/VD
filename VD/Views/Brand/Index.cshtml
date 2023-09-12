@@ -33,42 +33,41 @@
 	<div id="kt_app_content" class="app-content flex-column-fluid">
 		<!--begin::Content container-->
 		<div id="kt_app_content_container" class="app-container container-fluid">
-			<div class="card mb-5 mb-xl-8">
-				<!--begin::Header-->
-				<div class="card-header border-0 pt-5">
-					<div class="card-toolbar">
-						<button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#BrandAddModal">
-							<i class="ki-duotone ki-plus fs-2"></i>Add
-						</button>
-					</div>
-				</div>
-				<!--end::Header-->
-				<!--begin::Body-->
-				<div class="card-body py-3">
-					<!--begin::Table container-->
-					<div class="table-responsive">
-						<!--begin::Table-->
-						<table class="table align-middle gs-0 gy-4" id="BrandList">
-							<!--begin::Table head-->
-							<thead>
-								<tr class="fw-bold text-muted bg-light">
-									<th class="min-w-120px">Brand Name</th>
-									<th class="min-w-150px">Createdby</th>
-									<th class="min-w-115px">Created</th>
-									<th class="min-w-115px">Updatedby</th>
-									<th class="min-w-120px">Updated</th>
-									<th class="min-w-120px">Update</th>
-									<th class="min-w-120px">Delete</th>
-								</tr>
-							</thead>
-							<!--end::Table head-->
-						</table>
-						<!--end::Table-->
-					</div>
-					<!--end::Table container-->
-				</div>
-				<!--begin::Body-->
-			</div>
+            <div class="card mb-5 mb-xl-8">
+                <!--begin::Header-->
+                <div class="card-header border-0 pt-5">
+                    <div class="card-toolbar" data-bs-placement="top" data-bs-trigger="hover" data-kt-initialized="1">
+                        <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#BrandAddModal">
+                            <i class="ki-duotone ki-plus fs-2"></i>Add
+                        </a>
+                    </div>
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body py-3">
+                    <!--begin::Table container-->
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table id="BrandList" class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                            <!--begin::Table head-->
+                            <thead >
+                                <tr class="fw-bold text-muted">
+                                    <th class="min-w-200px">Brand Name</th>
+                                    <th class="min-w-150px">Createdby</th>
+                                    <th class="min-w-150px">Created</th>
+                                    <th class="min-w-150px">Updatedby</th>
+                                    <th class="min-w-150px">Updated</th>
+                                    <th class="min-w-100px">Actions</th>
+                                </tr>
+                            </thead>
+                            <!--end::Table head-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                    <!--end::Table container-->
+                </div>
+                <!--begin::Body-->
+            </div>
 		</div>
 		<!--end::Content container-->
 	</div>
@@ -123,13 +122,10 @@
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {
-								return "<div><a type='button' class='btn btn-warning btn-sm' onclick='editbrand(" + m.row + ")'><i class='fa-solid fa-pen'></i></a></div>";
-                            }
-                        },
-                        {
-                            "data": "id",
-                            "render": function (d, t, f, m) {
-								return "<div><a type='button' class='btn btn-danger btn-sm' onclick='deletebrand(" + m.row + ")'><i class='fa-solid fa-trash'></i></a></div>";
+                                var btn = '';
+                                btn += "<button class='btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1' onclick='editbrand(" + m.row + ")'><i class='ki-outline ki-pencil fs-2'></i></btn>";
+                                btn += "<button class='btn btn-icon btn-bg-light btn-active-color-danger btn-sm' onclick='deletebrand(" + m.row + ")'><i class='ki-outline ki-trash fs-2'></i></btn>";
+                                return btn;
                             }
                         },
                     ],

@@ -24,13 +24,12 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "@Url.Action("Add", "Brand")",
+                    url: "@Url.Action("Create", "Brand")",
                     data: $('#BrandAddForm').serialize(),
                     type: "POST",
                     success: function (result) {
                         if (result == true || result && result > 0) {
                             $('#BrandAddModal').modal('hide');
-                            Swal.fire(msg, '', 'success');
                             reloadTable();
                         }
                         else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }

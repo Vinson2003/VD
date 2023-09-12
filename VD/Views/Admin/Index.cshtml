@@ -33,42 +33,40 @@
 	<div id="kt_app_content" class="app-content flex-column-fluid">
 		<!--begin::Content container-->
 		<div id="kt_app_content_container" class="app-container container-fluid">
-			<div class="card mb-5 mb-xl-8">
-				<!--begin::Header-->
-				<div class="card-header border-0 pt-5">
-                    <div class="row">
-                        <div class="card-toolbar">
-                            <button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#AdminAddModal">
-                                <i class="ki-duotone ki-plus fs-2"></i>Add
-                            </button>
-                        </div>
+            <div class="card mb-5 mb-xl-8">
+                <!--begin::Header-->
+                <div class="card-header border-0 pt-5">
+                    <div class="card-toolbar" data-bs-placement="top" data-bs-trigger="hover" data-kt-initialized="1">
+                        <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#AdminAddModal">
+                            <i class="ki-duotone ki-plus fs-2"></i>Add
+                        </a>
                     </div>
-				</div>
-				<!--end::Header-->
-				<!--begin::Body-->
-				<div class="card-body py-3">
-					<!--begin::Table container-->
-					<div class="table-responsive">
-						<!--begin::Table-->
-						<table class="table align-middle gs-0 gy-4" id="AdminList">
-							<!--begin::Table head-->
-							<thead>
-								<tr class="fw-bold text-muted bg-light">
-									<th class="min-w-150px">Username</th>
-									<th class="min-w-150px">Email</th>
-									<th class="min-w-115px">Status</th>
-									<th class="min-w-115px">Role</th>
-									<th class="min-w-150px">Action</th>
-								</tr>
-							</thead>
-							<!--end::Table head-->
-						</table>
-						<!--end::Table-->
-					</div>
-					<!--end::Table container-->
-				</div>
-				<!--begin::Body-->
-			</div>
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body py-3">
+                    <!--begin::Table container-->
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table id="AdminList" class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                            <!--begin::Table head-->
+                            <thead>
+                                <tr class="fw-bold text-muted">
+                                    <th class="min-w-200px">Username</th>
+                                    <th class="min-w-150px">Email</th>
+                                    <th class="min-w-150px">Status</th>
+                                    <th class="min-w-150px">Role</th>
+                                    <th class="min-w-100px">Actions</th>
+                                </tr>
+                            </thead>
+                            <!--end::Table head-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                    <!--end::Table container-->
+                </div>
+                <!--begin::Body-->
+            </div>
 		</div>
 		<!--end::Content container-->
 	</div>
@@ -113,12 +111,10 @@
                     "responsive": true,
                     "searching": false,
                     "serverSide": true,
-                    "bDestroy": true,
                     "dom": 'Bfrtip',
                     "ajax": {
                         "url": "@Url.Action("Admin_Read", "Admin")",
-                        "type": "POST",
-                        'datatype': 'json',
+                        "type": "post",
                     },
                     "columns": [
                         { "data": "username" },
@@ -129,9 +125,9 @@
                             "data": "id",
                             "render": function (d, t, f, m) {
                                 var btn = '';
-                                btn += "<button class='btn btn-warning btn-sm' onclick='editdata(" + m.row + ")'><i class='fa-solid fa-pen'></i></btn>";
-                                btn += "<button class='btn btn-info btn-sm' onclick='changepassword(" + m.row + ")'><i class='fa-solid fa-lock'></i></btn>";
-                                btn += "<button class='btn btn-success btn-sm' onclick='updateaccount(" + m.row + ")'><i class='fa-solid fa-user'></i></btn>";
+                                btn += "<button class='btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1' onclick='editdata(" + m.row + ")'><i class='ki-outline ki-pencil fs-2'></i></btn>";
+                                btn += "<button class='btn btn-icon btn-bg-light btn-active-color-info btn-sm me-1' onclick='changepassword(" + m.row + ")'><i class='ki-outline ki-lock fs-2'></i></btn>";
+                                btn += "<button class='btn btn-icon btn-bg-light btn-active-color-success btn-sm' onclick='updateaccount(" + m.row + ")'><i class='ki-outline ki-user fs-2'></i></btn>";
                                 return btn;
                             }
                         },

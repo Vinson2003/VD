@@ -9,7 +9,7 @@ namespace VD.Models
         [Required] 
         public string? Result { get; set; }
         [Required]
-        public DateTime? Date { get; set; }
+        public string? Date { get; set; }
     }
 
     public class TransactionEditVM
@@ -19,7 +19,7 @@ namespace VD.Models
         [Required]
         public long BrandId { get; set; }
         [Required]
-        public DateTime? Date { get; set; }
+        public string? Date { get; set; }
         [Required]
         public string? Result { get; set; }
     }

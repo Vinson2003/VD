@@ -51,14 +51,12 @@ namespace VD.Controllers
         [HttpPost]
         public JsonResult Create(TransactionAddVM Model)
         {
-            //TimeSpan timeOnly = DateTime.Now.TimeOfDay; -->> Noted;
             var send = TransactionService.Create(new TransactionAdd()
             {
-                //Date = Model.Date.Add(DateTime.Now.TimeOfDay),
-                //Date = inCome.Date + timeOfDay,
-                RequestBy = User.GetUsername(),
                 BrandId = Model.BrandId,
+                Date = Model.Date,
                 Result = Model.Result,
+                RequestBy = User.GetUsername(),
             });
             if (send.Sts == false) { return Json(send.Message); }
             return Json(true);

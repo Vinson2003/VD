@@ -39,9 +39,9 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Add(BrandAddVM Model)
+		public JsonResult Create(BrandAddVM Model)
 		{
-			var send = BrandService.Add(new BrandAdd()
+			var send = BrandService.Create(new BrandAdd()
 			{
 				Name = Model.Name,
 				RequestBy = User.GetUsername(),

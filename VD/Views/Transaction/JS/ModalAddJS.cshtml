@@ -1,25 +1,4 @@
 ﻿<script>
-    function DateOption(parentEl = "body",
-        minDate = moment().subtract('50', 'years').format("MM/DD/YYYY"),
-        maxDate = moment().add('50', 'years').format("MM/DD/YYYY"),
-        startDate = moment().format("DD/MM/YYYY"),
-        endDate = moment().format("DD/MM/YYYY"),
-    ) {
-        return {
-            drops: 'auto',
-            parentEl: parentEl,
-            minDate: minDate,
-            maxDate: maxDate,
-            startDate: startDate,
-            endDate: endDate,
-            showDropdowns: true,
-            autoUpdateInput: false,
-            singleDatePicker: true,
-        };
-    }
-</script>
-
-<script>
     $(document).ready(function () {
         $('#TrancAddModal').on('shown.bs.modal', function () {
             $('#TDate').daterangepicker(DateOption("#TrancAddModal"));
@@ -55,8 +34,7 @@
                     success: function (result) {
                         if (result == true || result && result > 0) {
                             $('#TrancAddModal').modal('hide');
-                            Swal.fire(msg, '', 'success');
-                            reloadTable();
+                            TrancTab.ajax.reload();
                         }
                         else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
                         else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }

@@ -1,0 +1,46 @@
+﻿<script>
+    function Confirmation(message) {
+        return new Promise(function (resolve) {
+
+            $("#TrancDeleteModal .modal-body").html(message);
+            $('#TrancDeleteModal').modal('show');
+
+            $('#TrancDeleteModal .GMCCOK').click(function () {
+                resolve(true);
+                setTimeout(function () { $('#TrancDeleteModal').modal('hide'); }, 50)
+            });
+            $('#TrancDeleteModal .GMCCRJCT').click(function () {
+                resolve(false);
+                $('#TrancDeleteModal').modal('hide');
+            });
+
+            $('#TrancDeleteModal').on('hidden.bs.modal', function () {
+                resolve(false);
+            });
+        });
+    }
+    async function deletebrand(row) {
+        var get = TrancTab.rows(row).data();
+        console.log(get);
+
+        if (get) {
+
+            let g = get[0];
+            $('#BrandName').val(g.name);
+
+
+            let conf = await Confirmation("Are you sure to delete this transaction?");
+            console.log("OK " + conf);
+
+            if (conf == true) {
+                let abc = g.username;
+                let Uid = g.id;
+                let url = "@Url.Action("Delete", "Transaction")";
+                $.post(url, { id: Uid }, function () {
+                    TrancTab.ajax.reload();
+                })
+            }
+
+        }
+    }
+</script>

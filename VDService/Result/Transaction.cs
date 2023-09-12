@@ -27,7 +27,7 @@ namespace VD.Service.Result
         public long Id { get; set; }
         [Required]
         public string? Result { get; set; }
-        public DateTime Date { get; set; }
+        public string? Date { get; set; }
         public string? RequestBy { get; set; }
     }
 
