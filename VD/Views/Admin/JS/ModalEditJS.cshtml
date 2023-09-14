@@ -46,8 +46,7 @@
                     success: function (result) {
                         if (result == true || result && result > 0) {
                             $('#AdminEditModal').modal('hide');
-                            Swal.fire(msg, '', 'success');
-                            reloadTable();
+                            AdminTab.ajax.reload();
                         }
                         else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
                         else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }

@@ -1,9 +1,9 @@
 ﻿<script>
     $(document).ready(function () {
         $('#TrancAddModal').on('shown.bs.modal', function () {
-            $('#TDate').daterangepicker(DateOption("#TrancAddModal"));
-            $('#TDate').on('cancel.daterangepicker', function (ev, picker) { $(this).val(''); });
-            $('#TDate').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
+            $('#Date').daterangepicker(DateOption("#TrancAddModal"));
+            $('#Date').on('cancel.daterangepicker', function (ev, picker) { $(this).val(''); });
+            $('#Date').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
         });
 
         $('#TrancAddModal').on('hidden.bs.modal', function () {

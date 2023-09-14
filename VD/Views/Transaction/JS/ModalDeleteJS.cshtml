@@ -19,14 +19,14 @@
             });
         });
     }
-    async function deletebrand(row) {
+    async function deld(row) {
         var get = TrancTab.rows(row).data();
         console.log(get);
 
         if (get) {
 
             let g = get[0];
-            $('#BrandName').val(g.name);
+            $('#BrandEdit').val(g.brandId);
 
 
             let conf = await Confirmation("Are you sure to delete this transaction?");

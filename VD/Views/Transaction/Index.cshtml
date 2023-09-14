@@ -48,14 +48,14 @@
                     <!--begin::Table container-->
                     <div class="table-responsive">
                         <!--begin::Table-->
-                        <table id="TransactionList" class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                        <table id="TransactionList" class="table-striped table-row-dashed gy-5 gs-7">
                             <!--begin::Table head-->
                             <thead>
-                                <tr class="fw-bold text-muted">
-                                    <th class="min-w-200px">Brand Name</th>
+                                <tr class="fw-semibold fs-6 text-muted">
+                                    <th class="min-w-200px">Brand name</th>
                                     <th class="min-w-150px">Date</th>
-                                    <th class="min-w-150px">Result</th>
-                                    <th class="min-w-100px">Actions</th>
+                                    <th class="min-w-300px">Result</th>
+                                    <th class="min-w-150px">Action</th>
                                 </tr>
                             </thead>
                             <!--end::Table head-->
@@ -75,7 +75,6 @@
 @if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "transaction-create"))
 {
     @await Html.PartialAsync("~/Views/Transaction/Modal/TrancAddModal.cshtml")
-
 }
 @if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "transaction-update"))
 {
@@ -83,12 +82,14 @@
 }
 @if (CheckPerms.checkpermis(User.GetRole(), ViewBag.Perms, "transaction-delete"))
 {
-    @await Html.PartialAsync("~/Views/Transaction/Modal/TrancEditModal.cshtml")
+    @await Html.PartialAsync("~/Views/Transaction/Modal/TrancDeleteModal.cshtml")
 }
 
 @section Scripts {
+    @await Html.PartialAsync("~/Views/Helper/SelectDate.cshtml")
     @await Html.PartialAsync("~/Views/Transaction/JS/ModalAddJS.cshtml")
     @await Html.PartialAsync("~/Views/Transaction/JS/ModalEditJS.cshtml")
+    @await Html.PartialAsync("~/Views/Transaction/JS/ModalDeleteJS.cshtml")
     <script>
         var TrancTab
         $(document).ready(function () {
@@ -111,15 +112,15 @@
                         "type": "POST",
                     },
                     "columns": [
-                        { "data": "name" },
+                        { "data": "brand" },
                         { "data": "date" },
                         { "data": "result" },
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {
                                 var btn = '';
-                                btn += "<button class='btn btn-warning btn-sm me-3' onclick='edittrac(" + m.row + ")'><i class='fa-solid fa-pen'></i></btn>";
-                                btn += "<button class='btn btn-danger btn-sm' onclick='deld(" + m.row + ")'><i class='fa-solid fa-trash'></i></btn>";
+                                btn += "<button class='btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1' onclick='edittrac(" + m.row + ")'><i class='ki-outline ki-pencil fs-2'></i></btn>";
+                                btn += "<button class='btn btn-icon btn-bg-light btn-active-color-danger btn-sm' onclick='deld(" + m.row + ")'><i class='ki-outline ki-trash fs-2'></i></btn>";
                                 return btn;
                             }
                         },

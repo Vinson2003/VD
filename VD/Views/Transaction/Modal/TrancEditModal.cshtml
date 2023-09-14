@@ -1,12 +1,14 @@
 ﻿<!-- Modal Edit -->
 <div class="modal fade" id="TrancEditModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
 
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">Edit Transaction</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="modal-title">Edit Transaction</h3>
+                <div class="btn btn-icon btn-sm btn-active-light-warning ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -15,16 +17,18 @@
 
                     <div class="form-row">
                         <div class="form-group col-12 col-md-12 mb-3">
-                            <label for="Brand" class="form-label">Brand Name</label>
-                            <input type="text" class="form-control" id="NameEdit" name="Name" readonly>
+                            <label for="form-label" class="form-label">Brand Name</label>
+                            <select asp-items="@ViewBag.BrandList" class="form-select form-select-solid" Id="BrandEdit" name="BrandId" required>
+                                <option selected disabled value="">Select the brand</option>
+                            </select>
                         </div>
                         <div class="form-group col-12 col-md-12 mb-3">
-                            <label for="Date" class="form-label">Date</label>
-                            <input type="text" class="form-control" id="DateEdit" name="Date" readonly>
+                            <label class="form-label">Date</label>
+                            <input type="text" class="form-control form-control-solid" id="DateEdit" name="Date" required>
                         </div>
                         <div class="form-group col-12 col-md-12 mb-3">
-                            <label for="Result" class="form-label">Result</label>
-                            <input type="text" class="form-control" id="ResultEdit" name="Result" required>
+                            <label for="form-label" class="form-label">Result</label>
+                            <input type="text" class="form-control form-control-solid" id="ResultEdit" name="Result" placeholder="Result" required>
                         </div>
                     </div>
                 </form>

@@ -1,12 +1,13 @@
-﻿<!-- Modal Add -->
-<div class="modal fade" id="TrancAddModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+﻿<div class="modal fade" tabindex="-1" id="TrancAddModal" role="dialog" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
 
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">Add Transaction</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="modal-title">Add Transaction</h3>
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -14,19 +15,19 @@
 
                     <div class="form-row">
                         <div class="form-group col-12 col-md-12 mb-3">
-                            <label for="Brand" class="form-label">Brand Name</label>
-                            <select asp-items="@ViewBag.BrandList" Id="Brand" name="BrandId" class="form-select form-select-solid">
+                            <label class="form-label">Brand Name</label>
+                            <select asp-items="@ViewBag.BrandList" Id="BrandId" name="BrandId" class="form-select form-select-solid">
                                 <option selected disabled value="">Select the brand </option>
                             </select>
                         </div>
                         <div class="form-group col-12 col-md-12 mb-3">
-                            <label for="Date" class="form-label">Date</label>
-                            <input type="date" class="form-control" id="TDate" name="Date" required>
+                            <label class="form-label">Date</label>
+                            <input type="text" class="form-control form-control-solid" id="Date" name="Date" placeholder="Input the date"/>
                         </div>
 
                         <div class="form-group col-12 col-md-12 mb-3">
                             <label for="Result" class="form-label">Result</label>
-                            <input type="text" class="form-control" id="TResult" name="Result" placeholder="Result" required>
+                            <input type="text" class="form-control form-control-solid" id="Result" name="Result" placeholder="Result" required>
                         </div>
                     </div>
 
@@ -37,7 +38,7 @@
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-outline-success" onclick="submitTrancAdd()">Submit</button>
             </div>
-
         </div>
     </div>
 </div>
+

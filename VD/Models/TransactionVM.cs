@@ -9,7 +9,7 @@ namespace VD.Models
         [Required] 
         public string? Result { get; set; }
         [Required]
-        public string? Date { get; set; }
+        public string Date { get; set; }
     }
 
     public class TransactionEditVM

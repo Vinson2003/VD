@@ -19,6 +19,7 @@ namespace VD.Service.Service
                               select new TransactionData()
                               {
                                   Id = t.Id,
+                                  BrandId = t.BrandId,
                                   Brand = t.Brand.Name,
                                   Date = t.Date.ToString("dd/MM/yyyy"),
                                   Result = t.Result,
@@ -57,15 +58,24 @@ namespace VD.Service.Service
             return list;
         }
 
-        public Response<bool>Create(TransactionAdd req)
+        public Response<bool>Create(TransactionAdd Req)
         {
             var Response = new Response<bool>();
             using var context = new VddbContext();
             {
-                DateTime dateconvert = DateTime.MinValue; 
+                DateTime dateconvert = DateTime.MinValue;
+                try
+                {
+                    if (!string.IsNullOrEmpty(Req.Date))
+                    {
+                        string[] dte = Req.Date.Split('/');//dd/MM/yyyy;
+                        dateconvert = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
+                    }
+                }
+                catch (Exception) { Response.Message = "InvalidDate"; return Response; }
 
                 var entitytrac = (from w in context.PTransactions
-                                  where w.FlgDeleted == false && w.BrandId == req.BrandId && w.Id == req.Id 
+                                  where w.FlgDeleted == false && w.BrandId == Req.BrandId && w.Id == Req.Id 
                                   select w).FirstOrDefault();
                 if (entitytrac != null) 
                 { 
@@ -73,18 +83,8 @@ namespace VD.Service.Service
                     return Response; 
                 }
 
-                try
-                {
-                    if (!string.IsNullOrEmpty(req.Date))
-                    {
-                        string[] dte = req.Date.Split('-');//dd/MM/yyyy;
-                        dateconvert = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
-                    }
-                }
-                catch (Exception) { Response.Message = "InvalidDate"; return Response; }
-
                 var Resulttrac = (from w in context.PTransactions
-                                  where w.Date == dateconvert && w.Result == req.Result
+                                  where w.Date == dateconvert && w.Result == Req.Result
                                   select w).FirstOrDefault();
                 if (Resulttrac != null) 
                 { 
@@ -93,10 +93,10 @@ namespace VD.Service.Service
                 }
 
                 PTransaction a = new PTransaction();
-                a.BrandId = req.BrandId;
-                a.Result = req.Result;
+                a.BrandId = Req.BrandId;
+                a.Result = Req.Result;
                 a.Date = dateconvert;
-                a.CreatedBy = req.RequestBy;
+                a.CreatedBy = Req.RequestBy;
                 a.Created = DateTime.UtcNow;
 
                 context.PTransactions.Add(a);
@@ -108,13 +108,24 @@ namespace VD.Service.Service
             return Response;
         }
 
-        public Response<bool>Update(TransactionEdit req)
+        public Response<bool>Update(TransactionEdit Req)
         {
             var Response = new Response<bool>();
             using var context = new VddbContext();
             {
+                DateTime dateconvert = DateTime.MinValue;
+                try
+                {
+                    if (!string.IsNullOrEmpty(Req.Date))
+                    {
+                        string[] dte = Req.Date.Split('/');//dd/MM/yyyy;
+                        dateconvert = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
+                    }
+                }
+                catch (Exception) { Response.Message = "InvalidDate"; return Response; }
+
                 var entity = (from w in context.PTransactions
-                              where w.Id == req.Id
+                              where w.Id == Req.Id
                               select w).FirstOrDefault();
                 if (entity == null)
                 {
@@ -122,20 +133,11 @@ namespace VD.Service.Service
                     return Response;
                 }
 
-                DateTime? GetDate = null;
-                try
-                {
-                    if (!string.IsNullOrEmpty(req.Date))
-                    {
-                        string[] dte = req.Date.Split(',');//dd/MM/yyyy;
-                        GetDate = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
-                    }
-                }
-                catch (Exception) { Response.Message = "InvalidDate"; return Response; }
-
-                entity.Result = req.Result;
-                entity.CreatedBy = req.RequestBy;
-                entity.Created = DateTime.UtcNow;
+                entity.BrandId = Req.BrandId;
+                entity.Date = dateconvert;
+                entity.Result = Req.Result;
+                entity.UpdatedBy = Req.RequestBy;
+                entity.Updated = DateTime.UtcNow;
 
                 context.SaveChanges();
                 Response.Result = true;
@@ -158,6 +160,7 @@ namespace VD.Service.Service
                     return Response;
                 }
 
+                entity.FlgDeleted = true;
                 entity.Updated = DateTime.UtcNow;
                 entity.UpdatedBy = req.RequestBy;
 

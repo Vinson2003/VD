@@ -42,7 +42,6 @@
 
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You are about to update account',
             icon: 'warning',
             showCancelButton: true,
             cancelButtonText: 'No',
@@ -54,24 +53,14 @@
                     data: $('#UpdateAccForm').serialize(),
                     type: "POST",
                     success: function (result) {
-                        $('#UpdateAccModal').modal('hide');
-                        Swal.fire({
-                            title: "Success!",
-                            text: "data has been successfully changed",
-                            icon: "success",
-                            button: "OK"
-                        }).then(() => {
-                            reloadTable();
-                        });
+                        if (result == true || result && result > 0) {
+                            $('#UpdateAccModal').modal('hide');
+                            AdminTab.ajax.reload();
+                        }
+                        else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                        else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                        else { Swal.fire('', '', 'error'); }
                     },
-                    error: function (errormessage) {
-                        Swal.fire({
-                            title: "Error!",
-                            text: "An error occurred while changed data.",
-                            icon: "error",
-                            button: "OK"
-                        });
-                    }
                 });
             }
         });

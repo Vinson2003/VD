@@ -68,8 +68,10 @@ namespace VD.Controllers
             var send = TransactionService.Update(new TransactionEdit()
             {
                 Id = Model.Id,
-                RequestBy = User.GetUsername(),
+                BrandId = Model.BrandId,
+                Date = Model.Date,
                 Result = Model.Result,
+                RequestBy = User.GetUsername(),
             });
             if (send.Sts == false) { return Json(send.Message); }
             return Json(true);

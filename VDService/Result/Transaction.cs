@@ -10,6 +10,7 @@ namespace VD.Service.Result
     public class TransactionData
     {
         public long Id { get; set; }
+        public long BrandId { get; set; }
         public string? Brand { get; set; }
         public string? Result { get; set; }
         public string Date { get; set; }
@@ -27,7 +28,7 @@ namespace VD.Service.Result
         public long Id { get; set; }
         [Required]
         public string? Result { get; set; }
-        public string? Date { get; set; }
+        public string Date { get; set; }
         public string? RequestBy { get; set; }
     }
 

@@ -1,4 +1,25 @@
 ﻿<script>
+    function Dateval(id, dte) {
+        $(id).val(dte);
+        if (dte) {
+            var dd = moment(dte, "DD/MM/YYYY").format("MM/DD/YYYY");
+            $(id).data('daterangepicker').setStartDate(dd);
+            $(id).data('daterangepicker').setEndDate(dd);
+        }
+    }
+</script>
+<script>
+    function DateLocale(format) {
+        var f = 'DD/MM/YYYY';
+        if (format) {
+            f = format;
+        }
+        return {
+            format: f,
+            applyLabel: "Apply",
+            cancelLabel: "Cancel",
+        }
+    }
     function DateOption(parentEl = "body",
         minDate = moment().subtract('50', 'years').format("MM/DD/YYYY"),
         maxDate = moment().add('50', 'years').format("MM/DD/YYYY"),
@@ -15,6 +36,8 @@
             showDropdowns: true,
             autoUpdateInput: false,
             singleDatePicker: true,
+            locale: DateLocale()
         };
     }
 </script>
+

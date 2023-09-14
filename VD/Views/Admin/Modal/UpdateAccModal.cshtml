@@ -6,7 +6,9 @@
 
             <div class="modal-header">
                 <h5 class="modal-title">Update Account</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="btn btn-icon btn-sm btn-active-light-success ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -16,23 +18,23 @@
                     <div class="form-row">
                         <div class="form-group col-12 col-md-12 mb-3">
                             <label for="Username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="UsernameAcc" name="Username" required>
+                            <input type="text" class="form-control form-control-solid" id="UsernameAcc" name="Username" required>
                         </div>
                         <div class="form-group col-12 col-md-12 mb-3">
                             <label for="Password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="PasswordAcc" name="Password" autocomplete="new-password" minlength="8" required>
+                            <input type="password" class="form-control form-control-solid" id="PasswordAcc" name="Password" autocomplete="new-password" minlength="8" required>
                         </div>
                         <div class="form-group col-12 col-md-12 mb-3">
                             <label for="Password" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="ConfirmPasswordAcc" name="ConfirmPassword" autocomplete="new-password" minlength="8" required>
+                            <input type="password" class="form-control form-control-solid" id="ConfirmPasswordAcc" name="ConfirmPassword" autocomplete="new-password" minlength="8" required>
                         </div>
                         <div class="form-group col-12 col-md-12 mb-3">
                             <label for="Email" class="form-label">Email</label>
-                            <input type="Email" class="form-control" id="EmailAcc" name="Email" required>
+                            <input type="Email" class="form-control form-control-solid" id="EmailAcc" name="Email" required>
                         </div>
                         <div class="form-group col-12 col-md-12 mb-2">
                             <label for="Status" class="form-label">Status</label>
-                            <select class="form-control" id="StatusAcc" name="Status" required>
+                            <select class="form-select form-select-solid" id="StatusAcc" name="Status" required>
                                 <option selected value="">Choose...</option>
                                 <option value="ENABLED">ENABLED</option>
                                 <option value="DISABLED">DISABLED</option>
@@ -40,7 +42,7 @@
                         </div>
                         <div class="form-group col-12 col-md-12 mb-2">
                             <label for="Role" class="form-label">Role</label>
-                            <select asp-items="@ViewBag.RoleList" id="RoleAcc" name="RoleId" class="form-control" required>
+                            <select asp-items="@ViewBag.RoleList" id="RoleAcc" name="RoleId" class="form-select form-select-solid" required>
                                 <option selected value="">Choose...</option>
                             </select>
                         </div>

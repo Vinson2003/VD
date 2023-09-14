@@ -6,7 +6,9 @@
 
             <div class="modal-header">
                 <h5 class="modal-title">Add Admin</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -14,25 +16,25 @@
                     <div class="row">
                         <div class="col-12 col-md-12 mb-3">
                             <label for="Username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="Username" name="Username" placeholder="Username" required>
+                            <input type="text" class="form-control form-control-solid" id="Username" name="Username" placeholder="Username" required>
                         </div>
                         <div class="col-12 col-md-12 mb-3">
                             <label for="Password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required>
+                            <input type="password" class="form-control form-control-solid" id="Password" name="Password" placeholder="Password" required>
                         </div>
                         <div class="col-12 col-md-12 mb-3">
                             <label for="Password" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" required>
+                            <input type="password" class="form-control form-control-solid" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-12 mb-3">
                             <label for="Email" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" required>
+                            <input type="text" class="form-control form-control-solid" id="Email" name="Email" placeholder="Email" required>
                         </div>
                         <div class="col-12 col-md-12 mb-3">
                             <label for="Status" class="form-label">Status</label>
-                            <select class="form-control" id="Status" name="Status" required>
+                            <select class="form-select form-select-solid" id="Status" name="Status" required>
                                 <option selected disabled value="">Choose...</option>
                                 <option value="ENABLED">ENABLED</option>
                                 <option value="DISABLED">DISABLED</option>
@@ -40,7 +42,7 @@
                         </div>
                         <div class="col-12 col-md-12 mb-3">
                             <label for="Role" class="form-label">Role</label>
-                            <select asp-items="@ViewBag.RoleList" id="Role" name="RoleId" class="form-control" required>
+                            <select asp-items="@ViewBag.RoleList" id="Role" name="RoleId" class="form-select form-select-solid" required>
                                 <option selected disabled value="">Choose...</option>
                             </select>
                         </div>

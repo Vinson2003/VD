@@ -1,14 +1,15 @@
 ﻿<script>
     $(document).ready(function () {
+        $('#DateEdit').daterangepicker(DateOption("#TrancEditModal"));
+        $('#DateEdit').on('cancel.daterangepicker', function (ev, picker) { $(this).val(''); });
+        $('#DateEdit').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
+
         $('#TrancEditModal').on('shown.bs.modal', function () {
-            $('#NameEdit').daterangepicker(DateOption("#TrancEditModal"));
-            $('#DateEdit').on('cancel.daterangepicker', function (ev, picker) { $(this).val(''); });
-            $('#ResultEdit').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
+            
         });
 
         $('#TrancEditModal').on('hidden.bs.modal', function () {
             $("#TrancEditForm")[0].reset();
-            $('#DateEdit').data('daterangepicker').remove();
         });
     });
 </script>
@@ -19,7 +20,7 @@
             var data = TrancTab.row(i).data();
             if (data) {
                 $('#TrancEditForm #TrancEditId').val(data.id);
-                $('#TrancEditForm #NameEdit').val(data.name);
+                $('#TrancEditForm #BrandEdit').val(data.brandId);
                 $('#TrancEditForm #DateEdit').val(data.date);
                 $('#TrancEditForm #ResultEdit').val(data.result);
 
@@ -40,7 +41,7 @@
             icon: 'warning',
             showCancelButton: true,
             cancelButtonText: 'No',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Yes' 
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
