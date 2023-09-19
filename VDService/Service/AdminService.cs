@@ -163,9 +163,6 @@ namespace VD.Service.Service
 					return Response;
 				}
 
-				//var ValidStatus = General.AdminStatus().Where(x => x.Value == model.Status).FirstOrDefault();
-				//if (ValidStatus == null){ Response.Message = "InvalidStatus"; return Response; }
-
 				entity.Email = model.Email;
 				entity.Status = model.Status;
 				entity.RoleId = model.RoleId;

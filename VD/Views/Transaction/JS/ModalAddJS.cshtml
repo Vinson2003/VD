@@ -1,9 +1,15 @@
 ﻿<script>
     $(document).ready(function () {
         $('#TrancAddModal').on('shown.bs.modal', function () {
-            $('#Date').daterangepicker(DateOption("#TrancAddModal"));
-            $('#Date').on('cancel.daterangepicker', function (ev, picker) { $(this).val(''); });
-            $('#Date').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
+            $('#ADate').daterangepicker(DateOption("#TrancAddModal"));
+            $('#ADate').on('cancel.daterangepicker', function (ev, picker) { $(this).val(''); });
+            $('#ADate').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
+
+            $('#ABrandId').select2({
+                dropdownParent: "#ABrandDiv",
+                placeholder: "Select an option",
+                allowClear: true
+            });
         });
 
         $('#TrancAddModal').on('hidden.bs.modal', function () {

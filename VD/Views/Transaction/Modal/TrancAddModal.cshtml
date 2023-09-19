@@ -1,5 +1,5 @@
 ﻿<div class="modal fade" tabindex="-1" id="TrancAddModal" role="dialog" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-md modal-dialog-centered">
 
         <div class="modal-content">
 
@@ -14,23 +14,21 @@
                 <form id="TrancAddForm" method="post" autocomplete="off">
 
                     <div class="form-row">
-                        <div class="form-group col-12 col-md-12 mb-3">
+                        <div class="form-group col-12 col-md-12 mb-3" id="ABrandDiv">
                             <label class="form-label">Brand Name</label>
-                            <select asp-items="@ViewBag.BrandList" Id="BrandId" name="BrandId" class="form-select form-select-solid">
-                                <option selected disabled value="">Select the brand </option>
+                            <select asp-items="@ViewBag.BrandList" class="form-select form-select-solid" Id="ABrandId" name="BrandId" required>
+                                <option></option>
                             </select>
                         </div>
                         <div class="form-group col-12 col-md-12 mb-3">
                             <label class="form-label">Date</label>
-                            <input type="text" class="form-control form-control-solid" id="Date" name="Date" placeholder="Input the date"/>
+                            <input type="text" class="form-control form-control-solid" id="ADate" name="Date" placeholder="Input the date" required/>
                         </div>
-
                         <div class="form-group col-12 col-md-12 mb-3">
-                            <label for="Result" class="form-label">Result</label>
-                            <input type="text" class="form-control form-control-solid" id="Result" name="Result" placeholder="Result" required>
+                            <label class="form-label">Result</label>
+                            <input type="text" class="form-control form-control-solid" id="AResult" name="Result" placeholder="Result" required>
                         </div>
                     </div>
-
                 </form>
             </div>
 
@@ -41,4 +39,3 @@
         </div>
     </div>
 </div>
-

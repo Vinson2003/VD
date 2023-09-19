@@ -1,6 +1,6 @@
 ﻿<!-- Modal Edit -->
 <div class="modal fade" id="TrancEditModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-md modal-dialog-centered">
 
         <div class="modal-content">
 
@@ -16,10 +16,10 @@
                     <input type="hidden" class="form-control" id="TrancEditId" name="id" required>
 
                     <div class="form-row">
-                        <div class="form-group col-12 col-md-12 mb-3">
-                            <label for="form-label" class="form-label">Brand Name</label>
-                            <select asp-items="@ViewBag.BrandList" class="form-select form-select-solid" Id="BrandEdit" name="BrandId" required>
-                                <option selected disabled value="">Select the brand</option>
+                        <div class="form-group col-12 col-md-12 mb-3" id="EBrandDiv">
+                            <label class="form-label">Brand Name</label>
+                            <select asp-items="@ViewBag.BrandList" class="form-select form-select-solid" Id="EBrandId" name="BrandId" required>
+                                <option></option>
                             </select>
                         </div>
                         <div class="form-group col-12 col-md-12 mb-3">

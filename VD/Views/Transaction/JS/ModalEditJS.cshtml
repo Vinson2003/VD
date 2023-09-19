@@ -5,7 +5,11 @@
         $('#DateEdit').on('apply.daterangepicker', function (e, picker) { $(this).val(picker.startDate.format('DD/MM/YYYY')); });
 
         $('#TrancEditModal').on('shown.bs.modal', function () {
-            
+            $('#EBrandId').select2({
+                dropdownParent: "#EBrandDiv",
+                placeholder: "Select an option",
+                allowClear: true
+            });
         });
 
         $('#TrancEditModal').on('hidden.bs.modal', function () {
@@ -20,7 +24,7 @@
             var data = TrancTab.row(i).data();
             if (data) {
                 $('#TrancEditForm #TrancEditId').val(data.id);
-                $('#TrancEditForm #BrandEdit').val(data.brandId);
+                $('#TrancEditForm #EBrandId').val(data.brandId);
                 $('#TrancEditForm #DateEdit').val(data.date);
                 $('#TrancEditForm #ResultEdit').val(data.result);
 

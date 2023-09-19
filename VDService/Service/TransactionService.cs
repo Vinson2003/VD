@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using System.Security.Cryptography;
 using VD.EF.Models;
 using VD.Service.Interface;
 using VD.Service.Result;
@@ -63,6 +62,15 @@ namespace VD.Service.Service
             var Response = new Response<bool>();
             using var context = new VddbContext();
             {
+                var entitytrac = (from w in context.PTransactions
+                                  where w.FlgDeleted == false && w.BrandId == Req.BrandId && w.Id == Req.Id 
+                                  select w).FirstOrDefault();
+                if (entitytrac != null) 
+                { 
+                    Response.Message = "TransactionExists"; 
+                    return Response; 
+                }
+
                 DateTime dateconvert = DateTime.MinValue;
                 try
                 {
@@ -73,15 +81,6 @@ namespace VD.Service.Service
                     }
                 }
                 catch (Exception) { Response.Message = "InvalidDate"; return Response; }
-
-                var entitytrac = (from w in context.PTransactions
-                                  where w.FlgDeleted == false && w.BrandId == Req.BrandId && w.Id == Req.Id 
-                                  select w).FirstOrDefault();
-                if (entitytrac != null) 
-                { 
-                    Response.Message = "TransactionExists"; 
-                    return Response; 
-                }
 
                 var Resulttrac = (from w in context.PTransactions
                                   where w.Date == dateconvert && w.Result == Req.Result
@@ -113,6 +112,15 @@ namespace VD.Service.Service
             var Response = new Response<bool>();
             using var context = new VddbContext();
             {
+                var entity = (from w in context.PTransactions
+                              where w.Id == Req.Id
+                              select w).FirstOrDefault();
+                if (entity == null)
+                {
+                    Response.Message = "InvalidTransaction";
+                    return Response;
+                }
+
                 DateTime dateconvert = DateTime.MinValue;
                 try
                 {
@@ -123,15 +131,6 @@ namespace VD.Service.Service
                     }
                 }
                 catch (Exception) { Response.Message = "InvalidDate"; return Response; }
-
-                var entity = (from w in context.PTransactions
-                              where w.Id == Req.Id
-                              select w).FirstOrDefault();
-                if (entity == null)
-                {
-                    Response.Message = "InvalidTransaction";
-                    return Response;
-                }
 
                 entity.BrandId = Req.BrandId;
                 entity.Date = dateconvert;
