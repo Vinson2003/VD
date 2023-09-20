@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Globalization;
 using VD.EF.Models;
 using VD.Service.Interface;
 using VD.Service.Result;
@@ -7,14 +8,17 @@ namespace VD.Service.Service
 {
 	public class TransactionService : ITransactionService
 	{
-        public HasilPaging<List<TransactionData>> GetList(Paging paging)
+        public HasilPaging<List<TransactionData>> GetList(Paging paging, string TracDateStart, string TracDateEnd)
         {
             var list = new HasilPaging<List<TransactionData>>();
             using (var context = new VddbContext())
             {
                 var GMT = Convert.ToInt32(ConfigurationManager.AppSettings["GMT"]);
+                DateTime DateFilter = DateTime.UtcNow.AddDays(-30);
                 var getlist = from t in context.PTransactions
                               where t.FlgDeleted != true
+                              && (string.IsNullOrEmpty(TracDateStart) || t.Date >= DateTime.ParseExact(TracDateStart, "dd/MM/yyyy", CultureInfo.InvariantCulture))
+                              && (string.IsNullOrEmpty(TracDateEnd) || t.Date <= DateTime.ParseExact(TracDateEnd, "dd/MM/yyyy", CultureInfo.InvariantCulture))
                               select new TransactionData()
                               {
                                   Id = t.Id,
@@ -50,7 +54,7 @@ namespace VD.Service.Service
                         getlist = getlist.OrderByDescending(x => x.Date);
                     }
                 }
-
+                 
                 list.Total = getlist.Count();
                 list.Result = getlist.Skip(paging.Start).Take(paging.Length).ToList();
             }
@@ -131,6 +135,15 @@ namespace VD.Service.Service
                     }
                 }
                 catch (Exception) { Response.Message = "InvalidDate"; return Response; }
+
+                var entitydate = (from w in context.PTransactions
+                                  where w.Date == dateconvert && w.Result == Req.Result
+                                  select w).FirstOrDefault();
+                if (entitydate != null)
+                {
+                    Response.Message = "Invalid";
+                    return Response;
+                }
 
                 entity.BrandId = Req.BrandId;
                 entity.Date = dateconvert;

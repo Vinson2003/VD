@@ -30,7 +30,7 @@ namespace VD.Controllers
         }
 
         [HttpPost]
-		public JsonResult Transaction_Read(DatatableVM obj)
+		public JsonResult Transaction_Read(DatatableVM obj, string TracDateStart, string TracDateEnd)
 		{
 			var col = obj.order.Select(row => row["column"]).FirstOrDefault();
             var dir = obj.order.Select(row => row["dir"]).FirstOrDefault();
@@ -43,7 +43,7 @@ namespace VD.Controllers
                 Col = colname,
                 Start = obj.start,
                 Length = obj.length,
-            });
+            }, TracDateStart, TracDateEnd);
 
             return Json(new { draw = obj.draw, recordsFiltered = get.Total, recordsTotal = get.Total, data = get.Result });
         }

@@ -22,15 +22,18 @@
 					</li>
 					<!--end::Item-->
 				</ul>
-				<!--end::Breadcrumb-->
-                <div class="card">
+                <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <input class="form-control" placeholder="filter the date" id="FDate" />
-                        <button type="button" class="btn btn-icon btn-primary"><i class="ki-solid ki-magnifier fs-3"></i></button>
+                        <input class="form-control me-2" id="FDate" name="Date" />
+                        <input class="form-control me-2" id="SBrand" name="Brand" />
+                        <input class="form-control me-2" id="SResult" name="Result" />
+                        <button type="button" onclick="filterdate()" class="btn btn-primary"><i class="ki-solid ki-magnifier fs-3"></i></button>
                     </div>
                 </div>
+				<!--end::Breadcrumb-->
 			</div>
 			<!--end::Page title-->
+            
 		</div>
 		<!--end::Toolbar container-->
 	</div>
@@ -54,14 +57,14 @@
                     <!--begin::Table container-->
                     <div class="table-responsive">
                         <!--begin::Table-->
-                        <table id="TransactionList" class="table-striped table-row-dashed gy-5 gs-7">
+                        <table id="TransactionList" class="table-hover table-rounded table-striped border gy-7 gs-7">
                             <!--begin::Table head-->
                             <thead>
-                                <tr class="fw-semibold fs-6 text-muted">
-                                    <th class="min-w-200px">Brand name</th>
-                                    <th class="min-w-150px">Date</th>
-                                    <th class="min-w-300px">Result</th>
-                                    <th class="min-w-150px">Action</th>
+                                <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                                    <th class="min-w-200px">Brand Name</th>
+                                    <th class="min-w-50px">Date</th>
+                                    <th class="min-w-50px">Result</th>
+                                    <th class="min-w-50px">Action</th>
                                 </tr>
                             </thead>
                             <!--end::Table head-->
@@ -115,10 +118,20 @@
                 "Last 30 Days": [moment().subtract(29, "days"), moment()],
                 "This Month": [moment().startOf("month"), moment().endOf("month")],
                 "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
-            }
+            },
+            "locale": {
+                "format": "DD/MM/YYYY",
+            },
         }, cb);
 
         cb(start, end);
+
+        function filterdate() {
+            var startDate = moment($("#FDate").data('daterangepicker').startDate).format("DD/MM/YYYY");
+            var endDate = moment($("#FDate").data('daterangepicker').endDate).format("DD/MM/YYYY");
+            var param = "?TracDateStart=" + startDate + "&TracDateEnd=" + endDate;
+            TrancTab.ajax.url("@Url.Action("Transaction_Read", "Transaction")" + param).load();
+        }
     </script>
 
     <script>

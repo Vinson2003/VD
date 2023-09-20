@@ -26,3 +26,23 @@ body {
     padding: 0px;
     box-sizing: border-box;
 }
+
+#TrancDeleteModal .modal-header {
+    background: rgb(195,34,34);
+    background: linear-gradient(0deg, rgba(195,34,34,1) 0%, rgba(253,57,45,1) 100%);
+}
+
+#TrancEditModal .modal-header {
+    background: rgb(121,119,9);
+    background: linear-gradient(90deg, rgba(121,119,9,1) 0%, rgba(230,255,0,1) 100%);
+}
+
+#TrancAddModal .modal-header {
+    background: rgb(19,106,164);
+    background: linear-gradient(90deg, rgba(19,106,164,1) 0%, rgba(0,140,255,1) 100%);
+}
+
+#TransactionList .table-header {
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+}
