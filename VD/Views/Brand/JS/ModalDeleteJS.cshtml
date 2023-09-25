@@ -2,19 +2,19 @@
     function Confirmation(message) {
         return new Promise(function (resolve) {
 
-            $("#DeleteBrandModal .modal-body").html(message);
-            $('#DeleteBrandModal').modal('show');
+            $("#BrandDeleteModal .modal-body").html(message);
+            $('#BrandDeleteModal').modal('show');
 
-            $('#DeleteBrandModal .GMCCOK').click(function () {
+            $('#BrandDeleteModal .GMCCOK').click(function () {
                 resolve(true);
-                setTimeout(function () { $('#DeleteBrandModal').modal('hide'); }, 50)
+                setTimeout(function () { $('#BrandDeleteModal').modal('hide'); }, 50)
             });
-            $('#DeleteBrandModal .GMCCRJCT').click(function () {
+            $('#BrandDeleteModal .GMCCRJCT').click(function () {
                 resolve(false);
-                $('#DeleteBrandModal').modal('hide');
+                $('#BrandDeleteModal').modal('hide');
             });
 
-            $('#DeleteBrandModal').on('hidden.bs.modal', function () {
+            $('#BrandDeleteModal').on('hidden.bs.modal', function () {
                 resolve(false);
             });
         });

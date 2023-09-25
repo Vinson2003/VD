@@ -1,8 +1,8 @@
-﻿using HAOPortal.EF.DatatableVM;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
+using VD.EF.DatatableVM;
 using VD.Helper;
 using VD.Models;
 using VD.Service.Interface;
@@ -30,7 +30,7 @@ namespace VD.Controllers
         }
 
         [HttpPost]
-		public JsonResult Transaction_Read(DatatableVM obj, string TracDateStart, string TracDateEnd)
+		public JsonResult Transaction_Read(DatatableVM obj, string TracDateStart, string TracDateEnd, string Brand, string Result)
 		{
 			var col = obj.order.Select(row => row["column"]).FirstOrDefault();
             var dir = obj.order.Select(row => row["dir"]).FirstOrDefault();
@@ -43,7 +43,7 @@ namespace VD.Controllers
                 Col = colname,
                 Start = obj.start,
                 Length = obj.length,
-            }, TracDateStart, TracDateEnd);
+            }, TracDateStart, TracDateEnd, Brand, Result);
 
             return Json(new { draw = obj.draw, recordsFiltered = get.Total, recordsTotal = get.Total, data = get.Result });
         }

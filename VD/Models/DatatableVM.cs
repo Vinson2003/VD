@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAOPortal.EF.DatatableVM
+namespace VD.EF.DatatableVM
 {
     public class DatatableVM
     {

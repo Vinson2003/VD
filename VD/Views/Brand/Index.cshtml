@@ -15,13 +15,19 @@
 				<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Tables</h1>
 				<!--end::Title-->
 				<!--begin::Breadcrumb-->
-				<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+				<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1 mb-5">
 					<!--begin::Item-->
 					<li class="breadcrumb-item text-muted">
 						<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Brand</a>
 					</li>
 					<!--end::Item-->
 				</ul>
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <input class="form-control me-2" id="scrbrand" name="Brand" />
+                        <button type="submit" onclick="searchBrands()" class="btn btn-primary"><i class="ki-solid ki-magnifier fs-3"></i></button>
+                    </div>
+                </div>
 				<!--end::Breadcrumb-->
 			</div>
 			<!--end::Page title-->
@@ -52,12 +58,12 @@
                             <!--begin::Table head-->
                             <thead>
                                 <tr class="fw-semibold fs-6 text-muted">
-                                    <th class="min-w-200px">Brand name</th>
-                                    <th class="min-w-150px">Createdby</th>
-                                    <th class="min-w-300px">Created</th>
-                                    <th class="min-w-200px">UpdatedBy</th>
-                                    <th class="min-w-100px">Updated</th>
-                                    <th class="min-w-150px">Action</th>
+                                    <th class="min-w-50px">Brand name</th>
+                                    <th class="min-w-50px">Createdby</th>
+                                    <th class="min-w-50px">Created</th>
+                                    <th class="min-w-50px">UpdatedBy</th>
+                                    <th class="min-w-50px">Updated</th>
+                                    <th class="min-w-50px">Action</th>
                                 </tr>
                             </thead>
                             <!--end::Table head-->
@@ -91,6 +97,14 @@
     @await Html.PartialAsync("~/Views/Brand/JS/ModalAddJS.cshtml")
     @await Html.PartialAsync("~/Views/Brand/JS/ModalEditJS.cshtml")
     @await Html.PartialAsync("~/Views/Brand/JS/ModalDeleteJS.cshtml")
+
+    <script>
+        function searchBrands() {
+            var brands = '?Brands=' + $('#scrbrand').val();
+            BrandTab.ajax.url("@Url.Action("Profile_Read","Brand")" + brands).load();
+        }
+    </script>
+
     <script>
         var BrandTab
         $(document).ready(function () {
@@ -111,14 +125,13 @@
                     "ajax": {
                         "url": "@Url.Action("Profile_Read", "Brand")",
                         "type": "POST",
-                        'datatype': 'json',
                     },
                     "columns": [
                         { "data": "name" },
                         { "data": "createdby" },
-                        { "data": "created" },
+                        { "data": "createdText" },
                         { "data": "updatedby" },
-                        { "data": "updated" },
+                        { "data": "updatedText" },
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {

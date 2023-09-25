@@ -13,10 +13,13 @@ namespace VD.Service.Result
         public long BrandId { get; set; }
         public string? Brand { get; set; }
         public string? Result { get; set; }
-        public string Date { get; set; }
+        public DateTime? Date { get; set; }
+        public string DateText { get; set; }
         public DateTime? Created { get; set; }
+        public string CreatedText { get; set; }
         public string? Createdby { get; set; }
         public DateTime? Updated { get; set; }
+        public string UpdatedText { get; set; }
         public string? Updatedby { get; set; }
     }
 

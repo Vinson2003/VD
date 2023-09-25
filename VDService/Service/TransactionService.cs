@@ -8,7 +8,7 @@ namespace VD.Service.Service
 {
 	public class TransactionService : ITransactionService
 	{
-        public HasilPaging<List<TransactionData>> GetList(Paging paging, string TracDateStart, string TracDateEnd)
+        public HasilPaging<List<TransactionData>> GetList(Paging paging, string TracDateStart, string TracDateEnd, string Brand, string Result)
         {
             var list = new HasilPaging<List<TransactionData>>();
             using (var context = new VddbContext())
@@ -16,45 +16,33 @@ namespace VD.Service.Service
                 var GMT = Convert.ToInt32(ConfigurationManager.AppSettings["GMT"]);
                 DateTime DateFilter = DateTime.UtcNow.AddDays(-30);
                 var getlist = from t in context.PTransactions
-                              where t.FlgDeleted != true
+                              where t.FlgDeleted == false || t.Brand.FlgDeleted != true
                               && (string.IsNullOrEmpty(TracDateStart) || t.Date >= DateTime.ParseExact(TracDateStart, "dd/MM/yyyy", CultureInfo.InvariantCulture))
                               && (string.IsNullOrEmpty(TracDateEnd) || t.Date <= DateTime.ParseExact(TracDateEnd, "dd/MM/yyyy", CultureInfo.InvariantCulture))
+                              && (string.IsNullOrEmpty(Brand) || t.Brand.Name != null && t.Brand.Name.Contains(Brand))
+                              && (string.IsNullOrEmpty(Result) || t.Result != null && t.Result.Contains(Result))
                               select new TransactionData()
                               {
                                   Id = t.Id,
                                   BrandId = t.BrandId,
                                   Brand = t.Brand.Name,
-                                  Date = t.Date.ToString("dd/MM/yyyy"),
+                                  Date = t.Date,
+                                  DateText = t.Date.ToString("dd/MM/yyyy"),
                                   Result = t.Result,
                                   Updated = t.Updated,
+                                  UpdatedText = t.Updated.HasValue ? t.Updated.Value.AddHours(GMT).ToString("dd/MM/yyyy HH:mm:ss") : "",
                                   Updatedby = t.UpdatedBy,
                                   Created = t.Created,
+                                  CreatedText = t.Created.HasValue ? t.Created.Value.AddHours(GMT).ToString("dd/MM/yyyy HH:mm:ss") : "", 
                                   Createdby = t.CreatedBy,
                               };
 
-                if (paging.Col.ToLower() == "name")
-                {
-                    if (paging.Dir == "asc")
-                    {
-                        getlist = getlist.OrderBy(x => x.Brand);
-                    }
-                    else
-                    {
-                        getlist = getlist.OrderByDescending(x => x.Brand);
-                    }
-                }
-                if (paging.Col.ToLower() == "date")
-                {
-                    if (paging.Dir == "asc")
-                    {
-                        getlist = getlist.OrderBy(x => x.Date);
-                    }
-                    else
-                    {
-                        getlist = getlist.OrderByDescending(x => x.Date);
-                    }
-                }
-                 
+                if (paging.Col.ToLower() == "brand") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Brand); } else { getlist = getlist.OrderByDescending(x => x.Brand); } }
+                if (paging.Col.ToLower() == "dateText") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Date); } else { getlist = getlist.OrderByDescending(x => x.Date); } }
+				if (paging.Col.ToLower() == "result") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Result); } else { getlist = getlist.OrderByDescending(x => x.Result); } }
+                if (paging.Col.ToLower() == "createdText") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Created); } else { getlist = getlist.OrderByDescending(x => x.Created); } }
+                if (paging.Col.ToLower() == "updatedText") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Updated); } else { getlist = getlist.OrderByDescending(x => x.Updated); } }
+                
                 list.Total = getlist.Count();
                 list.Result = getlist.Skip(paging.Start).Take(paging.Length).ToList();
             }
@@ -95,18 +83,28 @@ namespace VD.Service.Service
                     return Response; 
                 }
 
-                PTransaction a = new PTransaction();
-                a.BrandId = Req.BrandId;
-                a.Result = Req.Result;
-                a.Date = dateconvert;
-                a.CreatedBy = Req.RequestBy;
-                a.Created = DateTime.UtcNow;
+                using (System.Transactions.TransactionScope scope = new System.Transactions.TransactionScope())
+                {
+                    var CheckTransaction = (from d in context.PTransactions
+                                            where d.Id == Req.Id && d.BrandId == Req.BrandId && d.Result == Req.Result
+                                            select d).FirstOrDefault();
+                    if (CheckTransaction == null) { Response.Message = "Invalid"; return Response; }
 
-                context.PTransactions.Add(a);
-                context.SaveChanges();
+                    PTransaction a = new PTransaction();
+                    a.BrandId = Req.BrandId;
+                    a.Result = Req.Result;
+                    a.Date = dateconvert;
+                    a.CreatedBy = Req.RequestBy;
+                    a.Created = DateTime.UtcNow;
 
-                Response.Result = true;
-                Response.Sts = true;
+                    context.PTransactions.Add(a);
+                    context.SaveChanges();
+
+                    Response.Result = true;
+                    Response.Sts = true;
+
+                    scope.Complete();
+                }
             }
             return Response;
         }

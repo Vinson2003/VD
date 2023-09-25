@@ -1,6 +1,6 @@
-﻿using HAOPortal.EF.DatatableVM;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VD.EF.DatatableVM;
 using VD.Helper;
 using VD.Models;
 using VD.Service.Interface;
@@ -20,7 +20,7 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Profile_Read(DatatableVM obj)
+		public JsonResult Profile_Read(DatatableVM obj, string Brands)
 		{
 			var col = obj.order.Select(row => row["column"]).FirstOrDefault();
 			var dir = obj.order.Select(row => row["dir"]).FirstOrDefault();
@@ -33,7 +33,7 @@ namespace VD.Controllers
 				Col = colname,
 				Start = obj.start,
 				Length = obj.length,
-			});
+			}, Brands);
 
 			return Json(new { draw = obj.draw, recordsFiltered = get.Total, recordsTotal = get.Total, data = get.Result });
 		}

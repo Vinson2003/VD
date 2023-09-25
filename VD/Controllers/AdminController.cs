@@ -1,8 +1,8 @@
-﻿using HAOPortal.EF.DatatableVM;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Caching.Memory;
+using VD.EF.DatatableVM;
 using VD.Helper;
 using VD.Models;
 using VD.Service.Interface;

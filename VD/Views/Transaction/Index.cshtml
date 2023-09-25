@@ -24,10 +24,20 @@
 				</ul>
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <input class="form-control me-2" id="FDate" name="Date" />
-                        <input class="form-control me-2" id="SBrand" name="Brand" />
-                        <input class="form-control me-2" id="SResult" name="Result" />
-                        <button type="button" onclick="filterdate()" class="btn btn-primary"><i class="ki-solid ki-magnifier fs-3"></i></button>
+                        <form id="filtersearch" class="d-flex" autocomplete="off">
+                            <div class="col-md-4 me-2">
+                                <input class="form-control me-2" id="FDate" name="Date" />
+                            </div>
+                            <div class="col-md-4 me-2">
+                                <input class="form-control me-2" id="SBrand" name="Brand" />
+                            </div>
+                            <div class="col-md-4 me-2">
+                                <input class="form-control me-2" id="SResult" name="Result" />
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" onclick="filterdate()" class="btn btn-primary"><i class="ki-solid ki-magnifier fs-3"></i></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 				<!--end::Breadcrumb-->
@@ -61,9 +71,11 @@
                             <!--begin::Table head-->
                             <thead>
                                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                    <th class="min-w-200px">Brand Name</th>
+                                    <th class="min-w-50px">Brand Name</th>
                                     <th class="min-w-50px">Date</th>
                                     <th class="min-w-50px">Result</th>
+                                    <th class="min-w-50px">Created</th>
+                                    <th class="min-w-50px">Updated</th>
                                     <th class="min-w-50px">Action</th>
                                 </tr>
                             </thead>
@@ -99,8 +111,12 @@
     @await Html.PartialAsync("~/Views/Transaction/JS/ModalAddJS.cshtml")
     @await Html.PartialAsync("~/Views/Transaction/JS/ModalEditJS.cshtml")
     @await Html.PartialAsync("~/Views/Transaction/JS/ModalDeleteJS.cshtml")
-
     <script>
+        var TrancTab
+        $(document).ready(function () {
+            reloadTable();
+        });
+
         var start = moment().subtract(29, "days");
         var end = moment();
 
@@ -130,15 +146,12 @@
             var startDate = moment($("#FDate").data('daterangepicker').startDate).format("DD/MM/YYYY");
             var endDate = moment($("#FDate").data('daterangepicker').endDate).format("DD/MM/YYYY");
             var param = "?TracDateStart=" + startDate + "&TracDateEnd=" + endDate;
-            TrancTab.ajax.url("@Url.Action("Transaction_Read", "Transaction")" + param).load();
+            var search = $('#filtersearch').serialize();
+            TrancTab.ajax.url("@Url.Action("Transaction_Read", "Transaction")" + param + "&" + search).load();
         }
     </script>
 
     <script>
-        var TrancTab
-        $(document).ready(function () {
-            reloadTable();
-        });
 
         function reloadTable() {
             if (!TrancTab) {
@@ -157,8 +170,10 @@
                     },
                     "columns": [
                         { "data": "brand" },
-                        { "data": "date" },
+                        { "data": "dateText" },
                         { "data": "result" },
+                        { "data": "createdText" },
+                        { "data": "updatedText" },
                         {
                             "data": "id",
                             "render": function (d, t, f, m) {
@@ -170,8 +185,6 @@
                         },
                     ],
                 });
-            } else {
-                TrancTab.ajax.url("@Url.Action("Transaction_Read", "Transaction")").load();
             }
         }
     </script>

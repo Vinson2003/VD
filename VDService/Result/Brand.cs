@@ -12,8 +12,10 @@ namespace VD.Service.Result
 		public long Id { get; set; }
 		public string? Name { get; set; }
 		public string? Createdby { get; set; }
+		public string? CreatedText { get; set; }
 		public DateTime? Created { get; set; }
 		public string? Updatedby { get; set; }
+		public string? UpdatedText { get; set; }
 		public DateTime? Updated { get; set; }
 	}
 

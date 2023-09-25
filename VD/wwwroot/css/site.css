@@ -42,7 +42,38 @@ body {
     background: linear-gradient(90deg, rgba(19,106,164,1) 0%, rgba(0,140,255,1) 100%);
 }
 
-#TransactionList .table-header {
-    background: rgb(34,193,195);
-    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+#BrandDeleteModal .modal-header {
+    background: rgb(195,34,34);
+    background: linear-gradient(0deg, rgba(195,34,34,1) 0%, rgba(253,57,45,1) 100%);
 }
+
+#BrandEditModal .modal-header {
+    background: rgb(121,119,9);
+    background: linear-gradient(90deg, rgba(121,119,9,1) 0%, rgba(230,255,0,1) 100%);
+}
+
+#BrandAddModal .modal-header {
+    background: rgb(19,106,164);
+    background: linear-gradient(90deg, rgba(19,106,164,1) 0%, rgba(0,140,255,1) 100%);
+}
+
+#UpdateAccModal .modal-header {
+    background: rgb(79,195,34);
+    background: linear-gradient(0deg, rgba(79,195,34,1) 63%, rgba(22,182,58,1) 100%);
+}
+
+#AdminChangePassword .modal-header {
+    background: rgb(113,34,195);
+    background: linear-gradient(0deg, rgba(113,34,195,1) 67%, rgba(183,45,253,1) 100%);
+}
+
+#AdminEditModal .modal-header {
+    background: rgb(121,119,9);
+    background: linear-gradient(90deg, rgba(121,119,9,1) 0%, rgba(230,255,0,1) 100%);
+}
+
+#AdminAddModal .modal-header {
+    background: rgb(19,106,164);
+    background: linear-gradient(90deg, rgba(19,106,164,1) 0%, rgba(0,140,255,1) 100%);
+}
+
