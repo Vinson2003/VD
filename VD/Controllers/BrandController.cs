@@ -75,6 +75,12 @@ namespace VD.Controllers
             return Json(true);
         }
 
+		//[HttpPost]
+		//public async Task<JsonResult> BrandPicture( IFormFile File)
+		//{
+
+		//}
+
         //[HttpPost]
         //public JsonResult Delete(BrandDeleteVM Model)
         //{

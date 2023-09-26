@@ -36,7 +36,7 @@
                 let Uid = g.id;
                 let url = "@Url.Action("Delete", "Transaction")";
                 $.post(url, { id: Uid }, function () {
-                    TrancTab.ajax.reload();
+                    reloadTable();
                 })
             }
 

@@ -16,7 +16,7 @@ namespace VD.Service.Service
                 var GMT = Convert.ToInt32(ConfigurationManager.AppSettings["GMT"]);
                 DateTime DateFilter = DateTime.UtcNow.AddDays(-30);
                 var getlist = from t in context.PTransactions
-                              where t.FlgDeleted == false || t.Brand.FlgDeleted != true
+                              where t.FlgDeleted == false
                               && (string.IsNullOrEmpty(TracDateStart) || t.Date >= DateTime.ParseExact(TracDateStart, "dd/MM/yyyy", CultureInfo.InvariantCulture))
                               && (string.IsNullOrEmpty(TracDateEnd) || t.Date <= DateTime.ParseExact(TracDateEnd, "dd/MM/yyyy", CultureInfo.InvariantCulture))
                               && (string.IsNullOrEmpty(Brand) || t.Brand.Name != null && t.Brand.Name.Contains(Brand))
@@ -83,28 +83,41 @@ namespace VD.Service.Service
                     return Response; 
                 }
 
-                using (System.Transactions.TransactionScope scope = new System.Transactions.TransactionScope())
-                {
-                    var CheckTransaction = (from d in context.PTransactions
-                                            where d.Id == Req.Id && d.BrandId == Req.BrandId && d.Result == Req.Result
-                                            select d).FirstOrDefault();
-                    if (CheckTransaction == null) { Response.Message = "Invalid"; return Response; }
+                PTransaction a = new PTransaction();
+                a.BrandId = Req.BrandId;
+                a.Result = Req.Result;
+                a.Date = dateconvert;
+                a.CreatedBy = Req.RequestBy;
+                a.Created = DateTime.UtcNow;
 
-                    PTransaction a = new PTransaction();
-                    a.BrandId = Req.BrandId;
-                    a.Result = Req.Result;
-                    a.Date = dateconvert;
-                    a.CreatedBy = Req.RequestBy;
-                    a.Created = DateTime.UtcNow;
+                context.PTransactions.Add(a);
+                context.SaveChanges();
 
-                    context.PTransactions.Add(a);
-                    context.SaveChanges();
+                Response.Result = true;
+                Response.Sts = true;
 
-                    Response.Result = true;
-                    Response.Sts = true;
+                //using (System.Transactions.TransactionScope scope = new System.Transactions.TransactionScope())
+                //{
+                //    var CheckTransaction = (from d in context.PTransactions
+                //                            where d.Id == Req.Id && d.BrandId == Req.BrandId && d.Result == Req.Result
+                //                            select d).FirstOrDefault();
+                //    if (CheckTransaction == null) { Response.Message = "Invalid"; return Response; }
 
-                    scope.Complete();
-                }
+                //    PTransaction a = new PTransaction();
+                //    a.BrandId = Req.BrandId;
+                //    a.Result = Req.Result;
+                //    a.Date = dateconvert;
+                //    a.CreatedBy = Req.RequestBy;
+                //    a.Created = DateTime.UtcNow;
+
+                //    context.PTransactions.Add(a);
+                //    context.SaveChanges();
+
+                //    Response.Result = true;
+                //    Response.Sts = true;
+
+                //    scope.Complete();
+                //}
             }
             return Response;
         }

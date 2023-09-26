@@ -36,7 +36,7 @@
                 let Uid = g.id;
                 let url = "@Url.Action("Delete", "Brand")";
                 $.post(url, { id: Uid }, function () {
-                    BrandTab.ajax.reload();
+                    reloadTable();
                 })
             }
 

@@ -79,11 +79,16 @@ namespace VD.Models
         public string? RequestBy { get; set; }
     }
 
-	public class PermissionListVM
-	{
-		public string Description { get; set; } = null!;
-		public int Seq { get; set; }
-		public int SubSeq { get; set; }
-		public string Display { get; set; } = null!;
-	}
+    public class RequestPermissionRole
+    {
+        public long RoleId { get; set; }
+    }
+
+    public class PermissionListVM
+    {
+        public string Description { get; set; } = null!;
+        public int Seq { get; set; }
+        public int SubSeq { get; set; }
+        public string Display { get; set; } = null!;
+    }
 }
