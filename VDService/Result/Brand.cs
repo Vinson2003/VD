@@ -29,6 +29,7 @@ namespace VD.Service.Result
 	{
 		[Required]
 		public string? Name { get; set; }
+		public string? BrandPicture { get; set; }
 		public string? RequestBy { get; set; }
 	}
 

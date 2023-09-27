@@ -29,8 +29,8 @@ namespace VD.Service.Service
 							   });
 
                 if (paging.Col.ToLower() == "name") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Name); } else { getlist = getlist.OrderByDescending(x => x.Name); } }
-                if (paging.Col.ToLower() == "createdText") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Created); } else { getlist = getlist.OrderByDescending(x => x.Created); } }
-                if (paging.Col.ToLower() == "updatedText") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Updated); } else { getlist = getlist.OrderByDescending(x => x.Updated); } }
+                if (paging.Col.ToLower() == "createdtext") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Created); } else { getlist = getlist.OrderByDescending(x => x.Created); } }
+                if (paging.Col.ToLower() == "updatedtext") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Updated); } else { getlist = getlist.OrderByDescending(x => x.Updated); } }
 
                 list.Total = getlist.Count();
 				list.Result = getlist.Skip(paging.Start).Take(paging.Length).ToList();
@@ -141,7 +141,6 @@ namespace VD.Service.Service
             }
             return Response;
         }
-
         //public Response<bool> Delete(BrandDelete Model)
         //{
         //	var Response = new Response<bool>();

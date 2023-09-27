@@ -38,15 +38,35 @@ namespace VD.Controllers
 			return Json(new { draw = obj.draw, recordsFiltered = get.Total, recordsTotal = get.Total, data = get.Result });
 		}
 
-		[HttpPost]
-		public JsonResult Create(BrandAddVM Model)
+		public string SaveBrandImage(IFormFile image)
 		{
-			var send = BrandService.Create(new BrandAdd()
+			if (image != null && image.Length > 0)
+			{
+				var Filename = Guid.NewGuid().ToString();
+				var Fileextension = Path.GetExtension(image.FileName);
+				var Filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "BrandPicture", Filename + Fileextension);
+
+				using (var Filestream = new FileStream(Filepath, FileMode.Create))
+				{
+					image.CopyTo(Filestream);
+				}
+
+				return Filename + Fileextension;
+			}
+			return null;
+		}
+
+		[HttpPost]
+		public JsonResult Create(BrandAddVM Model, IFormFile image)
+		{
+            var brandPicFileName = SaveBrandImage(image);
+            var send = BrandService.Create(new BrandAdd()
 			{
 				Name = Model.Name,
+				BrandPicture = brandPicFileName,
 				RequestBy = User.GetUsername(),
 			});
-			if (send.Sts == false) { return Json(send.Message); }
+            if (send.Sts == false) { return Json(send.Message); }
 			return Json(true);
 		}
 
@@ -76,24 +96,18 @@ namespace VD.Controllers
         }
 
 		//[HttpPost]
-		//public async Task<JsonResult> BrandPicture( IFormFile File)
+		//public JsonResult Delete(BrandDeleteVM Model)
 		//{
-
+		//	var send = BrandService.Delete(new BrandDelete()
+		//	{
+		//		Id = Model.Id,
+		//		RequestBy= User.GetUsername(),
+		//	});
+		//	if (send.Sts == false) { return Json(send.Message); }
+		//	return Json(true);
 		//}
 
-        //[HttpPost]
-        //public JsonResult Delete(BrandDeleteVM Model)
-        //{
-        //	var send = BrandService.Delete(new BrandDelete()
-        //	{
-        //		Id = Model.Id,
-        //		RequestBy= User.GetUsername(),
-        //	});
-        //	if (send.Sts == false) { return Json(send.Message); }
-        //	return Json(true);
-        //}
-
-        public IActionResult Forbidden()
+		public IActionResult Forbidden()
 		{
 			return View();
 		}

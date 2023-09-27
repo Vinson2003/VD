@@ -16,7 +16,7 @@ namespace VD.Service.Service
                 var GMT = Convert.ToInt32(ConfigurationManager.AppSettings["GMT"]);
                 DateTime DateFilter = DateTime.UtcNow.AddDays(-30);
                 var getlist = from t in context.PTransactions
-                              where t.FlgDeleted == false
+                              where t.FlgDeleted == false && t.Brand.FlgDeleted != true
                               && (string.IsNullOrEmpty(TracDateStart) || t.Date >= DateTime.ParseExact(TracDateStart, "dd/MM/yyyy", CultureInfo.InvariantCulture))
                               && (string.IsNullOrEmpty(TracDateEnd) || t.Date <= DateTime.ParseExact(TracDateEnd, "dd/MM/yyyy", CultureInfo.InvariantCulture))
                               && (string.IsNullOrEmpty(Brand) || t.Brand.Name != null && t.Brand.Name.Contains(Brand))
@@ -38,10 +38,10 @@ namespace VD.Service.Service
                               };
 
                 if (paging.Col.ToLower() == "brand") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Brand); } else { getlist = getlist.OrderByDescending(x => x.Brand); } }
-                if (paging.Col.ToLower() == "dateText") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Date); } else { getlist = getlist.OrderByDescending(x => x.Date); } }
+                if (paging.Col.ToLower() == "datetext") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Date); } else { getlist = getlist.OrderByDescending(x => x.Date); } }
 				if (paging.Col.ToLower() == "result") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Result); } else { getlist = getlist.OrderByDescending(x => x.Result); } }
-                if (paging.Col.ToLower() == "createdText") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Created); } else { getlist = getlist.OrderByDescending(x => x.Created); } }
-                if (paging.Col.ToLower() == "updatedText") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Updated); } else { getlist = getlist.OrderByDescending(x => x.Updated); } }
+                if (paging.Col.ToLower() == "createdtext") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Created); } else { getlist = getlist.OrderByDescending(x => x.Created); } }
+                if (paging.Col.ToLower() == "updatedtext") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Updated); } else { getlist = getlist.OrderByDescending(x => x.Updated); } }
                 
                 list.Total = getlist.Count();
                 list.Result = getlist.Skip(paging.Start).Take(paging.Length).ToList();

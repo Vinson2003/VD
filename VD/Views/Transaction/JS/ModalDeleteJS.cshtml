@@ -43,3 +43,43 @@
         }
     }
 </script>
+
+@*<script>
+    async function deletebrand(row) {
+        var get = BrandTab.rows(row).data();
+
+        if (get) {
+            let g = get[0];
+            let awaitDel = await Confirmation(g.name);
+
+            if (awaitDel == true) {
+
+                let id = g.id;
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'No',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "@Url.Action("Delete", "Brand")",
+                            type: "POST",
+                            success: function (result) {
+                                if (result == true || result && result > 0) {
+                                    Swal.fire(msg, '', 'success');
+                                    reloadTable();
+                                }
+                                else if (typeof result === 'string') { Swal.fire(result, '', 'error'); }
+                                else if (result && result.length > 0) { Swal.fire(result[0], '', 'error'); }
+                                else { Swal.fire('', '', 'error'); }
+                            },
+                        });
+                    }
+                });
+            }
+        }
+    }
+</script>*@
