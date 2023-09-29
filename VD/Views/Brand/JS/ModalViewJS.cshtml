@@ -1,0 +1,23 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#BrandViewModal').on('shown.bs.modal', function () {
+
+        });
+        $('#BrandViewModal').on('hidden.bs.modal', function () {
+
+        });
+    });
+</script>
+<script>
+    function viewbrand(i) {
+        if (i >= 0) {
+            var data = BrandTab.row(i).data();
+            if (data) {
+                $('#BrandViewForm #BrandViewId').val(data.id);
+                $('#BrandViewForm #BrandNameView').val(data.name);
+                $('#BrandViewForm #BrandPictureView').val(data.image);
+                $('#BrandViewModal').modal('show');
+            }
+        }
+    }
+</script>

@@ -79,11 +79,6 @@ namespace VD.Models
         public string? RequestBy { get; set; }
     }
 
-    public class RequestPermissionRole
-    {
-        public long RoleId { get; set; }
-    }
-
     public class PermissionListVM
     {
         public string Description { get; set; } = null!;

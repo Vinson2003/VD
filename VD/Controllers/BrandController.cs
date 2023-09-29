@@ -38,32 +38,13 @@ namespace VD.Controllers
 			return Json(new { draw = obj.draw, recordsFiltered = get.Total, recordsTotal = get.Total, data = get.Result });
 		}
 
-		public string SaveBrandImage(IFormFile image)
-		{
-			if (image != null && image.Length > 0)
-			{
-				var Filename = Guid.NewGuid().ToString();
-				var Fileextension = Path.GetExtension(image.FileName);
-				var Filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "BrandPicture", Filename + Fileextension);
-
-				using (var Filestream = new FileStream(Filepath, FileMode.Create))
-				{
-					image.CopyTo(Filestream);
-				}
-
-				return Filename + Fileextension;
-			}
-			return null;
-		}
-
 		[HttpPost]
-		public JsonResult Create(BrandAddVM Model, IFormFile image)
+		public JsonResult Create(BrandAddVM Model)
 		{
-            var brandPicFileName = SaveBrandImage(image);
             var send = BrandService.Create(new BrandAdd()
 			{
 				Name = Model.Name,
-				BrandPicture = brandPicFileName,
+				//BrandPicture = Model.BrandPicture,
 				RequestBy = User.GetUsername(),
 			});
             if (send.Sts == false) { return Json(send.Message); }

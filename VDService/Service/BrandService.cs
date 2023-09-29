@@ -75,6 +75,7 @@ namespace VD.Service.Service
 
 				MtBrand a = new MtBrand();
 				a.Name = req.Name.Trim().ToLower();
+				a.BrandPicture = req.BrandPicture;
 				a.Created = DateTime.UtcNow;
 				a.CreatedBy = req.RequestBy;
 

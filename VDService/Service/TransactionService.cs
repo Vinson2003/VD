@@ -83,41 +83,42 @@ namespace VD.Service.Service
                     return Response; 
                 }
 
-                PTransaction a = new PTransaction();
-                a.BrandId = Req.BrandId;
-                a.Result = Req.Result;
-                a.Date = dateconvert;
-                a.CreatedBy = Req.RequestBy;
-                a.Created = DateTime.UtcNow;
+                //PTransaction a = new PTransaction();
+                //a.BrandId = Req.BrandId;
+                //a.Result = Req.Result;
+                //a.Date = dateconvert;
+                //a.CreatedBy = Req.RequestBy;
+                //a.Created = DateTime.UtcNow;
 
-                context.PTransactions.Add(a);
-                context.SaveChanges();
+                //context.PTransactions.Add(a);
+                //context.SaveChanges();
 
-                Response.Result = true;
-                Response.Sts = true;
+                //Response.Result = true;
+                //Response.Sts = true;
 
-                //using (System.Transactions.TransactionScope scope = new System.Transactions.TransactionScope())
-                //{
-                //    var CheckTransaction = (from d in context.PTransactions
-                //                            where d.Id == Req.Id && d.BrandId == Req.BrandId && d.Result == Req.Result
-                //                            select d).FirstOrDefault();
-                //    if (CheckTransaction == null) { Response.Message = "Invalid"; return Response; }
+                using (System.Transactions.TransactionScope scope = new System.Transactions.TransactionScope())
+                {
 
-                //    PTransaction a = new PTransaction();
-                //    a.BrandId = Req.BrandId;
-                //    a.Result = Req.Result;
-                //    a.Date = dateconvert;
-                //    a.CreatedBy = Req.RequestBy;
-                //    a.Created = DateTime.UtcNow;
+                    //var CheckTransaction = (from d in context.PTransactions
+                    //                        where d.Id == Req.Id && d.BrandId == Req.BrandId && d.Result == Req.Result
+                    //                        select d).FirstOrDefault();
+                    //if (CheckTransaction == null) { Response.Message = "Invalid"; return Response; }
 
-                //    context.PTransactions.Add(a);
-                //    context.SaveChanges();
+                    PTransaction a = new PTransaction();
+                    a.BrandId = Req.BrandId;
+                    a.Result = Req.Result;
+                    a.Date = dateconvert;
+                    a.CreatedBy = Req.RequestBy;
+                    a.Created = DateTime.UtcNow;
 
-                //    Response.Result = true;
-                //    Response.Sts = true;
+                    context.PTransactions.Add(a);
+                    context.SaveChanges();
 
-                //    scope.Complete();
-                //}
+                    Response.Result = true;
+                    Response.Sts = true;
+
+                    scope.Complete();
+                }
             }
             return Response;
         }
@@ -127,44 +128,49 @@ namespace VD.Service.Service
             var Response = new Response<bool>();
             using var context = new VddbContext();
             {
-                var entity = (from w in context.PTransactions
-                              where w.Id == Req.Id
-                              select w).FirstOrDefault();
-                if (entity == null)
+                using (System.Transactions.TransactionScope scope = new System.Transactions.TransactionScope())
                 {
-                    Response.Message = "InvalidTransaction";
-                    return Response;
-                }
-
-                DateTime dateconvert = DateTime.MinValue;
-                try
-                {
-                    if (!string.IsNullOrEmpty(Req.Date))
-                    {
-                        string[] dte = Req.Date.Split('/');//dd/MM/yyyy;
-                        dateconvert = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
-                    }
-                }
-                catch (Exception) { Response.Message = "InvalidDate"; return Response; }
-
-                var entitydate = (from w in context.PTransactions
-                                  where w.Date == dateconvert && w.Result == Req.Result
+                    var entity = (from w in context.PTransactions
+                                  where w.Id == Req.Id
                                   select w).FirstOrDefault();
-                if (entitydate != null)
-                {
-                    Response.Message = "Invalid";
-                    return Response;
+                    if (entity == null)
+                    {
+                        Response.Message = "InvalidTransaction";
+                        return Response;
+                    }
+
+                    DateTime dateconvert = DateTime.MinValue;
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(Req.Date))
+                        {
+                            string[] dte = Req.Date.Split('/');//dd/MM/yyyy;
+                            dateconvert = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
+                        }
+                    }
+                    catch (Exception) { Response.Message = "InvalidDate"; return Response; }
+
+                    var entitydate = (from w in context.PTransactions
+                                      where w.Date == dateconvert && w.Result == Req.Result
+                                      select w).FirstOrDefault();
+                    if (entitydate != null)
+                    {
+                        Response.Message = "Invalid Date or Result";
+                        return Response;
+                    }
+
+                    entity.BrandId = Req.BrandId;
+                    entity.Date = dateconvert;
+                    entity.Result = Req.Result;
+                    entity.UpdatedBy = Req.RequestBy;
+                    entity.Updated = DateTime.UtcNow;
+
+                    context.SaveChanges();
+                    Response.Result = true;
+                    Response.Sts = true;
+
+                    scope.Complete();
                 }
-
-                entity.BrandId = Req.BrandId;
-                entity.Date = dateconvert;
-                entity.Result = Req.Result;
-                entity.UpdatedBy = Req.RequestBy;
-                entity.Updated = DateTime.UtcNow;
-
-                context.SaveChanges();
-                Response.Result = true;
-                Response.Sts = true;
             }
             return Response;
         }

@@ -6,7 +6,7 @@ namespace VD.Models
 	{
 		[Required]
 		public string? Name { get; set; }
-		public string? BrandPicture { get; set; }
+		public IFormFile? BrandPicture { get; set; }
 		public string? RequestBy { get; set; }
 	}
 
@@ -16,7 +16,7 @@ namespace VD.Models
 		public long? Id { get; set; }
 		[Required]
 		public string? Name { get; set; }
-		public string? BrandPicture { get; set; }
+		public IFormFile? BrandPicture { get; set; }
 		public string? RequestBy { get; set; }
 	}
 

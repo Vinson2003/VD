@@ -92,8 +92,10 @@
 {
     @await Html.PartialAsync("~/Views/Brand/Modal/DeleteModal.cshtml")
 }
+@await Html.PartialAsync("~/Views/Brand/Modal/ViewModal.cshtml")
 
 @section Scripts {
+    @await Html.PartialAsync("~/Views/Brand/JS/ModalViewJS.cshtml")
     @await Html.PartialAsync("~/Views/Brand/JS/ModalAddJS.cshtml")
     @await Html.PartialAsync("~/Views/Brand/JS/ModalEditJS.cshtml")
     @await Html.PartialAsync("~/Views/Brand/JS/ModalDeleteJS.cshtml")
@@ -136,6 +138,7 @@
                             "data": "id",
                             "render": function (d, t, f, m) {
                                 var btn = '';
+                                btn += "<button class='btn btn-icon btn-bg-light btn-active-color-info btn-sm me-1' onclick='viewbrand(" + m.row + ")'><i class='ki-outline ki-eye fs-2'></i></btn>";
                                 btn += "<button class='btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1' onclick='editbrand(" + m.row + ")'><i class='ki-outline ki-pencil fs-2'></i></btn>";
                                 btn += "<button class='btn btn-icon btn-bg-light btn-active-color-danger btn-sm' onclick='deletebrand(" + m.row + ")'><i class='ki-outline ki-trash fs-2'></i></btn>";
                                 return btn;

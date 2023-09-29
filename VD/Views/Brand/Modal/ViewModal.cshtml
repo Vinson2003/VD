@@ -1,28 +1,26 @@
-﻿<div class="modal fade" id="BrandEditModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
+﻿<div class="modal fade" id="BrandViewModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
 
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">Edit Brand</h5>
-                <div class="btn btn-icon btn-sm btn-active-light-warning ms-2" data-bs-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">View Brand</h5>
+                <div class="btn btn-icon btn-sm btn-active-light-info ms-2" data-bs-dismiss="modal" aria-label="Close">
                     <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
                 </div>
             </div>
 
             <div class="modal-body">
-                <form id="BrandEditForm" method="post" autocomplete="off">
-                    <input type="hidden" class="form-control" id="BrandEditId" name="id" required>
-
+                <form id="BrandViewForm">
+                    <input type="hidden" class="form-control" id="BrandViewId" name="id" required>
                     <div class="row">
                         <div class="col-12 col-md-12 mb-3">
                             <label for="Brand" class="form-label">Brand Name</label>
-                            <input type="text" class="form-control form-control-solid" id="BrandNameEdit" name="Name" placeholder="Input Brand Name" required>
+                            <input type="text" class="form-control form-control-solid" id="BrandNameView" name="Name">
                         </div>
                         <div class="col-12 col-md-12 mb-3">
                             <label for="BrandPicture" class="form-label">Brand Picture</label>
-                            <input type="file" class="form-control form-control-solid" id="BrandPictureEdit" name="image" placeholder="Input Brand Picture">
-                            <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                            <input type="file" class="form-control form-control-solid" id="BrandPictureView" name="image">
                         </div>
                     </div>
                 </form>
@@ -30,7 +28,6 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-outline-success" onclick="submitBrandEdit()">Submit</button>
             </div>
 
         </div>
