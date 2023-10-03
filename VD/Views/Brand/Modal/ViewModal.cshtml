@@ -15,12 +15,18 @@
                     <input type="hidden" class="form-control" id="BrandViewId" name="id" required>
                     <div class="row">
                         <div class="col-12 col-md-12 mb-3">
-                            <label for="Brand" class="form-label">Brand Name</label>
+                            <label for="Brand" class="fw-semibold form-label">Brand Name</label>
                             <input type="text" class="form-control form-control-solid" id="BrandNameView" name="Name">
                         </div>
-                        <div class="col-12 col-md-12 mb-3">
-                            <label for="BrandPicture" class="form-label">Brand Picture</label>
-                            <input type="file" class="form-control form-control-solid" id="BrandPictureView" name="image">
+                        <div class="fv-row mb-10 fv-plugins-icon-container">
+                            <label class="d-block fw-semibold fs-6 mb-5">
+                                <span class="BPicture">Brand Picture</span>
+                            </label>
+                            <div class="image-input image-input-empty image-input-outline image-input-placeholder" data-kt-image-input="true">
+                                <div class="image-input-wrapper w-450px h-250px"></div>
+                            </div>
+                            <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                         </div>
                     </div>
                 </form>

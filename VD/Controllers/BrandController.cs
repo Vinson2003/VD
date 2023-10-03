@@ -39,12 +39,12 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Create(BrandAddVM Model)
+		public JsonResult Create(BrandAddVM Model, IFormFile image)
 		{
             var send = BrandService.Create(new BrandAdd()
 			{
 				Name = Model.Name,
-				//BrandPicture = Model.BrandPicture,
+				BrandPicture = image,
 				RequestBy = User.GetUsername(),
 			});
             if (send.Sts == false) { return Json(send.Message); }
@@ -52,11 +52,12 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Update(BrandEditVM Model)
+		public JsonResult Update(BrandEditVM Model, IFormFile image)
 		{
 			var send = BrandService.Update(new BrandEdit()
 			{
 				Id = Model.Id,
+				BrandPicture = image,
 				Name = Model.Name,
 				RequestBy = User.GetUsername(),
 			});

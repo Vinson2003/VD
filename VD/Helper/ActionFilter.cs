@@ -8,7 +8,7 @@ namespace VD.Helper
 		public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
 		{
 			var controller = context.Controller as Controller;
-			var permskey = await Cache.cacheperms(context.HttpContext);
+			var permskey = await Cached.cacheperms(context.HttpContext);
 			controller.ViewBag.Perms = permskey;
 
 			Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor actiondesc = (Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor)context.ActionDescriptor;

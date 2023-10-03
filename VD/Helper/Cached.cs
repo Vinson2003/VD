@@ -6,7 +6,7 @@ using VD.Service.Service;
 
 namespace VD.Helper
 {
-    public class Cache
+    public class Cached
     {
         public static async Task<List<PermissionGetRole>>cacheperms(HttpContext HttpContext)
         {

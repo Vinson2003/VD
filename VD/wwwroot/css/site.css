@@ -77,3 +77,10 @@ body {
     background: linear-gradient(90deg, rgba(19,106,164,1) 0%, rgba(0,140,255,1) 100%);
 }
 
+image-input-placeholder {
+    background-image: url('/metronic8/demo1/assets/media/svg/files/blank-image.svg');
+}
+
+[data-bs-theme="dark"] .image-input-placeholder {
+    background-image: url('/metronic8/demo1/assets/media/svg/files/blank-image-dark.svg');
+}

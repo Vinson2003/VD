@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
-using VD.EF.Models;
+using VD.EF.Data;
+using VD.LIB;
 using VD.Service.Interface;
 using VD.Service.Result;
 
@@ -75,7 +76,7 @@ namespace VD.Service.Service
 
 				MtBrand a = new MtBrand();
 				a.Name = req.Name.Trim().ToLower();
-				a.BrandPicture = req.BrandPicture;
+				a.BrandPicture = SaveImage.SaveBrandImage(req.BrandPicture);
 				a.Created = DateTime.UtcNow;
 				a.CreatedBy = req.RequestBy;
 
@@ -105,6 +106,7 @@ namespace VD.Service.Service
 				}
 				 
 				entity.Name = req.Name.Trim().ToLower();
+				entity.BrandPicture = SaveImage.SaveBrandImage(req.BrandPicture);
 				entity.Updated = DateTime.UtcNow;
 				entity.UpdatedBy = req.RequestBy;
 

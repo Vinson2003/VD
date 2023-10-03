@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Caching.Memory;
 using VD.EF.DatatableVM;
 using VD.Helper;
 using VD.Models;
@@ -17,12 +16,6 @@ namespace VD.Controllers
 		public IAdminService AdminService = new AdminService();
 		public IPermissionService PermissionService = new PermissionService();
 		public IRoleService RoleService = new RoleService();
-
-		private IMemoryCache _cache;
-		public AdminController(IMemoryCache memoryCache)
-		{
-			_cache = memoryCache;
-		}
 
 		public IActionResult Index()
         {

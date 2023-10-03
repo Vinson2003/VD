@@ -25,7 +25,7 @@ namespace VD.Service.Result
 	{
 		[Required]
 		public string? Name { get; set; }
-		public string? BrandPicture { get; set; }
+		public IFormFile BrandPicture { get; set; } = null!;
 		public string? RequestBy { get; set; }
 	}
 
@@ -35,7 +35,7 @@ namespace VD.Service.Result
 		public long? Id { get; set; }
 		[Required]
 		public string? Name { get; set; }
-		public IFormFile? BrandPicture { get; set; }
+		public IFormFile BrandPicture { get; set; } = null!;
         public string? RequestBy { get; set; }
 	}
 

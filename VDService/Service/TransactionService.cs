@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using System.Globalization;
-using VD.EF.Models;
+using VD.EF.Data;
 using VD.Service.Interface;
 using VD.Service.Result;
 
@@ -54,55 +54,36 @@ namespace VD.Service.Service
             var Response = new Response<bool>();
             using var context = new VddbContext();
             {
-                var entitytrac = (from w in context.PTransactions
-                                  where w.FlgDeleted == false && w.BrandId == Req.BrandId && w.Id == Req.Id 
-                                  select w).FirstOrDefault();
-                if (entitytrac != null) 
-                { 
-                    Response.Message = "TransactionExists"; 
-                    return Response; 
-                }
-
-                DateTime dateconvert = DateTime.MinValue;
-                try
-                {
-                    if (!string.IsNullOrEmpty(Req.Date))
-                    {
-                        string[] dte = Req.Date.Split('/');//dd/MM/yyyy;
-                        dateconvert = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
-                    }
-                }
-                catch (Exception) { Response.Message = "InvalidDate"; return Response; }
-
-                var Resulttrac = (from w in context.PTransactions
-                                  where w.Date == dateconvert && w.Result == Req.Result
-                                  select w).FirstOrDefault();
-                if (Resulttrac != null) 
-                { 
-                    Response.Message = "InvalidResult"; 
-                    return Response; 
-                }
-
-                //PTransaction a = new PTransaction();
-                //a.BrandId = Req.BrandId;
-                //a.Result = Req.Result;
-                //a.Date = dateconvert;
-                //a.CreatedBy = Req.RequestBy;
-                //a.Created = DateTime.UtcNow;
-
-                //context.PTransactions.Add(a);
-                //context.SaveChanges();
-
-                //Response.Result = true;
-                //Response.Sts = true;
-
                 using (System.Transactions.TransactionScope scope = new System.Transactions.TransactionScope())
                 {
+                    var entitytrac = (from w in context.PTransactions
+                                      where w.FlgDeleted == false && w.BrandId == Req.BrandId && w.Id == Req.Id
+                                      select w).FirstOrDefault();
+                    if (entitytrac != null)
+                    {
+                        Response.Message = "TransactionExists";
+                        return Response;
+                    }
 
-                    //var CheckTransaction = (from d in context.PTransactions
-                    //                        where d.Id == Req.Id && d.BrandId == Req.BrandId && d.Result == Req.Result
-                    //                        select d).FirstOrDefault();
-                    //if (CheckTransaction == null) { Response.Message = "Invalid"; return Response; }
+                    DateTime dateconvert = DateTime.MinValue;
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(Req.Date))
+                        {
+                            string[] dte = Req.Date.Split('/');//dd/MM/yyyy;
+                            dateconvert = new DateTime(int.Parse(dte[2]), int.Parse(dte[1]), int.Parse(dte[0]));
+                        }
+                    }
+                    catch (Exception) { Response.Message = "InvalidDate"; return Response; }
+
+                    var Resulttrac = (from w in context.PTransactions
+                                      where w.Date == dateconvert && w.Result == Req.Result
+                                      select w).FirstOrDefault();
+                    if (Resulttrac != null)
+                    {
+                        Response.Message = "InvalidResult";
+                        return Response;
+                    }
 
                     PTransaction a = new PTransaction();
                     a.BrandId = Req.BrandId;
@@ -118,7 +99,7 @@ namespace VD.Service.Service
                     Response.Sts = true;
 
                     scope.Complete();
-                }
+                }    
             }
             return Response;
         }

@@ -2,7 +2,7 @@
 
 namespace VD.Helper
 {
-	public static class Helper
+	public static class ExtensionMethod
 	{
 		public static string? GetUserId(this ClaimsPrincipal principal)
 		{
@@ -12,16 +12,16 @@ namespace VD.Helper
 			return principal.FindFirstValue(ClaimTypes.NameIdentifier);
 		}
 
-		public static long GetCustomId(this ClaimsPrincipal principal)
-		{
-			long Id = 0;
-			if (principal != null)
-			{
-				var getId = principal.FindFirstValue("Id");
-				Id = Convert.ToInt64(Id);
-			}
-			return Id;
-		}
+		//public static long GetCustomId(this ClaimsPrincipal principal)
+		//{
+		//	long Id = 0;
+		//	if (principal != null)
+		//	{
+		//		var getId = principal.FindFirstValue("Id");
+		//		Id = Convert.ToInt64(Id);
+		//	}
+		//	return Id;
+		//}
 
 		public static string? GetUsername(this ClaimsPrincipal principal)
 		{
