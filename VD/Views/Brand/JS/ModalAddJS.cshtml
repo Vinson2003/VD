@@ -28,7 +28,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     url: "@Url.Action("Create", "Brand")",
-                    data: dataView /*$('#BrandAddForm').serialize()*/,
+                    data: dataView, /*$('#BrandAddForm').serialize()*/
                     type: "POST",
                     processData: false,
                     contentType: false,

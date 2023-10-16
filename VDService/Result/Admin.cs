@@ -21,21 +21,15 @@ namespace VD.Service.Result
 
 	public class AdminLogin
 	{
-		[Required]
 		public long Id { get; set; }
-		[Required]
 		public string? Username { get; set; }
-		[Required]
 		public string? Password { get; set; }
 	}
 
 	public class AdminRegister
 	{
-		[Required]
 		public string? Username { get; set; }
-		[Required]
 		public string? Password { get; set; }
-		[Required]
 		public string? ConfirmPassword { get; set; }
 		public string? Email { get; set; }
 		public string? Status { get; set; }
@@ -45,50 +39,44 @@ namespace VD.Service.Result
 
 	public class AdminLogout
 	{
-		[Required]
 		public long Id { get; set; }
 		public string? Username { get; set; }
 	}
 
 	public class AdminAdd
 	{
-		[Required]
 		public string? Username { get; set; }
-		[Required]
 		public string? Password { get; set; }
-		[Required]
 		public string? ConfirmPassword { get; set; }
-		[Required]
 		public string? Email { get; set; }
-		[Required]
 		public string? Status { get; set; }
-		[Required]
 		public long RoleId { get; set; }
 		public string? RequestBy { get; set; }
 	}
 
 	public class AdminUpdate
 	{
-		[Required]
 		public long Id { get; set; }
-		[Required]
 		public string? Email { get; set; }
-		[Required]
 		public string? Status { get; set; }
-		[Required]
 		public long RoleId { get; set; }
 		public string? RequestBy { get; set; }
 	}
 
-	public class ChangePassword
+	public class AdminChangePassword
 	{
-        [Required]
         public long Id { get; set; }
-        [Required]
         public string? Password { get; set; }
-        [Required]
         public string? ConfirmPassword { get; set; }
         public string? RequestBy { get; set; }
     }
+
+	public class AdminSetPassword
+    {
+		public long Id { get; set; }
+		public string? Password { get; set; }
+		public string? ConfirmPassword { get; set; }
+		public string? RequestBy { get; set; }
+	}
 
 }

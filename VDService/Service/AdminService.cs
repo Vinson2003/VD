@@ -30,53 +30,10 @@ namespace VD.Service.Service
 								   Role = t.Role.Role,
 							   });
 
-				if (paging.Col.ToLower() == "username")
-				{
-					if (paging.Dir == "asc")
-					{
-						getlist = getlist.OrderBy(x => x.Username);
-					}
-					else
-					{
-						getlist = getlist.OrderByDescending(x => x.Username);
-					}
-				}
-
-				if (paging.Col.ToLower() == "role")
-				{
-					if (paging.Dir == "asc")
-					{
-						getlist = getlist.OrderBy(x => x.RoleId);
-					}
-					else
-					{
-						getlist = getlist.OrderByDescending(x => x.RoleId);
-					}
-				}
-
-				if (paging.Col.ToLower() == "email")
-				{
-					if (paging.Dir == "asc")
-					{
-						getlist = getlist.OrderBy(x => x.Email);
-					}
-					else
-					{
-						getlist = getlist.OrderByDescending(x => x.Email);
-					}
-				}
-
-				if (paging.Col.ToLower() == "status")
-				{
-					if (paging.Dir == "asc")
-					{
-						getlist = getlist.OrderBy(x => x.Status);
-					}
-					else
-					{
-						getlist = getlist.OrderByDescending(x => x.Status);
-					}
-				}
+				if (paging.Col.ToLower() == "username") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Username); } else { getlist = getlist.OrderByDescending(x => x.Username); } }
+				if (paging.Col.ToLower() == "role") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.RoleId); } else { getlist = getlist.OrderByDescending(x => x.RoleId); } }
+				if (paging.Col.ToLower() == "email") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Email); } else { getlist = getlist.OrderByDescending(x => x.Email); } }
+				if (paging.Col.ToLower() == "status") { if (paging.Dir == "asc") { getlist = getlist.OrderBy(x => x.Status); } else { getlist = getlist.OrderByDescending(x => x.Status); } }
 
                 list.Total = getlist.Count();
                 list.Result = getlist.Skip(paging.Start).Take(paging.Length).ToList();
@@ -177,7 +134,7 @@ namespace VD.Service.Service
 			return Response;
 		}
 
-        public Response<bool> ChangePassword(ChangePassword req)
+        public Response<bool> ChangePassword(AdminChangePassword req)
         {
             var Response = new Response<bool>();
             Response.Result = false;
@@ -202,5 +159,33 @@ namespace VD.Service.Service
             }
             return Response;
         }
+
+		public Response<bool> SetPassword(AdminSetPassword req)
+		{
+			var Response = new Response<bool>();
+			Response.Result = false;
+			using (var context = new VddbContext())
+			{
+                var entity = (from d in context.MtAdmins
+                              where d.Id == req.Id
+                              select d).FirstOrDefault();
+                if (entity == null)
+                {
+                    Response.Message = "InvalidUser";
+                    return Response;
+                }
+
+				string Key = Security.RandomString(60);
+				entity.PasswordSalt = Key;
+				entity.Password = Security.CheckHMAC(Key, req.Password);
+				entity.UpdatedBy = req.RequestBy;
+				entity.Updated = DateTime.UtcNow;
+
+				context.SaveChanges();
+				Response.Sts = true;
+				Response.Result = true;
+            }
+			return Response;
+		}
     }
 }

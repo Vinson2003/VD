@@ -92,10 +92,10 @@ namespace VD.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Send = AdminService.ChangePassword(new ChangePassword()
+                var Send = AdminService.ChangePassword(new AdminChangePassword()
                 {
                     Id = Model.Id,
-                    Password = Model.Password,
+                    Password = Model.OldPassword,
                     ConfirmPassword = Model.ConfirmPassword,
                     RequestBy = User.GetUsername(),
                 });
@@ -104,6 +104,25 @@ namespace VD.Controllers
             }
             return Json(false);
         }
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<JsonResult> SetPassword(AdminSetPasswordVM Model)
+		{
+			if (ModelState.IsValid)
+			{
+				var Send = AdminService.SetPassword(new AdminSetPassword()
+				{
+					Id = Model.Id,
+					Password = Model.Password,
+					ConfirmPassword = Model.ConfirmPassword,
+					RequestBy= User.GetUsername(),
+				});
+				if (Send.Sts == false) { return Json(Send.Message); }
+				return Json(true);
+			}
+			return Json(false);
+		}
 
         public IActionResult Permission() 
 		{

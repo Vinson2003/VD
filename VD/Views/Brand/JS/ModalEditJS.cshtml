@@ -28,6 +28,9 @@
             return false;
         }
 
+        var dataView = new FormData($("#BrandEditForm")[0]);
+        console.log(dataView);
+
         Swal.fire({
             title: 'Are you sure?',
             icon: 'warning',
@@ -38,8 +41,10 @@
             if (result.isConfirmed) {
                 $.ajax({
                     url: "@Url.Action("Update", "Brand")",
-                    data: $('#BrandEditForm').serialize(),
+                    data: dataView, /*$('#BrandEditForm').serialize()*/
                     type: "POST",
+                    processData: false,
+                    contentType: false,
                     success: function (result) {
                         if (result == true || result && result > 0) {
                             $('#BrandEditModal').modal('hide');
