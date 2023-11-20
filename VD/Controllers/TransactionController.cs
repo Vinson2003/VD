@@ -49,6 +49,7 @@ namespace VD.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult Create(TransactionAddVM Model)
         {
             var send = TransactionService.Create(new TransactionAdd()
@@ -63,7 +64,8 @@ namespace VD.Controllers
         }
 
         [HttpPost]
-        public JsonResult Update(TransactionEditVM Model)
+		[ValidateAntiForgeryToken]
+		public JsonResult Update(TransactionEditVM Model)
         {
             var send = TransactionService.Update(new TransactionEdit()
             {
@@ -78,7 +80,8 @@ namespace VD.Controllers
         }
 
         [HttpPost]
-        public JsonResult Delete(TransactionDeleteVM Model)
+		[ValidateAntiForgeryToken]
+		public JsonResult Delete(TransactionDeleteVM Model)
         {
             var send = TransactionService.Delete(new TransactionDelete()
             {

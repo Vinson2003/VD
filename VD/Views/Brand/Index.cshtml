@@ -16,8 +16,10 @@
 				</ul>
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <input class="form-control me-2" id="scrbrand" name="Brand" />
-                        <button type="submit" onclick="searchBrands()" class="btn btn-primary"><i class="ki-solid ki-magnifier fs-3"></i></button>
+                        @*<input class="form-control me-2" id="scrbrand" name="Brand" />*@
+                        @*<button type="submit" onclick="searchBrands()" class="btn btn-primary"><i class="ki-solid ki-magnifier fs-3"></i></button>*@
+                        <input type="search" id="qBrand" class="form-control" />
+                        <button onclick="reloadTable();" class="btn btn-secondary me-5"><i class="ki-solid ki-magnifier fs-3"></i></button>
                     </div>
                 </div>
 			</div>
@@ -76,9 +78,15 @@
     @await Html.PartialAsync("~/Views/Brand/JS/ModalDeleteJS.cshtml")
 
     <script>
-        function searchBrands() {
-            var brands = '?Brands=' + $('#scrbrand').val();
-            BrandTab.ajax.url("@Url.Action("Profile_Read","Brand")" + brands).load();
+        //function searchBrands() {
+        //    var brands = '?Brands=' + $('#scrbrand').val();
+        //    BrandTab.ajax.url("@Url.Action("Profile_Read","Brand")" + brands).load();
+        //}
+
+        function getSearchParam(){
+            let qBrand = $('#qBrand').val();
+            let param = "?qBrand=" + qBrand;
+            return param;
         }
     </script>
 
@@ -122,7 +130,7 @@
                     ],
                 });
             } else {
-                BrandTab.ajax.url("@Url.Action("Profile_Read", "Brand")").load();
+                BrandTab.ajax.url("@Url.Action("Profile_Read", "Brand")" + getSearchParam()).load();
             }
         }
     </script>

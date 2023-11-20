@@ -8,7 +8,7 @@ namespace VD.Service.Service
 {
 	public class BrandService : IBrandService
 	{
-		public HasilPaging<List<BrandData>> GetList(Paging paging, string Brands)
+		public HasilPaging<List<BrandData>> GetList(Paging paging, string qBrand)
 		{
 			var list = new HasilPaging<List<BrandData>>();
 			using (var context = new VddbContext())
@@ -16,7 +16,7 @@ namespace VD.Service.Service
                 var GMT = Convert.ToInt32(ConfigurationManager.AppSettings["GMT"]);
                 var getlist = (from t in context.MtBrands
 							   where t.FlgDeleted != true
-                               && (string.IsNullOrEmpty(Brands) || t.Name != null && t.Name.Contains(Brands))
+                               && (string.IsNullOrEmpty(qBrand) || t.Name != null && t.Name.Contains(qBrand))
                                select new BrandData()
 							   {
 								   Id = t.Id,

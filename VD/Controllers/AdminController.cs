@@ -49,6 +49,7 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
         public JsonResult Add(AdminAddVM Model)
         {
             if (!string.IsNullOrEmpty(Model.Username) && !string.IsNullOrEmpty(Model.Email)
@@ -73,6 +74,7 @@ namespace VD.Controllers
         }
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public JsonResult Update(AdminUpdateVM Model)
 		{
 			var Send = AdminService.Update(new AdminUpdate()
@@ -88,7 +90,8 @@ namespace VD.Controllers
 		}
 
         [HttpPost]
-        public JsonResult ChangePassword(ChangePasswordVM Model)
+		[ValidateAntiForgeryToken]
+		public JsonResult ChangePassword(ChangePasswordVM Model)
         {
             if (ModelState.IsValid)
             {

@@ -20,7 +20,7 @@ namespace VD.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Profile_Read(DatatableVM obj, string Brands)
+		public JsonResult Profile_Read(DatatableVM obj, string qBrand)
 		{
 			var col = obj.order.Select(row => row["column"]).FirstOrDefault();
 			var dir = obj.order.Select(row => row["dir"]).FirstOrDefault();
@@ -33,7 +33,7 @@ namespace VD.Controllers
 				Col = colname,
 				Start = obj.start,
 				Length = obj.length,
-			}, Brands);
+			}, qBrand);
 
 			return Json(new { draw = obj.draw, recordsFiltered = get.Total, recordsTotal = get.Total, data = get.Result });
 		}
